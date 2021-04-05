@@ -1,0 +1,21 @@
+@import "../../date";
+
+.avatar-panel {
+  background-image: url(../../../img/back3.jpg);
+  background-size: cover;
+  text-align: center;
+  color: black;
+  img {
+    width: 40%;
+    border-radius: 50%;
+  }
+  h5 {
+    color: black !important;
+    font-size: 0.9rem;
+    font-family: $tipografia-two;
+  }
+  .rs-nav-item-content,
+  .rs-sidenav .rs-dropdown .rs-dropdown-toggle {
+    padding-left: 0px !important;
+  }
+}

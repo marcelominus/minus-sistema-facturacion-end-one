@@ -1,0 +1,82 @@
+@font-face {
+  font-family: "exo2";
+  /* Antes de descargar el archivo, le decimos al buscador
+  que intente buscar en local la fuente con nombre
+  Cabin, Cabin Regular o Cabin-Regular */
+  src: url(../font/Exo_2/static/Exo2-Light.ttf) format("truetype");
+}
+@font-face {
+  font-family: "exo2bold";
+  /* Antes de descargar el archivo, le decimos al buscador
+  que intente buscar en local la fuente con nombre
+  Cabin, Cabin Regular o Cabin-Regular */
+  src: url(../font/Exo_2/static/Exo2-Bold.ttf) format("truetype");
+}
+@font-face {
+  font-family: "roboto";
+  /* Antes de descargar el archivo, le decimos al buscador
+  que intente buscar en local la fuente con nombre
+  Cabin, Cabin Regular o Cabin-Regular */
+  src: url(../font/Roboto/Roboto-Medium.ttf) format("truetype");
+}
+@font-face {
+  font-family: "montserrat";
+  /* Antes de descargar el archivo, le decimos al buscador
+  que intente buscar en local la fuente con nombre
+  Cabin, Cabin Regular o Cabin-Regular */
+  src: url(../font/Montserrat/Montserrat-Medium.ttf) format("truetype");
+}
+@font-face {
+  font-family: "ubuntu";
+  /* Antes de descargar el archivo, le decimos al buscador
+  que intente buscar en local la fuente con nombre
+  Cabin, Cabin Regular o Cabin-Regular */
+  src: url(../font/Ubuntu/Ubuntu-Light.ttf) format("truetype");
+}
+@font-face {
+  font-family: "ubuntubold";
+  /* Antes de descargar el archivo, le decimos al buscador
+  que intente buscar en local la fuente con nombre
+  Cabin, Cabin Regular o Cabin-Regular */
+  src: url(../font/Ubuntu/Ubuntu-Medium.ttf) format("truetype");
+}
+@font-face {
+  font-family: "quicksand";
+  /* Antes de descargar el archivo, le decimos al buscador
+  que intente buscar en local la fuente con nombre
+  Cabin, Cabin Regular o Cabin-Regular */
+  src: url(../font/Quicksand/static/Quicksand-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "quicksandbold";
+  /* Antes de descargar el archivo, le decimos al buscador
+  que intente buscar en local la fuente con nombre
+  Cabin, Cabin Regular o Cabin-Regular */
+  src: url(../font/Quicksand/static/Quicksand-SemiBold.ttf) format("truetype");
+}
+//Tipografias de USUARIO
+//Roboto titulos de usuario
+$tipografia-uno: "roboto";
+$tipografia-dos: "exo2";
+$tipografia-tres: "montserrat";
+$tipografia-cuatro: "exo2bold";
+//---------------------------------------------------
+//
+$tipografia-one: "ubuntu";
+$tipografia-two: "quicksand";
+$tipografia-one-bold: "ubuntubold";
+$tipografia-two-bold: "quicksandbold";
+
+//Color#40A9FF
+$primary-color: #7f3ffd;
+$primary-color-light: #fbf8ff;
+$secundary-color: #d8fc00;
+$secundary-color-light: #f8fce4;
+
+$color-uno: #2b2d42;
+$color-dos: #072ac8;
+$color-tres: #8cff98;
+$color-cuatro: #40a9ff;
+
+$color-blanco: #fff;
+$color-negro: #000;

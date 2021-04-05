@@ -1,0 +1,67 @@
+@import "../date";
+
+.singin-contenedor {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../../img/back2.jpg);
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //------------------------------------------------
+  .grid-fluid-principal {
+    width: 100%;
+    // background: red;
+  }
+  //------------------------------------------------
+  .title-login {
+    font-size: 1.4rem;
+    text-align: center;
+    font-family: $tipografia-one;
+  }
+  .card-login-usuario {
+    width: 100%;
+    background: $color-uno;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+
+  .card-imagen-login {
+    display: flex;
+    justify-content: center;
+
+    .imagen-login {
+      width: 20%;
+      padding: 0.5rem;
+    }
+  }
+  .body-login {
+    width: 100%;
+    background: white;
+    padding: 1rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+
+  ///---------------------------------------------------
+  .ant-input-affix-wrapper {
+    font-family: $tipografia-two;
+    font-size: 0.9rem;
+  }
+  .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+    box-shadow: 0 0 0.6rem $color-cuatro !important;
+  }
+  .input-style {
+    margin-bottom: 0.5rem;
+  }
+  .label-login {
+    font-family: $tipografia-one-bold;
+  }
+  //---------------------------------------------------
+  //
+  .button-login {
+    font-family: $tipografia-one;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
+}

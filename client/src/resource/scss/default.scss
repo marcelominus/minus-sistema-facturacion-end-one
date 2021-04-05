@@ -1,0 +1,14 @@
+@import "./date";
+
+.container-padding {
+  // padding-top: 1rem;
+  // padding-left: 1.5rem;
+  // padding-right: 1.5rem;
+}
+//---------------------------------------------------
+//ALERTA WARNING
+.message-warning {
+  font-family: $tipografia-two-bold;
+  text-shadow: 0 0 1rem orange;
+  color: orange;
+}
