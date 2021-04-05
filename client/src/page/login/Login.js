@@ -28,7 +28,7 @@ import Loading from "../../components/tools/Loading";
 //================================================================
 //INICIO DE CLASE
 //================================================================
-const Login = () => {
+const Login = (props) => {
   //-----------------------------------------------------------------
   //STATE
   const [state, setState] = useState(false); //Funcion para poder realizar el LOADING SPINNER
@@ -39,7 +39,10 @@ const Login = () => {
   });
 
   //-----------------------------------------------------------------
-  //Cargar datos de ONCHANGE de las variables de entrada
+  //Cargar datos de ONCHANGE de las variables de
+  const onChangeData = (e) => {
+    setDataForm({ ...dataform, [e.target.name]: e.target.value });
+  };
   const { user, pass } = dataform;
 
   //-----------------------------------------------------------------
@@ -60,7 +63,7 @@ const Login = () => {
   const onClickLogin = (e) => {
     e.preventDefault();
 
-    if (user.toLowerCase().trim() === "" || pass.toLowerCase().trim() === "") {
+    if (user.trim() === "" || pass.trim() === "") {
       message.warning({
         content: "Entradas Vacias, Revise nuevamente los datos",
         duration: 2,
@@ -69,23 +72,27 @@ const Login = () => {
     } else {
       funcionPeticionLogin(user, pass).then((e) => {
         if (e === "empty") {
-          //   <Alert
-          //     message="Warning"
-          //     description="This is a warning notice about copywriting."
-          //     type="warning"
-          //     showIcon
-          //   />;
-          message.warning("This is a normal message");
+          message.error({
+            content: "Error, Usuario no encontrado",
+            duration: 2,
+            className: "message-error",
+          });
         } else if (e === "fail-server") {
-          //   Alert.error(
-          //     "Usuario No Encontrado, Revise los datos nuevamente",
-          //     2000
-          //   );
+          message.warning({
+            content: "Entradas Vacias, Revise nuevamente los datos",
+            duration: 2,
+            className: "message-warning",
+          });
         } else {
+          message.success({
+            content: "Entradas Vacias, Revise nuevamente los datos",
+            duration: 2,
+            className: "message-success",
+          });
           //   Alert.success("Correcto, Bienvenido al sistema", 2000);
-          //   setTimeout(() => {
-          //     props.history.push("/start");
-          //   }, 2000);
+          setTimeout(() => {
+            props.history.push("/start");
+          }, 2000);
         }
       });
     }
@@ -130,7 +137,9 @@ const Login = () => {
                     placeholder="Ingrese su usuario"
                     prefix={<UserOutlined />}
                     className="input-style"
-                    onChange={(e) => setDataForm({ ...dataform, user: e })}
+                    name="user"
+                    onChange={onChangeData}
+                    // onChange={(e) => setDataForm({ ...dataform, user: e })}
                   />
                 </div>
                 <div className="input-style">
@@ -141,7 +150,10 @@ const Login = () => {
                     placeholder="Ingrese su Password"
                     prefix={<LockOutlined />}
                     className="input-style"
-                    onChange={(e) => setDataForm({ ...dataform, pass: e })}
+                    name="pass"
+                    onChange={onChangeData}
+
+                    // onChange={(e) => setDataForm({ ...dataform, pass: e })}
                   />
                 </div>
                 {/* --------------------------------------------------  */}
