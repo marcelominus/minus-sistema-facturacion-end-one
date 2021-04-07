@@ -8,9 +8,10 @@ import {
 } from "../../resource/js/effects";
 //*******************************************************
 //
-import ModalStart from '../../components/AdminStart/ModalStart';
+import ModalStart from "../../components/AdminStart/ModalStart";
 //*******************************************************
-//
+//Importamos los componentes
+import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
@@ -33,18 +34,7 @@ const AdminStart = () => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            <motion.div
-              initial="out"
-              animate="in"
-              exit="out"
-              variants={pageVariantsStart}
-              transition={pageTransitionStart}
-              className="container-padding"
-            >
-              <div style={{ fontSize: "1.5rem", color: "white" }}>Inicio</div>
-            </motion.div>
-          </Header>
+          <HeaderPage />
           <Content style={{ margin: "0 16px" }}>
             {/* <div
               className="site-layout-background"
