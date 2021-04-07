@@ -8,17 +8,12 @@ import {
 } from "../../resource/js/effects";
 //*******************************************************
 //
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import ModalStart from '../../components/AdminStart/ModalStart';
 //*******************************************************
 //
 import SideBar from "../../components/tools/SideBar";
-
+//****************************************************************
+//VARIABLES DE LAYOUT DE ANTD
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 //*******************************************************
@@ -69,14 +64,7 @@ const AdminStart = () => {
                 excepturi, blanditiis quos recusandae id, cum at sunt sit
                 corrupti omnis facilis.
               </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Reprehenderit officiis delectus qui, aperiam in, enim modi
-                similique officia, expedita placeat consectetur! Quisquam
-                mollitia hic blanditiis soluta sed ipsum officiis iusto.cambios
-                d
-              </p>
-              <p>lorem</p>
+              <ModalStart />
             </motion.div>
           </Content>
           {/* </motion.div> */}
