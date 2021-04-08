@@ -9,9 +9,10 @@ import {
   pageVariantsStart,
 } from "../../resource/js/effects";
 //*******************************************************
-//
+//Importamos los compontes para las funciones de compania
 import ModalAddCompany from "../../components/AdminCompany/ModalAddCompany";
 import ModalAddLogo from "../../components/AdminCompany/ModalAddLogo";
+import TableDataCompany from "../../components/AdminCompany/TableDataCompany";
 //*******************************************************
 //Importamos los componentes
 import HeaderPage from "../../components/tools/HeaderPage";
@@ -55,6 +56,7 @@ const AdminCompany = () => {
               {/* ------------------------- ********** ------------------------- */}
               <ModalAddCompany />
               <ModalAddLogo />
+              <TableDataCompany />
               {/* ------------------------- ********** ------------------------- */}
             </motion.div>
           </Content>

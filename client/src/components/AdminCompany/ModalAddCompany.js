@@ -1,10 +1,17 @@
 import React, { Fragment, useState, useContext } from "react";
 //****************************************************************
-//
+//Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+//*******************************************************
+//Importamos las funciones de MESSAGES
+import {
+  messageError,
+  messageWarning,
+  messageSuccess,
+} from "../../resource/js/messages";
 //****************************************************************
-//
+//Importamos los CONTEXT
 import companyContext from "../../hook/company/companyContext";
 
 //================================================================
@@ -69,11 +76,7 @@ const ModalAddCompany = () => {
       ofcom.toLowerCase().trim() == "" ||
       codecom.toLowerCase().trim() == ""
     ) {
-      message.warning({
-        content: "Entradas Vacias, Revise nuevamente los datos",
-        duration: 2,
-        className: "message-warning",
-      });
+      messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
     } else {
       functionCreateCompany(
         namecom,
@@ -89,23 +92,11 @@ const ModalAddCompany = () => {
         codecom
       ).then((elem) => {
         if (elem === "duplicate") {
-          message.warning({
-            content: "Entradas Vacias, Revise nuevamente los datos",
-            duration: 2,
-            className: "message-warning",
-          });
+          messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
         } else if (elem === "fail-create") {
-          message.error({
-            content: "Error, Usuario no encontrado",
-            duration: 2,
-            className: "message-error",
-          });
+          messageError("Error, Usuario no encontrado", 2);
         } else {
-          message.success({
-            content: "Correcto, Bienvenido al sistema",
-            duration: 2,
-            className: "message-success",
-          });
+          messageSuccess("Correcto, Bienvenido al sistema", 2);
           setIsModalVisible(false);
           functionLoadLogo(true);
         }
@@ -135,20 +126,10 @@ const ModalAddCompany = () => {
         visible={isModalVisible}
         width={800}
         footer={[
-          <Button
-            key="send"
-            type="primary"
-            onClick={onClickCompany}
-            style={{ background: "#389e0d", border: "1px solid #389e0d" }}
-          >
+          <Button key="send" type="primary" onClick={onClickCompany}>
             Enviar
           </Button>,
-          <Button
-            key="cancel"
-            type="primary"
-            onClick={handleOk}
-            style={{ background: "red", border: "1px solid red" }}
-          >
+          <Button key="cancel" type="primary" onClick={handleOk}>
             Cancelar
           </Button>,
         ]}

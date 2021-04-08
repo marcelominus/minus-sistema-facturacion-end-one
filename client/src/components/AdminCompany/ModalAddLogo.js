@@ -2,10 +2,18 @@ import React, { Fragment, useState, useContext, useEffect } from "react";
 //****************************************************************
 //
 import companyContext from "../../hook/company/companyContext";
+//*******************************************************
+//Importamos las funciones de MESSAGES
+import {
+  messageError,
+  messageWarning,
+  messageSuccess,
+} from "../../resource/js/messages";
 //****************************************************************
-//
-import { Modal, Button, Upload, message, Space } from "antd";
-import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
+//Importamos las librerias necesarias para poder utilizar ANTD
+import { Modal, Button, Upload, message } from "antd";
+import { InboxOutlined } from "@ant-design/icons";
+import { COMPANY_SAVE_COMPANY_UPDATE } from "../../utils";
 const { Dragger } = Upload;
 
 //================================================================
@@ -14,65 +22,95 @@ const { Dragger } = Upload;
 const ModalAddLogo = () => {
   //-----------------------------------------------------------------
   //ZONE USE-STATE
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [img, setImg] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false); //Estado para abrir MODAL
+  const [img, setImg] = useState({
+    file: {
+      status: "removed",
+    },
+  }); //IMG donde se guarda la IMAGEN
+  //Valor que permite la visualizacion de la lista de UPLOAD para ocultar o borrar
+  const [imgvisible, setImgVisible] = useState(false); //IMG para poder visualizar la lista de upload
+
   //-----------------------------------------------------------------
   //ZONE DE USE-CONTEXT
   const {
-    idcompany,
-    modallogo,
-    functionSendImg,
-    functionLoadLogo,
+    idcompany, //ID DE LA COMPANIA DATO DOS DE ENVIO DE IMG
+    modallogo, //STATE para poder abrir MODAL AUTOMATICAMENTE
+    functionSendImg, //Funcio para poder enviar la IMAGEN
+    functionLoadLogo, //Funcion para cambiar el estado de del MODALLOGO
   } = useContext(companyContext);
+
   //-----------------------------------------------------------------
   //ZONE DE USE EFFECT
   useEffect(() => {
+    //Abrimos automaticamente el MODAL CON MODAL LOGO => TRUE
     if (modallogo === true) {
-      //Instanciamos el MODAL para poder acceder a sus funciones JAVASCRIPT
+      //ABRIMOS EL MODAL
       setIsModalVisible(true);
-      //
     }
   }, [modallogo]);
+
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
-  const handleOk = () => {
+  //Funcion de Apretar CANCEL
+  const handleCancel = () => {
+    //Cierra el MODAL
     setIsModalVisible(false);
+    //Oculta la lista de UPLOAD
+    setImgVisible(false);
+    //Vacia el STATE donde se guarda la informacion de la imagen
+    setImg({
+      file: {
+        status: "removed",
+      },
+    });
+    console.log(img);
   };
 
+  //Funcion de OPEN MODAL
   const openModalCompany = (e) => {
     e.preventDefault();
+    //Abrimos el MODAL
     setIsModalVisible(true);
   };
 
   const onClickSendLogo = (e) => {
     e.preventDefault();
 
-    //-----------------------------------------------------------------
-    //Creamos la varaible de FORMDATA para poder enviar la IMAGEN
-    let data = new FormData();
-    data.append("image", img.file);
-    data.set("identifiercom", idcompany);
+    //Verifica la variable ESTE VACIA o se halla eliminado manualmente la imagen
+    if (img.file.status === "removed") {
+      messageWarning("No se elegio ninguna IMAGEN", 2);
+    } else {
+      //-----------------------------------------------------------------
+      //Creamos la varaible de FORMDATA para poder enviar la IMAGEN
+      let data = new FormData();
+      data.append("image", img.file);
+      data.set("identifiercom", idcompany);
 
-    //-----------------------------------------------------------------
-    //ENVIAMOS la Informacion al SERVER
-    functionSendImg(data).then((e) => {
-      if (e == false) {
-        message.error({
-          content: "Error, Usuario no encontrado",
-          duration: 2,
-          className: "message-error",
-        });
-      } else {
-        message.success({
-          content: "Correcto, Bienvenido al sistema",
-          duration: 2,
-          className: "message-success",
-        });
-        functionLoadLogo(false);
-        setIsModalVisible(false);
-      }
-    });
+      //-----------------------------------------------------------------
+      //ENVIAMOS la Informacion al SERVER
+      functionSendImg(data).then((e) => {
+        if (e == false) {
+          messageError("Fallo el proceso, intenten mas tarde", 2);
+        } else {
+          messageSuccess("Correcto, Logo Subido Correctamente");
+          //Cambia el STATE logo para que no se abra automaticamente
+          functionLoadLogo(false);
+          //Cierra el MODAL
+          setIsModalVisible(false);
+          //Oculta la LISTA de imagen
+          setImgVisible(false);
+          //Reinicia el valor de STATE
+          setImg({
+            file: {
+              status: "removed",
+            },
+          });
+        }
+      });
+    }
   };
+
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -83,12 +121,13 @@ const ModalAddLogo = () => {
         title="Añadir Empresa"
         visible={isModalVisible}
         width={800}
+        closable={false}
         footer={[
           <Button key="send" type="primary" onClick={onClickSendLogo}>
             Enviar
           </Button>,
-          <Button key="cancel" type="primary" onClick={handleOk}>
-            Cancelar
+          <Button key="cancel" type="primary" onClick={handleCancel}>
+            Cancelar (IMG Default)
           </Button>,
         ]}
         // onCancel={handleCancel}
@@ -98,7 +137,13 @@ const ModalAddLogo = () => {
           listType="picture"
           maxCount={1}
           name="img"
-          onChange={(e) => setImg(e)}
+          onChange={(e) => {
+            //Copia la informacion de la IMAGEN en la variable IMG
+            setImg(e);
+            //Cambia el estado de LISTA UPLOAD para que se visualize
+            return setImgVisible(true);
+          }}
+          showUploadList={imgvisible}
         >
           <p className="ant-upload-drag-icon">
             <InboxOutlined />

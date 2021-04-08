@@ -17,6 +17,13 @@ import imagenLogin from "../../resource/img/logo-login.png";
 //Importamos los componentes de REACT ANTD
 import { Row, Col, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+//*******************************************************
+//Importamos las funciones de MESSAGES
+import {
+  messageError,
+  messageWarning,
+  messageSuccess,
+} from "../../resource/js/messages";
 //****************************************************************
 //
 import logincontext from "../../hook/login/loginContext";
@@ -41,7 +48,10 @@ const Login = (props) => {
   //-----------------------------------------------------------------
   //Cargar datos de ONCHANGE de las variables de
   const onChangeData = (e) => {
-    setDataForm({ ...dataform, [e.target.name]: e.target.value });
+    setDataForm({
+      ...dataform,
+      [e.target.name]: e.target.value,
+    });
   };
   const { user, pass } = dataform;
 
@@ -58,38 +68,22 @@ const Login = (props) => {
       }
     }, 2000);
   }, []);
+
   //-----------------------------------------------------------------
   //FUNCIONES Envio de informacion de USER PASS
   const onClickLogin = (e) => {
     e.preventDefault();
 
     if (user.trim() === "" || pass.trim() === "") {
-      message.warning({
-        content: "Entradas Vacias, Revise nuevamente los datos",
-        duration: 2,
-        className: "message-warning",
-      });
+      messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
     } else {
       funcionPeticionLogin(user, pass).then((e) => {
         if (e === "empty") {
-          message.error({
-            content: "Error, Usuario no encontrado",
-            duration: 2,
-            className: "message-error",
-          });
+          messageError("Error, Usuario no encontrado", 2);
         } else if (e === "fail-server") {
-          message.warning({
-            content: "Entradas Vacias, Revise nuevamente los datos",
-            duration: 2,
-            className: "message-warning",
-          });
+          message("Fallo Intenten nuvamente", 2);
         } else {
-          message.success({
-            content: "Correcto, Bienvenido al sistema",
-            duration: 2,
-            className: "message-success",
-          });
-          //   Alert.success("Correcto, Bienvenido al sistema", 2000);
+          messageSuccess("Correcto, Bienvenido al sistema", 2);
           setTimeout(() => {
             props.history.push("/start");
           }, 2000);
