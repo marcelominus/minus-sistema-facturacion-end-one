@@ -107,6 +107,7 @@ const ModalAddCompany = () => {
             className: "message-success",
           });
           setIsModalVisible(false);
+          functionLoadLogo(true);
         }
       });
     }
@@ -135,7 +136,7 @@ const ModalAddCompany = () => {
         width={800}
         footer={[
           <Button
-            key="submit"
+            key="send"
             type="primary"
             onClick={onClickCompany}
             style={{ background: "#389e0d", border: "1px solid #389e0d" }}
@@ -143,7 +144,7 @@ const ModalAddCompany = () => {
             Enviar
           </Button>,
           <Button
-            key="submit"
+            key="cancel"
             type="primary"
             onClick={handleOk}
             style={{ background: "red", border: "1px solid red" }}

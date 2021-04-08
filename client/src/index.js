@@ -12,17 +12,15 @@ import CompanyState from "./hook/company/CompanyState";
 //-----------------------------------------------------------------
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <LoginState>
-        <StartState>
-          <CompanyState>
-            <App />
-          </CompanyState>
-        </StartState>
-      </LoginState>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <LoginState>
+      <StartState>
+        <CompanyState>
+          <App />
+        </CompanyState>
+      </StartState>
+    </LoginState>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

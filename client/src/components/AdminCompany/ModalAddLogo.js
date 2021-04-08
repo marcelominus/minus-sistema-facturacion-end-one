@@ -1,4 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
+//****************************************************************
+//
+import companyContext from "../../hook/company/companyContext";
 //****************************************************************
 //
 import { Modal, Button, Upload, message, Space } from "antd";
@@ -12,7 +15,24 @@ const ModalAddLogo = () => {
   //-----------------------------------------------------------------
   //ZONE USE-STATE
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [img, setImg] = useState("");
+  //-----------------------------------------------------------------
+  //ZONE DE USE-CONTEXT
+  const {
+    idcompany,
+    modallogo,
+    functionSendImg,
+    functionLoadLogo,
+  } = useContext(companyContext);
+  //-----------------------------------------------------------------
+  //ZONE DE USE EFFECT
+  useEffect(() => {
+    if (modallogo === true) {
+      //Instanciamos el MODAL para poder acceder a sus funciones JAVASCRIPT
+      setIsModalVisible(true);
+      //
+    }
+  }, [modallogo]);
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
   const handleOk = () => {
@@ -24,6 +44,35 @@ const ModalAddLogo = () => {
     setIsModalVisible(true);
   };
 
+  const onClickSendLogo = (e) => {
+    e.preventDefault();
+
+    //-----------------------------------------------------------------
+    //Creamos la varaible de FORMDATA para poder enviar la IMAGEN
+    let data = new FormData();
+    data.append("image", img.file);
+    data.set("identifiercom", idcompany);
+
+    //-----------------------------------------------------------------
+    //ENVIAMOS la Informacion al SERVER
+    functionSendImg(data).then((e) => {
+      if (e == false) {
+        message.error({
+          content: "Error, Usuario no encontrado",
+          duration: 2,
+          className: "message-error",
+        });
+      } else {
+        message.success({
+          content: "Correcto, Bienvenido al sistema",
+          duration: 2,
+          className: "message-success",
+        });
+        functionLoadLogo(false);
+        setIsModalVisible(false);
+      }
+    });
+  };
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -35,30 +84,33 @@ const ModalAddLogo = () => {
         visible={isModalVisible}
         width={800}
         footer={[
-          <Button
-            key="submit"
-            type="primary"
-            onClick={handleOk}
-            style={{ background: "#389e0d", border: "1px solid #389e0d" }}
-          >
+          <Button key="send" type="primary" onClick={onClickSendLogo}>
             Enviar
           </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            onClick={handleOk}
-            style={{ background: "red", border: "1px solid red" }}
-          >
+          <Button key="cancel" type="primary" onClick={handleOk}>
             Cancelar
           </Button>,
         ]}
         // onCancel={handleCancel}
       >
-        <Space direction="vertical" style={{ width: "100%" }} size="large">
-          <Upload beforeUpload={true} listType="picture" maxCount={1}>
-            <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
-          </Upload>
-        </Space>
+        <Dragger
+          beforeUpload={true}
+          listType="picture"
+          maxCount={1}
+          name="img"
+          onChange={(e) => setImg(e)}
+        >
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">
+            Click or drag file to this area to upload
+          </p>
+          <p className="ant-upload-hint">
+            Support for a single or bulk upload. Strictly prohibit from
+            uploading company data or other band files
+          </p>
+        </Dragger>
       </Modal>
       {/* ------------------------- ********** ------------------------- */}
       <Button type="primary" onClick={openModalCompany}>
