@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
 //****************************************************************
 //
-import { Modal, Button, Space } from "antd";
+import { Modal, Button } from "antd";
 //****************************************************************
 //Importamos los CONTEXT
 import startContext from "../../hook/start/startContext";
@@ -48,12 +48,10 @@ const ModalStart = () => {
   }, []);
   //-----------------------------------------------------------------
   //
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
   const handleOk = () => {
     setIsModalVisible(false);
   };
+
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================

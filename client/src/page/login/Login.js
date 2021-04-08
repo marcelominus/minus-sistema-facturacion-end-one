@@ -85,7 +85,7 @@ const Login = (props) => {
           });
         } else {
           message.success({
-            content: "Entradas Vacias, Revise nuevamente los datos",
+            content: "Correcto, Bienvenido al sistema",
             duration: 2,
             className: "message-success",
           });

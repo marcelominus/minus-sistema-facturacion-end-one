@@ -31,7 +31,7 @@ const HeaderPage = () => {
           className="container-padding"
         >
           <div style={{ fontSize: "1.5rem", color: "white" }}>
-            Inicio MARSLNLAU
+            Inicio
           </div>
         </motion.div>
       </Header>

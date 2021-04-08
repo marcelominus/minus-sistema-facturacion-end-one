@@ -1,9 +1,69 @@
 import React, { Fragment } from "react";
+import { Layout } from "antd";
+//Importamos framer motion
+import { motion } from "framer-motion";
+//****************************************************************
+//IMPORTAMOS EFFECTOS
+import {
+  pageTransitionStart,
+  pageVariantsStart,
+} from "../../resource/js/effects";
+//*******************************************************
+//
+import ModalAddCompany from "../../components/AdminCompany/ModalAddCompany";
+import ModalAddLogo from "../../components/AdminCompany/ModalAddLogo";
+//*******************************************************
+//Importamos los componentes
+import HeaderPage from "../../components/tools/HeaderPage";
+import SideBar from "../../components/tools/SideBar";
+import FooterPage from "../../components/tools/FooterPage";
+//****************************************************************
+//VARIABLES DE LAYOUT DE ANTD
+const { Content } = Layout;
+//*******************************************************
+//
 
+//================================================================
+//INICIO DE CLASE
+//================================================================
 const AdminCompany = () => {
+  //================================================================
+  //INICIO DE COMPONENTE
+  //================================================================
   return (
     <Fragment>
-      <p>DESDE EL COMPANY</p>
+      <Layout style={{ minHeight: "100vh" }}>
+        {/* --------------------------------------------------  */}
+        <SideBar />
+        {/* --------------------------------------------------  */}
+        <Layout className="site-layout">
+          <HeaderPage />
+          <Content style={{ margin: "0 16px" }}>
+            {/* <div
+              className="site-layout-background"
+              style={{ padding: 24, minHeight: 360 }}
+            ></div> */}
+            <motion.div
+              initial="out"
+              animate="in"
+              exit="out"
+              variants={pageVariantsStart}
+              transition={pageTransitionStart}
+              className="container-padding"
+            >
+              <h4>Anadir Nueva Empresa</h4>
+              {/* ------------------------- ********** ------------------------- */}
+              <ModalAddCompany />
+              <ModalAddLogo />
+              {/* ------------------------- ********** ------------------------- */}
+            </motion.div>
+          </Content>
+          {/* ------------------------- ********** ------------------------- */}
+          {/* </motion.div> */}
+          <FooterPage />
+          {/* ------------------------- ********** ------------------------- */}
+        </Layout>
+      </Layout>
     </Fragment>
   );
 };

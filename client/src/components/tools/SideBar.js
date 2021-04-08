@@ -34,7 +34,7 @@ const SideBar = () => {
         <div className="logo" />
         <Menu
           theme="dark"
-          defaultSelectedKeys={["1"]}
+          // defaultSelectedKeys={["1"]}
           mode="inline"
           collapsedWidth="20"
         >
