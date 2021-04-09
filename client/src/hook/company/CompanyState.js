@@ -142,6 +142,7 @@ const CompanyState = (props) => {
       const url = direction_admin_company_read;
       const petitionReadCompany = await clienteAxios.post(url);
       const solutionPetitionRead = petitionReadCompany.data;
+      console.log(solutionPetitionRead.data);
       if (solutionPetitionRead.response == "empty") {
         dispatch({
           type: COMPANY_READ,
