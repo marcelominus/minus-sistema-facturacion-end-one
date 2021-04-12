@@ -9,6 +9,7 @@ import "antd/dist/antd.css"; //Importamos ANTD
 import LoginState from "./hook/login/LoginState";
 import StartState from "./hook/start/StartState";
 import CompanyState from "./hook/company/CompanyState";
+import BusinessState from "./hook/business/BusinessState";
 //-----------------------------------------------------------------
 
 ReactDOM.render(
@@ -16,7 +17,9 @@ ReactDOM.render(
     <LoginState>
       <StartState>
         <CompanyState>
-          <App />
+          <BusinessState>
+            <App />
+          </BusinessState>
         </CompanyState>
       </StartState>
     </LoginState>

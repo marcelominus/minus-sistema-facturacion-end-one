@@ -56,7 +56,7 @@ exports.createBusiness = async (req,res) => {
                     economicactivitybus : economicactivitybus
                 });
                 if(createUser){
-                    res.json({ response : 'success'});
+                    res.json({ response : 'success' , data : identifierEnd});
                 }else{
                     res.json({ response : 'fail-create'});
                 }

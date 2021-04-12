@@ -8,12 +8,11 @@ import companyReducer from "./companyReducer";
 import {
   COMPANY_CREATE,
   COMPANY_READ,
-  COMPANY_UPDATE,
-  COMPANY_DELETE,
-  COMPANY_UPDATE_IMG,
   COMPANY_SAVE_COMPANY,
-  COMPANY_SAVE_COMPANY_UPDATE,
   COMPANY_MODAL_LOGO,
+  COMPANY_MODAL_LOGAL_VIEW,
+  COMPANY_MODAL_UPDATE,
+  COMPANY_SAVE_COMPANY_UPDATE,
   COMPANY_DIRECTION_LOGO,
   COMPANY_SAVE_ID_COMPANY_UPDATE,
 } from "../../utils/index";
@@ -23,7 +22,7 @@ import {
   direction_admin_company_read,
   direction_admin_company_update,
   direction_admin_company_delete,
-  direction_admin_company_ipdate_img,
+  direction_admin_company_update_img,
 } from "../../resource/js/directions";
 //Importamos la variable de FUNCION de TOKEN que permite INGREASAR HEAD AXIOS
 import tokenAuth from "../../config/token";
@@ -32,7 +31,9 @@ const CompanyState = (props) => {
   const initialState = {
     arraycompany: [], //ARRAY PRINCIPAL CONTENEDOR DE COMPANIAS
     modallogo: false, //BANDERA PARA ABRIR MODAL LOGO
-    idcompany: "", //ID DE COMPANIA CREADA PARA PODER, ENVIAR INFO DE LOGO
+    modallogoview: false, //BANDERA PARA ABRIR EL MODAL DE LOGO VIEW
+    modalupdate: false, //BANDERA PARA ABRIR EL MODAL DE UPDATE
+    idcompany: "", //ID DE COMPANIA CREADA PARA PODER, ENVIAR INFO DE LOGO ADD
     idcompanyupdatearray: [
       //ARRAY PARA PODER CARGAR LOS DATOS EN EL FORM
       {
@@ -49,7 +50,7 @@ const CompanyState = (props) => {
       },
     ],
     idcompanyupdate: "", //INFORMACION DE ID PARA PODER CAMBIAR INFORMACION
-    directionimglogo: "", //DIRECTION DE LOGO DE IMAGEN
+    directionimglogo: "", //DIRECTION DE LOGO DE IMAGEN ** NO UTILIZADA **
   };
   const [state, dispatch] = useReducer(companyReducer, initialState);
 
@@ -142,7 +143,6 @@ const CompanyState = (props) => {
       const url = direction_admin_company_read;
       const petitionReadCompany = await clienteAxios.post(url);
       const solutionPetitionRead = petitionReadCompany.data;
-      console.log(solutionPetitionRead.data);
       if (solutionPetitionRead.response == "empty") {
         dispatch({
           type: COMPANY_READ,
@@ -171,10 +171,9 @@ const CompanyState = (props) => {
     }
 
     try {
-      const url = direction_admin_company_ipdate_img;
+      const url = direction_admin_company_update_img;
       const petitionSendImg = await clienteAxios.post(url, valor);
       const solutionPetitionImg = petitionSendImg.data;
-      console.log(solutionPetitionImg);
       if (solutionPetitionImg.response == "success") {
         return true;
       } else {
@@ -185,7 +184,52 @@ const CompanyState = (props) => {
     }
   };
   //-----------------------------------------------------------------
-  //
+  //HABILITA EL MODAL PARA PODER ACCEDER EN EL LOGO
+  const functionLoadLogoView = (valor) => {
+    dispatch({
+      type: COMPANY_MODAL_LOGAL_VIEW,
+      payload: valor,
+    });
+  };
+  //-----------------------------------------------------------------
+  //GUARDA EL ID DE COMPANY EN RESPUSETA DEL CREATE TAMBIEN PARA CAMBIAR EL LOGO
+  const functionLoadIdCompany = (valor) => {
+    dispatch({
+      type: COMPANY_SAVE_COMPANY,
+      payload: valor,
+    });
+  };
+
+  //-----------------------------------------------------------------
+  //FUNCION PARA PODER ABRIR EL MODAL DE UPDATE DE COMPANY
+  const functionUpdateModal = (valor) => {
+    dispatch({
+      type: COMPANY_MODAL_UPDATE,
+      payload: valor,
+    });
+  };
+
+  //-----------------------------------------------------------------
+  //GUARDA EL ARRAY DE COMPONENTES DE COMPANIES
+  const functionLoadIdCompanyUpdate = (valor) => {
+    dispatch({
+      type: COMPANY_SAVE_COMPANY_UPDATE,
+      payload: valor,
+    });
+  };
+
+  //-----------------------------------------------------------------
+  //GUARDA EL ID DE COMPONENTES DE COMPANIES
+  const functionIdCompanyUpdate = (valor) => {
+    dispatch({
+      type: COMPANY_SAVE_ID_COMPANY_UPDATE,
+      payload: valor,
+    });
+  };
+
+  //================================================================
+  //INICIO DE CLASE
+  //================================================================
   const functionUpdateCompany = async (
     value_1,
     value_2,
@@ -263,49 +307,26 @@ const CompanyState = (props) => {
     });
   };
 
-  //-----------------------------------------------------------------
-  //GUARDA EL ID DE COMPANY EN RESPUSETA DEL CREATE
-  const functionLoadIdCompany = (valor) => {
-    dispatch({
-      type: COMPANY_SAVE_COMPANY,
-      payload: valor,
-    });
-  };
-
-  //-----------------------------------------------------------------
-  //GUARDA EL ARRAY DE COMPONENTES DE COMPANIES
-  const functionLoadIdCompanyUpdate = (valor) => {
-    dispatch({
-      type: COMPANY_SAVE_COMPANY_UPDATE,
-      payload: valor,
-    });
-  };
-
-  //-----------------------------------------------------------------
-  //GUARDA EL ARRAY DE COMPONENTES DE COMPANIES
-  const functionIdCompanyUpdate = (valor) => {
-    dispatch({
-      type: COMPANY_SAVE_ID_COMPANY_UPDATE,
-      payload: valor,
-    });
-  };
-
   return (
     <companyContext.Provider
       value={{
         arraycompany: state.arraycompany,
         modallogo: state.modallogo,
+        modallogoview: state.modallogoview,
+        modalupdate: state.modalupdate,
         idcompany: state.idcompany,
         idcompanyupdatearray: state.idcompanyupdatearray,
         directionimglogo: state.directionimglogo,
         idcompanyupdate: state.idcompanyupdate,
-        functionCreateCompany,
-        functionReadCompany,
-        functionSendImg,
-        functionLoadLogo,
+        functionCreateCompany, //
+        functionReadCompany, //
+        functionSendImg, //
+        functionLoadLogo, //
+        functionLoadLogoView, //
+        functionLoadIdCompany, //
+        functionUpdateModal, //
         functionLoadImgModal,
-        functionLoadIdCompany,
-        functionLoadIdCompanyUpdate,
+        functionLoadIdCompanyUpdate, //
         functionUpdateCompany,
         functionIdCompanyUpdate,
         functionDeleteCompany,

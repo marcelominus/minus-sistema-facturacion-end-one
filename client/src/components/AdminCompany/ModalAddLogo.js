@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
 //****************************************************************
-//
+//Importamos los CONTEXT
 import companyContext from "../../hook/company/companyContext";
 //*******************************************************
 //Importamos las funciones de MESSAGES
@@ -11,9 +11,8 @@ import {
 } from "../../resource/js/messages";
 //****************************************************************
 //Importamos las librerias necesarias para poder utilizar ANTD
-import { Modal, Button, Upload, message } from "antd";
+import { Modal, Button, Upload } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
-import { COMPANY_SAVE_COMPANY_UPDATE } from "../../utils";
 const { Dragger } = Upload;
 
 //================================================================
@@ -38,6 +37,7 @@ const ModalAddLogo = () => {
     modallogo, //STATE para poder abrir MODAL AUTOMATICAMENTE
     functionSendImg, //Funcio para poder enviar la IMAGEN
     functionLoadLogo, //Funcion para cambiar el estado de del MODALLOGO
+    functionReadCompany,
   } = useContext(companyContext);
 
   //-----------------------------------------------------------------
@@ -64,7 +64,10 @@ const ModalAddLogo = () => {
         status: "removed",
       },
     });
-    console.log(img);
+    //
+    functionLoadLogo(false);
+    //
+    functionReadCompany();
   };
 
   //Funcion de OPEN MODAL
@@ -106,6 +109,8 @@ const ModalAddLogo = () => {
               status: "removed",
             },
           });
+          //
+          functionReadCompany();
         }
       });
     }
@@ -148,20 +153,13 @@ const ModalAddLogo = () => {
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>
-          <p className="ant-upload-text">
-            Click or drag file to this area to upload
-          </p>
+          <p className="ant-upload-text">Click o Arrastre el Objeto Imagen</p>
           <p className="ant-upload-hint">
             Support for a single or bulk upload. Strictly prohibit from
             uploading company data or other band files
           </p>
         </Dragger>
       </Modal>
-      {/* ------------------------- ********** ------------------------- */}
-      <Button type="primary" onClick={openModalCompany}>
-        Subir Logo
-      </Button>
-      {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
 };

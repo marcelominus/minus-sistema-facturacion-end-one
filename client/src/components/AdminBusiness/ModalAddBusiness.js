@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select } from "antd";
@@ -12,91 +12,89 @@ import {
 } from "../../resource/js/messages";
 //****************************************************************
 //Importamos los CONTEXT
+import businessContext from "../../hook/business/businessContext";
 import companyContext from "../../hook/company/companyContext";
 //****************************************************************
 //Creamos las variables de SELECT
 const { Option } = Select;
+const { TextArea } = Input;
+
 //================================================================
 //INICIO DE CLASE
 //================================================================
-const ModalAddCompany = () => {
-  //-----------------------------------------------------------------
-  //ZONE USE - CONTEXT
-  const { functionCreateCompany, functionLoadLogo } = useContext(
-    companyContext
-  );
-
+const ModalAddBusiness = () => {
   //-----------------------------------------------------------------
   //ZONE USE - STATE
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [dataform, setDataForm] = useState({
-    namecom: "",
-    nitcom: "",
-    telephonecom: "",
-    emailcom: "",
-    coincom: "",
-    citycom: "",
-    placecom: "",
-    directioncom: "",
-    ofcom: "",
-    codecom: "",
+    identifiercom: "",
+    namebus: "",
+    ofbus: "",
+    citybus: "",
+    placebus: "",
+    directionbus: "",
+    economicactivitybus: "",
   });
   const {
-    namecom,
-    nitcom,
-    telephonecom,
-    emailcom,
-    coincom,
-    citycom,
-    placecom,
-    directioncom,
-    ofcom,
-    codecom,
+    identifiercom,
+    namebus,
+    ofbus,
+    citybus,
+    placebus,
+    directionbus,
+    economicactivitybus,
   } = dataform;
   //Carga la informacion de COMPANY
-  const onChangeAddCompany = (e) => {
+  const onChangeAddBusiness = (e) => {
     setDataForm({
       ...dataform,
       [e.target.name]: e.target.value,
     });
   };
   //Carga de TIPO DE MONEDA
-  const onChangeAddCompanyCoin = (e) => {
+  const onChangeAddCompany = (e) => {
     setDataForm({
       ...dataform,
-      coincom: e,
+      identifiercom: e,
     });
   };
+
+  //-----------------------------------------------------------------
+  //ZONE USE -CONTEXT
+  const { arraycompany, functionReadCompany } = useContext(companyContext);
+  const { functionCreateBusiness } = useContext(businessContext);
+  //-----------------------------------------------------------------
+  //ZONE USE - EFFECT
+  useEffect(() => {
+    functionReadCompany().then((e) => {
+      //   console.log(arraycompany);
+    });
+  }, []);
   //-----------------------------------------------------------------
   //Funciones de usuario
-  const onClickCompany = (e) => {
+  const onClickBusiness = (e) => {
     e.preventDefault();
+
     //Verifiacmos las entradas de usuario
     if (
-      namecom.toLowerCase().trim() == "" ||
-      nitcom.toLowerCase().trim() == "" ||
-      telephonecom.toLowerCase().trim() == "" ||
-      emailcom.toLowerCase().trim() == "" ||
-      coincom.toLowerCase().trim() == "" ||
-      citycom.toLowerCase().trim() == "" ||
-      placecom.toLowerCase().trim() == "" ||
-      directioncom.toLowerCase().trim() == "" ||
-      ofcom.toLowerCase().trim() == "" ||
-      codecom.toLowerCase().trim() == ""
+      namebus.toLowerCase().trim() == "" ||
+      ofbus.toLowerCase().trim() == "" ||
+      citybus.toLowerCase().trim() == "" ||
+      placebus.toLowerCase().trim() == "" ||
+      directionbus.toLowerCase().trim() == "" ||
+      economicactivitybus.toLowerCase().trim() == "" ||
+      identifiercom.trim() == ""
     ) {
       messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
     } else {
-      functionCreateCompany(
-        namecom,
-        nitcom,
-        telephonecom,
-        emailcom,
-        coincom,
-        citycom,
-        placecom,
-        directioncom,
-        ofcom,
-        codecom
+      functionCreateBusiness(
+        namebus,
+        ofbus,
+        citybus,
+        placebus,
+        directionbus,
+        economicactivitybus,
+        identifiercom
       ).then((elem) => {
         if (elem === "duplicate") {
           //Mensage de WARNING
@@ -106,18 +104,15 @@ const ModalAddCompany = () => {
           messageError("Error, Intente mas Tarde", 2);
         } else {
           //Mensaje de CORRECTO
-          messageSuccess("Correcto, Empresa Creada Correctamente", 2);
+          messageSuccess(`Perfecto, Sucursal Creada Correctamente ${elem}`, 2);
           //Cierrar el MODAL de ADD COMPANY
           setIsModalVisible(false);
-          //Cambia el estado para PODER ABRIR EL MODAL DE ADD LOGO
-          functionLoadLogo(true);
           //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
           resetForm();
         }
       });
     }
   };
-
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
   //Funcion CERRAR MODAL de ADD COMPATN
@@ -125,26 +120,26 @@ const ModalAddCompany = () => {
     setIsModalVisible(false);
     resetForm();
   };
+
   //Funcion ABRIR el MODAL de ADD COMPANY
-  const openModalCompany = (e) => {
+  const openModalBusiness = (e) => {
     e.preventDefault();
     setIsModalVisible(true);
   };
+
   //Funcion para RESETEAR las entradas del FORMULARIO
   const resetForm = () => {
     setDataForm({
-      namecom: "",
-      nitcom: "",
-      telephonecom: "",
-      emailcom: "",
-      coincom: "",
-      citycom: "",
-      placecom: "",
-      directioncom: "",
-      ofcom: "",
-      codecom: "",
+      identifiercom: "",
+      namebus: "",
+      ofbus: "",
+      citybus: "",
+      placebus: "",
+      directionbus: "",
+      economicactivitybus: "",
     });
   };
+
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -157,7 +152,7 @@ const ModalAddCompany = () => {
         width={800}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
-          <Button key="send" type="primary" onClick={onClickCompany}>
+          <Button key="send" type="primary" onClick={onClickBusiness}>
             Enviar
           </Button>,
           //BUTTON DE CANCELAR Y CERRAR MODAL
@@ -169,143 +164,107 @@ const ModalAddCompany = () => {
         {/* ------------------------- ********** ------------------------- */}
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Nombre Empresa
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="Ingrese el nombre de Empresa"
-              prefix={<UserOutlined />}
-              name="namecom"
-              onChange={onChangeAddCompany}
-              value={namecom}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            NIT Empresa
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="Ingrese el codigo de NIT"
-              prefix={<UserOutlined />}
-              name="nitcom"
-              onChange={onChangeAddCompany}
-              value={nitcom}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Telefono Empresa
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="Ingrese el Telefono"
-              prefix={<UserOutlined />}
-              name="telephonecom"
-              onChange={onChangeAddCompany}
-              value={telephonecom}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Email Empresa
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="Ingrese el Email Empresarial"
-              prefix={<UserOutlined />}
-              name="emailcom"
-              onChange={onChangeAddCompany}
-              value={emailcom}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Moneda usada
+            Selecciones la Empresa
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Select
-              onChange={onChangeAddCompanyCoin}
               defaultValue=""
               style={{ width: "100%" }}
-              value={coincom}
+              onChange={onChangeAddCompany}
+              value={identifiercom}
             >
               <Option value="">--Seleccione una Opcion--</Option>
-              <Option value="Bs">Bs</Option>
+              {arraycompany.map((e, key) => {
+                return (
+                  <Option value={e.identifiercom} key={key}>
+                    {e.namecom}
+                  </Option>
+                );
+              })}
             </Select>
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Ciudad Empresa
+            Nombre Sucursal
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese la Ciudad de la Empresa"
+              placeholder="Ingrese el nombre de Sucursal"
               prefix={<UserOutlined />}
-              name="citycom"
-              onChange={onChangeAddCompany}
-              value={citycom}
+              name="namebus"
+              onChange={onChangeAddBusiness}
+              value={namebus}
             />
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Lugar Empresa
+            Perteneciente Sucursal
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Lugar de la Empresa"
+              placeholder="Ingrese el Nombre de Propietario Sucursal"
               prefix={<UserOutlined />}
-              name="placecom"
-              onChange={onChangeAddCompany}
-              value={placecom}
+              name="ofbus"
+              onChange={onChangeAddBusiness}
+              value={ofbus}
             />
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Direccion de Empresa
+            Ciudad Sucursal
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese la Direccion de la Empresa"
+              placeholder="Ingrese la Ciudad de la Sucursal"
               prefix={<UserOutlined />}
-              name="directioncom"
-              onChange={onChangeAddCompany}
-              value={directioncom}
+              name="citybus"
+              onChange={onChangeAddBusiness}
+              value={citybus}
             />
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Perteneciente de la Empresa
+            Lugar Sucursal
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el Nombre de Propietario"
+              placeholder="Lugar de la Sucursal"
               prefix={<UserOutlined />}
-              name="ofcom"
-              onChange={onChangeAddCompany}
-              value={ofcom}
+              name="placebus"
+              onChange={onChangeAddBusiness}
+              value={placebus}
             />
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Codigo De Empresa
+            Direccion de Sucursal
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el Codigo de la Empresa Ciudad"
+              placeholder="Ingrese la Direccion de la Sucursal"
               prefix={<UserOutlined />}
-              name="codecom"
-              onChange={onChangeAddCompany}
-              value={codecom}
+              name="directionbus"
+              onChange={onChangeAddBusiness}
+              value={directionbus}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12} style={{ background: "transparent" }}>
+            Actividad Economica de Sucursal
+          </Col>
+          <Col span={12} style={{ background: "blue" }}>
+            <TextArea
+              rows={4}
+              placeholder="Ingrese la Actividad Economica de la Sucursal"
+              name="economicactivitybus"
+              onChange={onChangeAddBusiness}
+              value={economicactivitybus}
             />
           </Col>
         </Row>
@@ -314,14 +273,14 @@ const ModalAddCompany = () => {
       {/* ------------------------- ********** ------------------------- */}
       <Button
         type="primary"
-        onClick={openModalCompany}
+        onClick={openModalBusiness}
         icon={<PlusCircleOutlined />}
       >
-        Registrar Empresa
+        Registrar Sucursal
       </Button>
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
 };
 
-export default ModalAddCompany;
+export default ModalAddBusiness;

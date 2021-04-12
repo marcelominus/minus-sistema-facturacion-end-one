@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Layout } from "antd";
+//****************************************************************
 //Importamos framer motion
 import { motion } from "framer-motion";
 //****************************************************************
@@ -38,12 +39,10 @@ const AdminCompany = () => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
+          {/* ------------------------- ********** ------------------------- */}
           <HeaderPage />
+          {/* ------------------------- ********** ------------------------- */}
           <Content style={{ margin: "0 16px" }}>
-            {/* <div
-              className="site-layout-background"
-              style={{ padding: 24, minHeight: 360 }}
-            ></div> */}
             <motion.div
               initial="out"
               animate="in"
@@ -61,7 +60,6 @@ const AdminCompany = () => {
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}
-          {/* </motion.div> */}
           <FooterPage />
           {/* ------------------------- ********** ------------------------- */}
         </Layout>

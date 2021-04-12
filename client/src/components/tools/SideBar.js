@@ -45,7 +45,7 @@ const SideBar = () => {
             <Link to="/company"> Empresa</Link>
           </Menu.Item>
           <Menu.Item key="3" icon={<DesktopOutlined />}>
-            Sucursal
+            <Link to="/business"> Sucursal</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<DesktopOutlined />}>
             Usuario

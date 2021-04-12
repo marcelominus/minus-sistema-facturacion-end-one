@@ -1,8 +1,8 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
-import { Modal, Button, Row, Col, Input, Select } from "antd";
-import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { Modal, Button, Row, Col, Input, message } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -13,18 +13,23 @@ import {
 //****************************************************************
 //Importamos los CONTEXT
 import companyContext from "../../hook/company/companyContext";
-//****************************************************************
-//Creamos las variables de SELECT
-const { Option } = Select;
+
 //================================================================
 //INICIO DE CLASE
 //================================================================
-const ModalAddCompany = () => {
+const ModalModifyCompany = () => {
   //-----------------------------------------------------------------
   //ZONE USE - CONTEXT
-  const { functionCreateCompany, functionLoadLogo } = useContext(
-    companyContext
-  );
+  const {
+    modalupdate,
+    functionUpdateModal,
+    idcompanyupdatearray,
+    functionUpdateCompany,
+    idcompanyupdate,
+    functionReadCompany,
+    // functionCreateCompany,
+    // functionLoadLogo,
+  } = useContext(companyContext);
 
   //-----------------------------------------------------------------
   //ZONE USE - STATE
@@ -53,98 +58,80 @@ const ModalAddCompany = () => {
     ofcom,
     codecom,
   } = dataform;
-  //Carga la informacion de COMPANY
+  //
   const onChangeAddCompany = (e) => {
     setDataForm({
       ...dataform,
       [e.target.name]: e.target.value,
     });
   };
-  //Carga de TIPO DE MONEDA
-  const onChangeAddCompanyCoin = (e) => {
+
+  //-----------------------------------------------------------------
+  //ZONE USE-EFFECT
+  useEffect(() => {
+    if (modalupdate === true) {
+      setIsModalVisible(true);
+    }
+  }, [modalupdate]);
+
+  useEffect(() => {
     setDataForm({
       ...dataform,
-      coincom: e,
+      namecom: idcompanyupdatearray[0].namecom,
+      nitcom: idcompanyupdatearray[0].nitcom,
+      telephonecom: idcompanyupdatearray[0].telephonecom,
+      emailcom: idcompanyupdatearray[0].emailcom,
+      coincom: idcompanyupdatearray[0].coincom,
+      citycom: idcompanyupdatearray[0].citycom,
+      placecom: idcompanyupdatearray[0].placecom,
+      directioncom: idcompanyupdatearray[0].directioncom,
+      ofcom: idcompanyupdatearray[0].ofcom,
+      codecom: idcompanyupdatearray[0].codecom,
     });
-  };
+  }, [idcompanyupdatearray[0].namecom]);
   //-----------------------------------------------------------------
-  //Funciones de usuario
+  //ZONE FUNCTION
+  //Funcion de ONCLICK de ENVIO DE INFORMACION
   const onClickCompany = (e) => {
     e.preventDefault();
-    //Verifiacmos las entradas de usuario
-    if (
-      namecom.toLowerCase().trim() == "" ||
-      nitcom.toLowerCase().trim() == "" ||
-      telephonecom.toLowerCase().trim() == "" ||
-      emailcom.toLowerCase().trim() == "" ||
-      coincom.toLowerCase().trim() == "" ||
-      citycom.toLowerCase().trim() == "" ||
-      placecom.toLowerCase().trim() == "" ||
-      directioncom.toLowerCase().trim() == "" ||
-      ofcom.toLowerCase().trim() == "" ||
-      codecom.toLowerCase().trim() == ""
-    ) {
-      messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
-    } else {
-      functionCreateCompany(
-        namecom,
-        nitcom,
-        telephonecom,
-        emailcom,
-        coincom,
-        citycom,
-        placecom,
-        directioncom,
-        ofcom,
-        codecom
-      ).then((elem) => {
-        if (elem === "duplicate") {
-          //Mensage de WARNING
-          messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
-        } else if (elem === "fail-create") {
-          //Mensaje de ERROR
-          messageError("Error, Intente mas Tarde", 2);
-        } else {
-          //Mensaje de CORRECTO
-          messageSuccess("Correcto, Empresa Creada Correctamente", 2);
-          //Cierrar el MODAL de ADD COMPANY
-          setIsModalVisible(false);
-          //Cambia el estado para PODER ABRIR EL MODAL DE ADD LOGO
-          functionLoadLogo(true);
-          //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
-          resetForm();
-        }
-      });
-    }
+    functionUpdateCompany(
+      namecom,
+      nitcom,
+      telephonecom,
+      emailcom,
+      coincom,
+      citycom,
+      placecom,
+      directioncom,
+      ofcom,
+      codecom,
+      idcompanyupdate
+    ).then((e) => {
+      if (e === true) {
+        //Leememos la inforamcion de la BASE DE DATOS
+        functionReadCompany();
+        //MOSTRAMOS un MENSAJE DE CORRECTO
+        messageSuccess("Correcto, Informacion modificada Correctamente", 2);
+        //Cerramos el MODAL DE MODIFY COMPANY
+        setIsModalVisible(false);
+        //Cambiamos el STATE para que ABRIR EL MODAL AUTOMATICAMENTE
+        functionUpdateModal(false);
+      } else {
+        //MOSTRAMOS EL MENSAJE DE ERROR
+        messageError("Error, Intenten mas tarde", 2);
+      }
+    });
   };
 
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
-  //Funcion CERRAR MODAL de ADD COMPATN
   const handleCancel = () => {
+    //Cierra el MODAL DE MODIFY
     setIsModalVisible(false);
-    resetForm();
+    //CAMBIA EL ESTADO PARA QUE EL MODAL MODIFY NO SE ABRA AUTOMATICAMENTE
+    functionUpdateModal(false);
   };
-  //Funcion ABRIR el MODAL de ADD COMPANY
-  const openModalCompany = (e) => {
-    e.preventDefault();
-    setIsModalVisible(true);
-  };
-  //Funcion para RESETEAR las entradas del FORMULARIO
-  const resetForm = () => {
-    setDataForm({
-      namecom: "",
-      nitcom: "",
-      telephonecom: "",
-      emailcom: "",
-      coincom: "",
-      citycom: "",
-      placecom: "",
-      directioncom: "",
-      ofcom: "",
-      codecom: "",
-    });
-  };
+
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -156,24 +143,23 @@ const ModalAddCompany = () => {
         visible={isModalVisible}
         width={800}
         footer={[
-          //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickCompany}>
             Enviar
           </Button>,
-          //BUTTON DE CANCELAR Y CERRAR MODAL
           <Button key="cancel" type="primary" onClick={handleCancel}>
             Cancelar
           </Button>,
         ]}
+        // onCancel={handleCancel}
       >
         {/* ------------------------- ********** ------------------------- */}
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Nombre Empresa
+            Nombre Compañia
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el nombre de Empresa"
+              placeholder="default size"
               prefix={<UserOutlined />}
               name="namecom"
               onChange={onChangeAddCompany}
@@ -183,11 +169,11 @@ const ModalAddCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            NIT Empresa
+            NIT Compañia
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
-              placeholder="Ingrese el codigo de NIT"
+              placeholder="default size"
               prefix={<UserOutlined />}
               name="nitcom"
               onChange={onChangeAddCompany}
@@ -196,12 +182,10 @@ const ModalAddCompany = () => {
           </Col>
         </Row>
         <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Telefono Empresa
-          </Col>
+          <Col span={12}>Telefono Compañia</Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el Telefono"
+              placeholder="default size"
               prefix={<UserOutlined />}
               name="telephonecom"
               onChange={onChangeAddCompany}
@@ -211,11 +195,11 @@ const ModalAddCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Email Empresa
+            Email Compañia
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el Email Empresarial"
+              placeholder="default size"
               prefix={<UserOutlined />}
               name="emailcom"
               onChange={onChangeAddCompany}
@@ -225,27 +209,25 @@ const ModalAddCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Moneda usada
+            Moneda Compañia
           </Col>
           <Col span={12} style={{ background: "blue" }}>
-            <Select
-              onChange={onChangeAddCompanyCoin}
-              defaultValue=""
-              style={{ width: "100%" }}
+            <Input
+              placeholder="default size"
+              prefix={<UserOutlined />}
+              name="coincom"
+              onChange={onChangeAddCompany}
               value={coincom}
-            >
-              <Option value="">--Seleccione una Opcion--</Option>
-              <Option value="Bs">Bs</Option>
-            </Select>
+            />
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Ciudad Empresa
+            Ciudad Compañia
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese la Ciudad de la Empresa"
+              placeholder="default size"
               prefix={<UserOutlined />}
               name="citycom"
               onChange={onChangeAddCompany}
@@ -255,11 +237,11 @@ const ModalAddCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Lugar Empresa
+            Place Compañia
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Lugar de la Empresa"
+              placeholder="default size"
               prefix={<UserOutlined />}
               name="placecom"
               onChange={onChangeAddCompany}
@@ -269,11 +251,11 @@ const ModalAddCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Direccion de Empresa
+            Direccion Compañia
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese la Direccion de la Empresa"
+              placeholder="default size"
               prefix={<UserOutlined />}
               name="directioncom"
               onChange={onChangeAddCompany}
@@ -283,11 +265,11 @@ const ModalAddCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Perteneciente de la Empresa
+            Perteneciente Compañia
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el Nombre de Propietario"
+              placeholder="default size"
               prefix={<UserOutlined />}
               name="ofcom"
               onChange={onChangeAddCompany}
@@ -297,11 +279,11 @@ const ModalAddCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Codigo De Empresa
+            Codigo Compañia
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el Codigo de la Empresa Ciudad"
+              placeholder="default size"
               prefix={<UserOutlined />}
               name="codecom"
               onChange={onChangeAddCompany}
@@ -312,16 +294,10 @@ const ModalAddCompany = () => {
         {/* ------------------------- ********** ------------------------- */}
       </Modal>
       {/* ------------------------- ********** ------------------------- */}
-      <Button
-        type="primary"
-        onClick={openModalCompany}
-        icon={<PlusCircleOutlined />}
-      >
-        Registrar Empresa
-      </Button>
+
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
 };
 
-export default ModalAddCompany;
+export default ModalModifyCompany;

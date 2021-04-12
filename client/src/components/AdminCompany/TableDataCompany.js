@@ -6,13 +6,26 @@ import React, {
   useRef,
 } from "react";
 //****************************************************************
-//
-import { Table, Tag, Input, Button, Space } from "antd";
+//Importamos la libreria de ANTD
+import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
+import {
+  SearchOutlined,
+  EyeOutlined,
+  CloudUploadOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
+//****************************************************************
+//Importamos el HIGT de LETTERS
 import Highlighter from "react-highlight-words";
-import { SearchOutlined } from "@ant-design/icons";
+//****************************************************************
+//Importamos el CONTEXT
+import companyContext from "../../hook/company/companyContext";
 //****************************************************************
 //
-import companyContext from "../../hook/company/companyContext";
+import ModalViewLogo from "./ModalViewLogo";
+import ModalModifyCompany from "./ModalModifyCompany";
+import { messageError, messageSuccess } from "../../resource/js/messages";
+
 //================================================================
 //INICIO DE CLASE
 //================================================================
@@ -21,20 +34,32 @@ const TableDataCompany = () => {
   //ZONE USE STATE
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
+  const [directionimg, setDirectionImg] = useState("");
   const searchInput = useRef(null);
   //-------------------------------------------------------
   //
-  const { arraycompany, functionReadCompany } = useContext(companyContext);
+  const {
+    arraycompany,
+    functionReadCompany,
+    functionLoadLogoView,
+    functionLoadIdCompany,
+    functionLoadLogo,
+    functionUpdateModal,
+    functionLoadIdCompanyUpdate,
+    functionIdCompanyUpdate,
+    functionDeleteCompany,
+  } = useContext(companyContext);
   //-------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
+    //Funcion para poder llamar la tabla
     functionReadCompany().then((e) => {
       console.log(arraycompany);
     });
   }, []);
 
   //-------------------------------------------------------
-  //
+  //ZONE DE FUNCTION
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -46,12 +71,20 @@ const TableDataCompany = () => {
     setSearchText("");
   };
 
+  //-----------------------------------------------------------------
+  //
   const columns = [
     {
-      title: "Name",
+      title: "Id",
+      dataIndex: "idcompany",
+      key: "idcompany",
+      width: "5%",
+    },
+    {
+      title: "Nombre",
       dataIndex: "namecom",
       key: "namecom",
-      width: "30%",
+      width: "15%",
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -61,7 +94,7 @@ const TableDataCompany = () => {
         <div style={{ padding: 8 }}>
           <Input
             ref={searchInput}
-            placeholder={`Search "name"`}
+            placeholder={`Buscar por Nombre`}
             value={selectedKeys[0]}
             onChange={(e) =>
               setSelectedKeys(e.target.value ? [e.target.value] : [])
@@ -77,7 +110,7 @@ const TableDataCompany = () => {
               size="small"
               style={{ width: 90 }}
             >
-              Search
+              Buscar
             </Button>
             <Button
               onClick={() => handleReset(clearFilters)}
@@ -86,24 +119,13 @@ const TableDataCompany = () => {
             >
               Reset
             </Button>
-            <Button
-              type="link"
-              size="small"
-              onClick={() => {
-                confirm({ closeDropdown: false });
-                this.setState({
-                  searchText: selectedKeys[0],
-                  searchedColumn: "namecom",
-                });
-              }}
-            >
-              Filter
-            </Button>
           </Space>
         </div>
       ),
       filterIcon: (filtered) => (
-        <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+        <SearchOutlined
+          style={{ color: filtered ? "#1890ff" : "black", fontSize: "1rem" }}
+        />
       ),
       onFilter: (value, record) =>
         record["namecom"]
@@ -130,50 +152,108 @@ const TableDataCompany = () => {
         ),
     },
     {
-      title: "Age",
+      title: "Nit",
       dataIndex: "nitcom",
       key: "nitcom",
-      width: "20%",
+      width: "8%",
     },
     {
-      title: "Address",
-      dataIndex: "placecom",
-      key: "placecom",
+      title: "Direccion",
+      dataIndex: "directioncom",
+      key: "directioncom",
+      width: "8%",
+    },
+
+    {
+      title: "Logo",
+      key: "action",
+      width: "10%",
+      render: (text) => (
+        <Fragment>
+          <Button
+            type="primary"
+            icon={<EyeOutlined />}
+            size={"default"}
+            ghost
+            onClick={() => {
+              setDirectionImg(text.directionimgcom);
+              functionLoadLogoView(true);
+            }}
+          />
+
+          <Button
+            type="primary"
+            icon={<CloudUploadOutlined />}
+            size={"default"}
+            ghost
+            onClick={() => {
+              functionLoadLogo(true);
+              functionLoadIdCompany(text.identifiercom);
+            }}
+          />
+        </Fragment>
+      ),
     },
     {
-      title: "Actions",
-      dataIndex: "identifiercom",
-      key: "identifiercom",
-      render: (placecom) => (
-        <Button onClick={() => alert(placecom)} type="primary">
-          {" "}
-          INGRESAR
-        </Button>
+      title: "Acciones",
+      key: "action",
+      width: "10%",
+      render: (text) => (
+        <Fragment>
+          <Button
+            type="primary"
+            icon={<CloudUploadOutlined />}
+            size={"default"}
+            ghost
+            onClick={() => {
+              functionUpdateModal(true);
+              const resultFilterUpdate = arraycompany.filter(
+                (e) => e.identifiercom == text.identifiercom
+              );
+              functionLoadIdCompanyUpdate(resultFilterUpdate);
+              functionIdCompanyUpdate(text.identifiercom);
+            }}
+          />
+
+          <Button
+            type="primary"
+            icon={<DeleteOutlined />}
+            size={"default"}
+            ghost
+            onClick={() => {
+              functionDeleteCompany(text.identifiercom).then((e) => {
+                if (e === true) {
+                  messageSuccess("Correcto Elemento Borrado", 2);
+                  functionReadCompany();
+                } else {
+                  messageError("Error, Intente mas Tarde", 2);
+                }
+              });
+            }}
+          />
+        </Fragment>
       ),
     },
   ];
 
-  const data = [];
-  for (let i = 0; i < 300; i++) {
-    data.push({
-      key: i,
-      namecom: `Edward King v ${i}`,
-      nitcom: 32,
-      placecom: `London, Park Lane no. ${i}`,
-    });
-  }
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
   return (
     <Fragment>
+      {/* ------------------------- ********** ------------------------- */}
       <Table
         columns={columns}
         dataSource={arraycompany}
         sorter={true}
         pagination={{ pageSize: 10, responsive: true }}
         scroll={{ x: 1200, y: "max-content" }}
+        bordered
       />
+      {/* ------------------------- ********** ------------------------- */}
+      <ModalViewLogo directionimg={directionimg} />
+      {/* ------------------------- ********** ------------------------- */}
+      <ModalModifyCompany />
     </Fragment>
   );
 };
