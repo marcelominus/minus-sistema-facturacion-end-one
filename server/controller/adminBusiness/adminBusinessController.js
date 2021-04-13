@@ -6,6 +6,7 @@ const shortid = require('shortid');
 const Op = require('Sequelize').Op;
 //Importamos el MODELL
 const AdminBusinessModel = require('../../model/adminBusiness/adminBusinessModel');
+const AdminCompanyModel = require('../../model/adminCompany/adminCompanyModel');
 const LoginModel = require('../../model/login/loginModel');
 //Importamos los SERVICE 
 
@@ -92,6 +93,20 @@ exports.readBusiness = async(req, res) => {
             const consultationBusiness  = await AdminBusinessModel.findAll({
                 raw : true
             });
+
+            let array =  [...consultationBusiness];
+            await consultationBusiness.map( async e => {
+                const consultationNameCompany = await AdminCompanyModel.findAll({
+                    where : {
+                        identifiercom : e.identifiercom
+                    },
+                    raw : true
+                })
+                
+                array.push(consultationNameCompany.namecom)
+            })
+            console.log('=======================');
+            console.log(array);
             if( consultationBusiness.length === 0 ){
                 res.json({ response : 'empty'})
             }else{
