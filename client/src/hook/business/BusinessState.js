@@ -6,7 +6,7 @@ import businessContext from "./businessContext";
 import businessReducer from "./businessReducer";
 
 // Importamos los TYPES
-import { BUSINESS_CREATE } from "../../utils/index";
+import { BUSINESS_CREATE, BUSINESS_READ } from "../../utils/index";
 // Importamos las direcciones de LOGIN
 import {
   direction_admin_business_create,
@@ -80,6 +80,35 @@ const BusinessState = (props) => {
     }
   };
 
+  //******************************************************************************
+  const functionReadBusiness = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      const url = direction_admin_business_read;
+      const petitionReadBusiness = await clienteAxios.post(url);
+      const solutionPetitionRead = petitionReadBusiness.data;
+      if (solutionPetitionRead.response == "empty") {
+        dispatch({
+          type: BUSINESS_READ,
+          payload: [],
+        });
+        return false;
+      } else {
+        dispatch({
+          type: BUSINESS_READ,
+          payload: solutionPetitionRead.data,
+        });
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -88,6 +117,7 @@ const BusinessState = (props) => {
       value={{
         arraybusiness: state.arraybusiness,
         functionCreateBusiness,
+        functionReadBusiness,
       }}
     >
       {props.children}

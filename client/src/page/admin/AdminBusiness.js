@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Layout } from "antd";
+import { Layout, Table } from "antd";
 //****************************************************************
 //Importamos framer motion
 import { motion } from "framer-motion";
@@ -12,7 +12,7 @@ import {
 //*******************************************************
 //Importamos los compontes para las funciones de compania
 import ModalAddBusiness from "../../components/AdminBusiness/ModalAddBusiness";
-
+import TableDataBusiness from '../../components/AdminBusiness/TableDataBusiness';
 
 //*******************************************************
 //Importamos los componentes
@@ -54,6 +54,7 @@ const AdminBusiness = () => {
               <h4>Anadir Nueva Sucursal</h4>
               {/* ------------------------- ********** ------------------------- */}
               <ModalAddBusiness />
+              <TableDataBusiness />
               {/* ------------------------- ********** ------------------------- */}
             </motion.div>
           </Content>
