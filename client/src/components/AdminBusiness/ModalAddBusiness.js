@@ -62,7 +62,7 @@ const ModalAddBusiness = () => {
   //-----------------------------------------------------------------
   //ZONE USE -CONTEXT
   const { arraycompany, functionReadCompany } = useContext(companyContext);
-  const { functionCreateBusiness } = useContext(businessContext);
+  const { functionCreateBusiness, functionReadBusiness } = useContext(businessContext);
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
   useEffect(() => {
@@ -107,6 +107,8 @@ const ModalAddBusiness = () => {
           messageSuccess(`Perfecto, Sucursal Creada Correctamente ${elem}`, 2);
           //Cierrar el MODAL de ADD COMPANY
           setIsModalVisible(false);
+          //
+          functionReadBusiness();
           //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
           resetForm();
         }

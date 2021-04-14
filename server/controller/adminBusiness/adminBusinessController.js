@@ -94,24 +94,39 @@ exports.readBusiness = async(req, res) => {
                 raw : true
             });
 
-            let array =  [...consultationBusiness];
-            await consultationBusiness.map( async e => {
-                const consultationNameCompany = await AdminCompanyModel.findAll({
-                    where : {
-                        identifiercom : e.identifiercom
-                    },
-                    raw : true
+            let array =  [];
+
+            Promise.all(
+               consultationBusiness.map( async (e) => {
+                    const consultationNameCompany = await AdminCompanyModel.findAll({
+                        where : {
+                            identifiercom : e.identifiercom
+                        },
+                        raw : true,
+                        attributes : ['namecom'],
+                    })
+                    return consultationNameCompany;
                 })
-                
-                array.push(consultationNameCompany.namecom)
+            ).then( async (e) => {
+                // console.log('=======================');
+                // console.log(e);
+                // e.forEach(element => {
+                //     console.log(element[0].namecom);
+                // });
+                for (let i = 0; i < consultationBusiness.length; i++) {
+                    // console.log(consultationBusiness[i]);  
+                    console.log(e[i][0].namecom);
+                    consultationBusiness[i].namecom = e[i][0].namecom;
+                    console.log(consultationBusiness);          
+                }
+                if( consultationBusiness.length === 0 ){
+                    res.json({ response : 'empty'})
+                }else{
+                    res.json({ response : 'success' , data : consultationBusiness});
+                }
             })
-            console.log('=======================');
-            console.log(array);
-            if( consultationBusiness.length === 0 ){
-                res.json({ response : 'empty'})
-            }else{
-                res.json({ response : 'success' , data : consultationBusiness});
-            }
+           
+           
             //LECTURA TOTAL DE SOLO USER => ADMIN / (admin)
         }
     } catch (error) {

@@ -38,7 +38,7 @@ const TableDataBusiness = () => {
   const searchInput = useRef(null);
   //-------------------------------------------------------
   //
-  const { arraybusiness, functionReadBusiness } = useContext(businessContext);
+  const { arraybusiness, functionReadBusiness} = useContext(businessContext);
   //-------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
@@ -69,6 +69,12 @@ const TableDataBusiness = () => {
       dataIndex: "idbusiness",
       key: "idbusiness",
       width: "5%",
+    },
+    {
+      title: "Empresa",
+      dataIndex: "namecom",
+      key: "namecom",
+      width: "10%",
     },
     {
       title: "Nombre",
@@ -147,6 +153,7 @@ const TableDataBusiness = () => {
       key: "ofbus",
       width: "8%",
     },
+    
     {
       title: "Direccion",
       dataIndex: "directionbus",
