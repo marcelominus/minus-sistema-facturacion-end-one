@@ -1,4 +1,10 @@
-import { BUSINESS_CREATE, BUSINESS_READ } from "../../utils/index";
+import {
+  BUSINESS_CREATE,
+  BUSINESS_READ,
+  BUSINESS_UPDATE,
+  BUSINESS_MODAL_UPDATE,
+  BUSINESS_ARRAY_UPDATE,
+} from "../../utils/index";
 
 //Zona de SWITCH
 export default (state, action) => {
@@ -16,7 +22,16 @@ export default (state, action) => {
         ...state,
         arraybusiness: action.payload,
       };
-
+    case BUSINESS_MODAL_UPDATE:
+      return {
+        ...state,
+        modalupdatebusiness: action.payload,
+      };
+    case BUSINESS_ARRAY_UPDATE:
+      return {
+        ...state,
+        arrayupdatebusiness: action.payload,
+      };
     default:
       return state;
   }

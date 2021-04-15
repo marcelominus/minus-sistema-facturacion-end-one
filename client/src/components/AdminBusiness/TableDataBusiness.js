@@ -25,7 +25,9 @@ import businessContext from "../../hook/business/businessContext";
 // import ModalViewLogo from "./ModalViewLogo";
 // import ModalModifyCompany from "./ModalModifyCompany";
 import { messageError, messageSuccess } from "../../resource/js/messages";
-
+//-----------------------------------------------------------------
+//
+import ModalModifyBusiness from "./ModalModifyBusiness";
 //================================================================
 //INICIO DE CLASE
 //================================================================
@@ -38,7 +40,12 @@ const TableDataBusiness = () => {
   const searchInput = useRef(null);
   //-------------------------------------------------------
   //
-  const { arraybusiness, functionReadBusiness} = useContext(businessContext);
+  const {
+    arraybusiness,
+    functionReadBusiness,
+    functionModalUpdate,
+    functionArrayUpdateBusiness,
+  } = useContext(businessContext);
   //-------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
@@ -153,7 +160,7 @@ const TableDataBusiness = () => {
       key: "ofbus",
       width: "8%",
     },
-    
+
     {
       title: "Direccion",
       dataIndex: "directionbus",
@@ -172,6 +179,15 @@ const TableDataBusiness = () => {
             icon={<CloudUploadOutlined />}
             size={"default"}
             ghost
+            onClick={() => {
+              const resultFilterUpdate = arraybusiness.filter(
+                (e) => e.identifierbus == text.identifierbus
+              );
+              functionArrayUpdateBusiness(resultFilterUpdate);
+              functionModalUpdate(true);
+
+              console.log(resultFilterUpdate);
+            }}
             // onClick={() => {
             //   functionUpdateModal(true);
             //   const resultFilterUpdate = arraycompany.filter(
@@ -187,6 +203,9 @@ const TableDataBusiness = () => {
             icon={<DeleteOutlined />}
             size={"default"}
             ghost
+            onClick={() => {
+              alert(text.identifiercom);
+            }}
             // onClick={() => {
             //   functionDeleteCompany(text.identifiercom).then((e) => {
             //     if (e === true) {
@@ -217,6 +236,7 @@ const TableDataBusiness = () => {
         scroll={{ x: 1200, y: "max-content" }}
         bordered
       />
+      <ModalModifyBusiness />
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
