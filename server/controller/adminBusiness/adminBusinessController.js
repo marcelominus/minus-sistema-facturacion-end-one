@@ -142,7 +142,7 @@ exports.updateBusiness = async(req, res)=> {
     const role = req.user.role;
 
     //VARIABLES DE ENTRADA
-    const {identifiernew, namebus, ofbus, citybus, placebus, directionbus, economicactivitybus} = req.body;
+    const {identifiernew, identifiercom, namebus, ofbus, citybus, placebus, directionbus, economicactivitybus} = req.body;
     
     //
     try {
@@ -165,7 +165,8 @@ exports.updateBusiness = async(req, res)=> {
                 citybus : citybus,
                 placebus : placebus,
                 directionbus : directionbus,
-                economicactivitybus : economicactivitybus
+                economicactivitybus : economicactivitybus,
+                identifiercom : identifiercom
             }, {
                 where : {
                     identifierbus : identifiernew

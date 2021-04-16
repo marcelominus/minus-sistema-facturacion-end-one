@@ -45,6 +45,7 @@ const TableDataBusiness = () => {
     functionReadBusiness,
     functionModalUpdate,
     functionArrayUpdateBusiness,
+    functionDeleteBusiness,
   } = useContext(businessContext);
   //-------------------------------------------------------
   //ZONE USE EFFECT
@@ -185,8 +186,6 @@ const TableDataBusiness = () => {
               );
               functionArrayUpdateBusiness(resultFilterUpdate);
               functionModalUpdate(true);
-
-              console.log(resultFilterUpdate);
             }}
             // onClick={() => {
             //   functionUpdateModal(true);
@@ -204,18 +203,15 @@ const TableDataBusiness = () => {
             size={"default"}
             ghost
             onClick={() => {
-              alert(text.identifiercom);
+              functionDeleteBusiness(text.identifierbus).then((e) => {
+                if (e === true) {
+                  messageSuccess("Correcto Elemento Borrado", 2);
+                  functionReadBusiness();
+                } else {
+                  messageError("Error, Intente mas Tarde", 2);
+                }
+              });
             }}
-            // onClick={() => {
-            //   functionDeleteCompany(text.identifiercom).then((e) => {
-            //     if (e === true) {
-            //       messageSuccess("Correcto Elemento Borrado", 2);
-            //       functionReadCompany();
-            //     } else {
-            //       messageError("Error, Intente mas Tarde", 2);
-            //     }
-            //   });
-            // }}
           />
         </Fragment>
       ),

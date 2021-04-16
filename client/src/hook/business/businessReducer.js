@@ -4,6 +4,7 @@ import {
   BUSINESS_UPDATE,
   BUSINESS_MODAL_UPDATE,
   BUSINESS_ARRAY_UPDATE,
+  BUSINESS_DELETE
 } from "../../utils/index";
 
 //Zona de SWITCH

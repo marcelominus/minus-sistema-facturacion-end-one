@@ -12,6 +12,7 @@ import {
   BUSINESS_UPDATE,
   BUSINESS_MODAL_UPDATE,
   BUSINESS_ARRAY_UPDATE,
+  BUSINESS_DELETE,
 } from "../../utils/index";
 // Importamos las direcciones de LOGIN
 import {
@@ -136,10 +137,7 @@ const BusinessState = (props) => {
     value_5,
     value_6,
     value_7,
-    value_8,
-    value_9,
-    value_10,
-    value_0
+    value_8
   ) => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -148,20 +146,17 @@ const BusinessState = (props) => {
     }
     try {
       const url = direction_admin_business_update;
-      const petitionUpdateCompany = await clienteAxios.post(url, {
-        namecom: value_1,
-        nitcom: value_2,
-        telephonecom: value_3,
-        emailcom: value_4,
-        coincom: value_5,
-        citycom: value_6,
-        placecom: value_7,
-        directioncom: value_8,
-        ofcom: value_9,
-        codecom: value_10,
-        identifiercom: value_0,
+      const petitionUpdateBusiness = await clienteAxios.post(url, {
+        namebus: value_1,
+        ofbus: value_2,
+        citybus: value_3,
+        placebus: value_4,
+        directionbus: value_5,
+        economicactivitybus: value_6,
+        identifiercom: value_7,
+        identifiernew: value_8,
       });
-      const solutionPetitionUpdate = petitionUpdateCompany.data;
+      const solutionPetitionUpdate = petitionUpdateBusiness.data;
       if (solutionPetitionUpdate.response == "success") {
         return true;
       } else {
@@ -180,12 +175,35 @@ const BusinessState = (props) => {
     });
   };
   //-----------------------------------------------------------------
-  //
+  //FUNCION PAR APODER COPIAR EL LINK SELECCIONADO
   const functionArrayUpdateBusiness = (valor) => {
     dispatch({
       type: BUSINESS_ARRAY_UPDATE,
       payload: valor,
     });
+  };
+  //-----------------------------------------------------------------
+  //FUNCION BORRAR COMPANY
+  const functionDeleteBusiness = async (valor) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      const url = direction_admin_business_delete;
+      const petitionDeleteBusiness = await clienteAxios.post(url, {
+        identifiernew: valor,
+      });
+      const solutionPetitionDelete = petitionDeleteBusiness.data;
+      if (solutionPetitionDelete.response == "success") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //================================================================
@@ -201,6 +219,8 @@ const BusinessState = (props) => {
         functionReadBusiness,
         functionModalUpdate,
         functionArrayUpdateBusiness,
+        functionUpdateBusiness,
+        functionDeleteBusiness,
       }}
     >
       {props.children}

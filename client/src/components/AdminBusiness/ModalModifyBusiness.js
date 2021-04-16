@@ -66,8 +66,8 @@ const ModalModifyBusiness = () => {
     modalupdatebusiness,
     arrayupdatebusiness,
     functionReadBusiness,
-    functionCreateBusiness,
     functionModalUpdate,
+    functionUpdateBusiness,
   } = useContext(businessContext);
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
@@ -78,14 +78,8 @@ const ModalModifyBusiness = () => {
   }, [modalupdatebusiness]);
 
   useEffect(() => {
-    console.log(arrayupdatebusiness);
-    // setDataForm({
-    //   ...dataform,
-    //   identifiercom: "LENNY",
-    // });
     setDataForm({
       ...dataform,
-
       identifiercom: arrayupdatebusiness[0].identifiercom,
       namebus: arrayupdatebusiness[0].namebus,
       ofbus: arrayupdatebusiness[0].ofbus,
@@ -94,7 +88,7 @@ const ModalModifyBusiness = () => {
       directionbus: arrayupdatebusiness[0].directionbus,
       economicactivitybus: arrayupdatebusiness[0].economicactivitybus,
     });
-  }, [arrayupdatebusiness[0].economicactivitybus]);
+  }, [arrayupdatebusiness[0].identifierbus]);
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickBusiness = (e) => {
@@ -112,14 +106,15 @@ const ModalModifyBusiness = () => {
     ) {
       messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
     } else {
-      functionCreateBusiness(
+      functionUpdateBusiness(
         namebus,
         ofbus,
         citybus,
         placebus,
         directionbus,
         economicactivitybus,
-        identifiercom
+        identifiercom,
+        arrayupdatebusiness[0].identifierbus
       ).then((elem) => {
         if (elem === "duplicate") {
           //Mensage de WARNING
@@ -129,9 +124,14 @@ const ModalModifyBusiness = () => {
           messageError("Error, Intente mas Tarde", 2);
         } else {
           //Mensaje de CORRECTO
-          messageSuccess(`Perfecto, Sucursal Creada Correctamente ${elem}`, 2);
+          messageSuccess(
+            `Perfecto, Sucursal Modificada correctamente Correctamente ${elem}`,
+            2
+          );
           //Cierrar el MODAL de ADD COMPANY
           setIsModalVisible(false);
+          //
+          functionModalUpdate(false);
           //
           functionReadBusiness();
           //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
@@ -147,12 +147,6 @@ const ModalModifyBusiness = () => {
     setIsModalVisible(false);
     functionModalUpdate(false);
     // resetForm();
-  };
-
-  //Funcion ABRIR el MODAL de ADD COMPANY
-  const openModalBusiness = (e) => {
-    e.preventDefault();
-    setIsModalVisible(true);
   };
 
   //Funcion para RESETEAR las entradas del FORMULARIO
@@ -298,14 +292,6 @@ const ModalModifyBusiness = () => {
         </Row>
         {/* ------------------------- ********** ------------------------- */}
       </Modal>
-      {/* ------------------------- ********** ------------------------- */}
-      <Button
-        type="primary"
-        onClick={openModalBusiness}
-        icon={<PlusCircleOutlined />}
-      >
-        Registrar Sucursal
-      </Button>
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
