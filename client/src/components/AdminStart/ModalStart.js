@@ -28,27 +28,19 @@ const ModalStart = () => {
     functionConsultationCompanyInformation().then((e) => {
       if (e === false) {
         setMessageOne("Empresa");
-        //-----------------------------------------------------------------
-        //
       } else {
-        console.log("datos llenos");
+        functionConsultationBusinessInformation().then((e) => {
+          if (e === false) {
+            setMessageTwo("Sucursal");
+            setIsModalVisible(true);
+          }
+        });
       }
     });
-
-    functionConsultationBusinessInformation().then((e) => {
-      if (e === false) {
-        setMessageTwo("Sucursal");
-      } else {
-        console.log("datos llenos");
-      }
-    });
-    if (messagetwo == "" || messageone == "") {
-      setIsModalVisible(true);
-    }
   }, []);
   //-----------------------------------------------------------------
-  //
-  const handleOk = () => {
+  //Funcion de CERRAR MODAL
+  const handleCancel = () => {
     setIsModalVisible(false);
   };
 
@@ -61,14 +53,14 @@ const ModalStart = () => {
         title="Mensaje Importante"
         visible={isModalVisible}
         footer={[
-          <Button key="submit" type="primary" onClick={handleOk}>
+          <Button key="submit" type="primary" onClick={handleCancel}>
             Entendido
           </Button>,
         ]}
         // onCancel={handleCancel}
       >
         <p>
-          No se encuentra registrado ninguna {messageone} {messagetwo}
+          NoNO se encuentra registrado ninguna {messageone} {messagetwo}
         </p>
         <p>
           Ingrese los nuevos datos de {messageone} {messagetwo}

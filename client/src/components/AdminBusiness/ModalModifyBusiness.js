@@ -135,7 +135,6 @@ const ModalModifyBusiness = () => {
           //
           functionReadBusiness();
           //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
-          resetForm();
         }
       });
     }

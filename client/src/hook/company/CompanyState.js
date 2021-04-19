@@ -26,8 +26,11 @@ import {
 } from "../../resource/js/directions";
 //Importamos la variable de FUNCION de TOKEN que permite INGREASAR HEAD AXIOS
 import tokenAuth from "../../config/token";
-//------------------------------------------------------------------------
+//================================================================
+//INICIO DE CLASE
+//================================================================
 const CompanyState = (props) => {
+  //INITIAL STATE COMPANY
   const initialState = {
     arraycompany: [], //ARRAY PRINCIPAL CONTENEDOR DE COMPANIAS
     modallogo: false, //BANDERA PARA ABRIR MODAL LOGO

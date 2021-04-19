@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Layout, Menu } from "antd";
 import {
   DesktopOutlined,
@@ -21,10 +21,24 @@ const { SubMenu } = Menu;
 const SideBar = () => {
   //-------------------------------------------------------
   //
+  const [step, setStep] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = () => {
     setCollapsed(!collapsed);
   };
+  //-----------------------------------------------------------------
+  //
+  useEffect(() => {
+    //-----------------------------------------------------------------
+    //VARIABLES de TOKEN
+    let dataTokenCompany = localStorage.getItem("tokencompany");
+    let dataTokenBusiness = localStorage.getItem("tokenbusiness");
+    if (dataTokenCompany.trim() == "" || dataTokenBusiness.trim() == "") {
+      console.log("LENNY LAURA DATOS VACIOS");
+    } else {
+      setStep(true);
+    }
+  }, []);
   // =====================================================
   // INICIO DE COMPONENTE}
   // =====================================================
@@ -48,13 +62,16 @@ const SideBar = () => {
             <Link to="/business"> Sucursal</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<DesktopOutlined />}>
-            Usuario
+            <Link to="/user">Usuario</Link>
           </Menu.Item>
           <Menu.Item key="5" icon={<DesktopOutlined />}>
             Dosificacion
           </Menu.Item>
           <Menu.Item key="6" icon={<DesktopOutlined />}>
             Facturacion
+          </Menu.Item>
+          <Menu.Item key="7" icon={<DesktopOutlined />}>
+            <Link to="/selection">Seleccionar Area</Link>
           </Menu.Item>
         </Menu>
       </Sider>

@@ -17,6 +17,7 @@ const adminDosageRoute = require('./routes/adminDosage/adminDosageRoute');
 const adminProductRoute = require('./routes/adminProduct/adminProductRoute');
 const adminMeasureRoute = require('./routes/adminProduct/adminMeasureRoute');
 const adminBillRoute = require('./routes/adminBill/adminBillRoute');
+const adminToolRoute = require('./routes/adminTool/adminToolRoute');
 //=============================================
 //Hablitamos el uso de datos en JSON
 app.use(express.json());
@@ -38,6 +39,7 @@ app.use( '/admin-dos', adminDosageRoute());
 app.use( '/admin-pro', adminProductRoute());
 app.use( '/admin-mea', adminMeasureRoute());
 app.use( '/admin-bill', adminBillRoute());
+app.use( '/admin-tool', adminToolRoute());
 //Exportamos el MODULO DE APP
 module.exports = app;
 

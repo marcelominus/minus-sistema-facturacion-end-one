@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Layout } from "antd";
 //Importamos framer motion
 import { motion } from "framer-motion";
@@ -6,33 +6,25 @@ import {
   pageTransitionStart,
   pageVariantsStart,
 } from "../../resource/js/effects";
-//****************************************************************
-//
-import ModalSelectionDate from "../../components/tools/ModalSelectionData";
-import ReturnData from "../../components/tools/ReturnData";
 //*******************************************************
 //Importamos los componentes
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
-import TableSelectionData from '../../components/tools/TableSelectionData';
 
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
-//*******************************************************
-//
 
-// =====================================================
-// INICIO DE CLASE  */}
-// =====================================================
-const AdminUser = (props) => {
+//================================================================
+//INICIO DE CLASE
+//================================================================
+const AdminSelection = () => {
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
   return (
     <Fragment>
-      <ReturnData props={props} />
       <Layout style={{ minHeight: "100vh" }}>
         {/* --------------------------------------------------  */}
         <SideBar />
@@ -48,10 +40,7 @@ const AdminUser = (props) => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <p>DESDE EL USER</p>
-              <ModalSelectionDate props={props} />
-              <TableSelectionData />
-
+              <p>SELECTION.</p>
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}
@@ -63,4 +52,4 @@ const AdminUser = (props) => {
   );
 };
 
-export default AdminUser;
+export default AdminSelection;

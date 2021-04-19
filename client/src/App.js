@@ -12,6 +12,7 @@ import AdminDosage from "./page/admin/AdminDosage";
 import AdminInvoice from "./page/admin/AdminInvoice";
 import AdminStart from "./page/admin/AdminStart";
 import AdminUser from "./page/admin/AdminUser";
+import AdminSelection from "./page/admin/AdminSelection";
 import Error404 from "./page/error/Error404";
 //****************************************************************
 //
@@ -59,6 +60,7 @@ const App = () => {
           <Route path="/invoice" exact={true} component={AdminInvoice} />
           <Route path="/start" exact={true} component={AdminStart} />
           <Route path="/user" exact={true} component={AdminUser} />
+          <Route path="/selection" exact={true} component={AdminSelection} />
           <Route component={Error404} />
         </Switch>
       </AnimatePresence>

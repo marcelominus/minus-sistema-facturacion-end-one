@@ -66,9 +66,6 @@ const ModalAddBusiness = () => {
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
   useEffect(() => {
-    // functionReadCompany().then((e) => {
-    //   //   console.log(arraycompany);
-    // });
     
   }, []);
   //-----------------------------------------------------------------

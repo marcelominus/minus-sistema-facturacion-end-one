@@ -24,3 +24,7 @@ export const direction_admin_business_create= `${IP_SERVER}/admin-bus/business-a
 export const direction_admin_business_read= `${IP_SERVER}/admin-bus/business-all-read`;
 export const direction_admin_business_update= `${IP_SERVER}/admin-bus/business-all-update`;
 export const direction_admin_business_delete= `${IP_SERVER}/admin-bus/business-all-delete`;
+
+//****************************************************************
+//DIRECTION TOOLS
+export const direction_admin_tool_read= `${IP_SERVER}/admin-tool/tool-all-read`;
