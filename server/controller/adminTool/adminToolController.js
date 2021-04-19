@@ -51,7 +51,7 @@ exports.readToolAll = async(req, res) => {
             if( consultationCompany.length === 0 ){
                 res.json({ response : 'empty'})
             }else{
-                res.json({ response : 'success' , data : arrayInformation});
+                res.json({ response : 'success' , data : [arrayInformation]});
             }
             
         }

@@ -64,15 +64,13 @@ const ModalSelectionData = ({ props }) => {
           setIsModalVisible(true);
         });
       });
-    }else{
-      functionTableSelection(true);
     }
   }, []);
 
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
   //-----------------------------------------------------------------
-  //Funciones de usuario
+  //Funciones de usuario ONCLIK AL ENVIAR LA INFORMACION
   const onClickBusiness = (e) => {
     e.preventDefault();
     functionSelectionInformationCompany(identifiercom);

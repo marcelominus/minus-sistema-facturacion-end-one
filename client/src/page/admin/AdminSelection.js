@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Layout } from "antd";
+import { Card, Layout } from "antd";
 //Importamos framer motion
 import { motion } from "framer-motion";
 import {
@@ -11,7 +11,8 @@ import {
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
-
+//
+import CardSelection from "../../components/AdminSelection/CardSelection";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -40,7 +41,7 @@ const AdminSelection = () => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <p>SELECTION.</p>
+              <CardSelection />
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}
