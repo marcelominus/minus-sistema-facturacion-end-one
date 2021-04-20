@@ -102,7 +102,7 @@ const ToolState = (props) => {
           identifierbus: solutionPetitionCreate.data,
         };
         dispatch({
-          type: BUSINESS_CREATE,
+          type: USER_CREATE,
           payload: newInformation,
         });
         return solutionPetitionCreate.data;
