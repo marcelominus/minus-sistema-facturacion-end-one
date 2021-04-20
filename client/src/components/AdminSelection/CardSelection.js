@@ -14,6 +14,7 @@ import TableSelectionData from "../tools/TableSelectionData";
 //Importamos los CONTEXT
 import companyContext from "../../hook/company/companyContext";
 import businessContext from "../../hook/business/businessContext";
+import toolsContext from "../../hook/tool/toolContext";
 //****************************************************************
 //Creamos las variables de SELECT
 const { Option } = Select;
@@ -46,7 +47,11 @@ const CardSelection = () => {
   //ZONE USE-CONTEXT
   const { arraybusiness, functionReadBusiness } = useContext(businessContext);
   const { arraycompany, functionReadCompany } = useContext(companyContext);
-
+  const {
+    functionTableSelection,
+    functionSelectionInformationCompany,
+    functionSelectionInformationBusiness,
+  } = useContext(toolsContext);
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
   useEffect(() => {
@@ -57,7 +62,12 @@ const CardSelection = () => {
 
   //-------------------------------------------------------
   //ZONE FUNCTION
-
+  const onClickSelection = (e) => {
+    e.preventDefault();
+    functionSelectionInformationCompany(identifiercom);
+    functionSelectionInformationBusiness(identifierbus);
+    functionTableSelection(true);
+  };
   // =====================================================
   // INICIO DE COMPONENTE}
   // =====================================================
@@ -111,7 +121,7 @@ const CardSelection = () => {
             </Row>
             <Row>
               <Col span={12} offset={12} style={{ background: "transparent" }}>
-                <Button type="primary" block>
+                <Button type="primary" block onClick={onClickSelection}>
                   Seleccionar
                 </Button>
               </Col>

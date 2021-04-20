@@ -48,17 +48,17 @@ const TableSelectionData = () => {
   //
   const columns = [
     {
-      title: "Name",
+      title: "Nombre Sucursal",
       dataIndex: "namebus",
       key: "namebus",
     },
     {
-      title: "Age",
+      title: "Nombre de Empresa",
       dataIndex: "namecom",
       key: "namecom",
     },
     {
-      title: "Address",
+      title: "Nit de Empresa",
       dataIndex: "nitcom",
       key: "nitcom",
     },
@@ -68,9 +68,7 @@ const TableSelectionData = () => {
   //================================================================
   return (
     <Fragment>
-      <p>DESDE EL TABLESEELCTION</p>
       <Table pagination={false} columns={columns} dataSource={arrayselection} />
-      ;
     </Fragment>
   );
 };

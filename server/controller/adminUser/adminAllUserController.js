@@ -78,13 +78,11 @@ exports.createUserAll = async (req,res) => {
 
                 if(rolenew == 'admin-all'){
                     avatar = constants.directionAvatarAdminAll;
-                    identifiercomVar = constants.identifiercomAdmin;
-                    identifierbusVar = constants.identifierbusAdmin;
                 }else{
                     avatar = constants.directionAvatarUser;
-                    identifierbusVar = identifierbus;
-                    identifiercomVar = identifiercom;
                 }
+                identifierbusVar = identifierbus;
+                identifiercomVar = identifiercom;
                 //
                 const createUser = await LoginModel.create({
                     identifiercom : identifiercomVar,
@@ -117,7 +115,8 @@ exports.readUserAll = async(req, res) => {
     // res.json({ uno : req.usuario});
     const role = req.user.role;
     const identifier = req.user.identifier;
-
+    //VARIABLES DE ENTRADA
+    const {identifiercom, identifierbus} = req.body;
     //
     try {
         const consultationUser = await LoginModel.findAll({
@@ -130,16 +129,17 @@ exports.readUserAll = async(req, res) => {
         if( consultationUser == 0 ){
             res.json({ response : 'empty'});
         }else{
-            // LECTURA DE INFORMACION SOLO ALL => ADMIN, USER / (super admin)
+            
             const consultationLogin  = await LoginModel.findAll({
                 where : {
-                    role: {
-                        [Op.or]: ["admin-all", "user"]
-                    }
+                    identifiercom : identifiercom,
+                    identifierbus : identifierbus
                 },
                 attributes : ['identifier','name', 'surname', 'email', 'role'],
                 raw : true
             });
+            // LECTURA DE INFORMACION SOLO ALL => ADMIN, USER / (super admin)
+            
             if( consultationLogin === 0 ){
                 res.json({ response : 'empty'})
             }else{

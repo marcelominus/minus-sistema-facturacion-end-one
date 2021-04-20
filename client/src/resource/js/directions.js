@@ -28,3 +28,10 @@ export const direction_admin_business_delete= `${IP_SERVER}/admin-bus/business-a
 //****************************************************************
 //DIRECTION TOOLS
 export const direction_admin_tool_read= `${IP_SERVER}/admin-tool/tool-all-read`;
+
+//****************************************************************
+//DIRECTION USER
+export const direction_admin_user_create = `${IP_SERVER}/admin/admin-all-create`;
+export const direction_admin_user_read = `${IP_SERVER}/admin/admin-all-read`;
+export const direction_admin_user_update = `${IP_SERVER}/admin/admin-all-update`;
+export const direction_admin_user_delete = `${IP_SERVER}/admin/admin-all-delete`;

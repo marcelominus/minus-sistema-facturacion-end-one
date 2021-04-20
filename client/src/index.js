@@ -11,6 +11,7 @@ import ToolsState from "./hook/tool/ToolState";
 import StartState from "./hook/start/StartState";
 import CompanyState from "./hook/company/CompanyState";
 import BusinessState from "./hook/business/BusinessState";
+import UserState from "./hook/user/UserState";
 //-----------------------------------------------------------------
 
 ReactDOM.render(
@@ -20,7 +21,9 @@ ReactDOM.render(
         <StartState>
           <CompanyState>
             <BusinessState>
-              <App />
+              <UserState>
+                <App />
+              </UserState>
             </BusinessState>
           </CompanyState>
         </StartState>

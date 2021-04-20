@@ -16,7 +16,7 @@ import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
 import TableSelectionData from '../../components/tools/TableSelectionData';
-
+import ModalAddUser from '../../components/AdminUser/ModalAddUser';
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -48,10 +48,9 @@ const AdminUser = (props) => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <p>DESDE EL USER</p>
               <ModalSelectionDate props={props} />
               <TableSelectionData />
-
+              <ModalAddUser />
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}
