@@ -135,7 +135,7 @@ exports.readUserAll = async(req, res) => {
                     identifiercom : identifiercom,
                     identifierbus : identifierbus
                 },
-                attributes : ['identifier','name', 'surname', 'email', 'role'],
+                // attributes : ['identifier','name', 'surname', 'email', 'role'],
                 raw : true
             });
             // LECTURA DE INFORMACION SOLO ALL => ADMIN, USER / (super admin)

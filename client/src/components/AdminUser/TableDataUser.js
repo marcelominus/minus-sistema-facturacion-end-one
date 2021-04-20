@@ -17,21 +17,20 @@ import {
 //****************************************************************
 //Importamos el HIGT de LETTERS
 import Highlighter from "react-highlight-words";
-//****************************************************************
-//Importamos el CONTEXT
-import businessContext from "../../hook/business/businessContext";
+//*******************************************************
+//Importamos los Context
+import userContext from "../../hook/user/userContext";
 //****************************************************************
 //
 // import ModalViewLogo from "./ModalViewLogo";
-// import ModalModifyCompany from "./ModalModifyCompany";
-import { messageError, messageSuccess } from "../../resource/js/messages";
-//-----------------------------------------------------------------
+import ModalModifyUser from "./ModalModifyUser";
 //
-import ModalModifyBusiness from "./ModalModifyBusiness";
-//================================================================
-//INICIO DE CLASE
-//================================================================
-const TableDataBusiness = () => {
+import { messageError, messageSuccess } from "../../resource/js/messages";
+
+// =====================================================
+// INICIO DE CLASE  */}
+// =====================================================
+const TableDataUser = () => {
   //-------------------------------------------------------
   //ZONE USE STATE
   const [searchText, setSearchText] = useState("");
@@ -41,53 +40,48 @@ const TableDataBusiness = () => {
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
   const {
-    arraybusiness,
-    functionReadBusiness,
+    arrayuser,
+    functionReadUser,
     functionModalUpdate,
-    functionArrayUpdateBusiness,
-    functionDeleteBusiness,
-  } = useContext(businessContext);
+    functionArrayUpdateUser,
+  } = useContext(userContext);
   //-------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
     //Funcion para poder llamar la tabla
-    functionReadBusiness().then((e) => {
-      console.log(arraybusiness);
-    });
+    functionReadUser();
   }, []);
-
   //-------------------------------------------------------
   //ZONE DE FUNCTION
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
-    setSearchedColumn("namebus");
+    setSearchedColumn("name");
   };
 
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText("");
   };
-
   //-----------------------------------------------------------------
   //
   const columns = [
     {
       title: "Id",
-      dataIndex: "idbusiness",
-      key: "idbusiness",
+      dataIndex: "identifier",
+      key: "identifier",
       width: "5%",
     },
     {
       title: "Empresa",
-      dataIndex: "namecom",
-      key: "namecom",
+      dataIndex: "surname",
+      key: "surname",
       width: "10%",
     },
     {
       title: "Nombre",
-      dataIndex: "namebus",
-      key: "namebus",
+      dataIndex: "name",
+      key: "name",
       width: "15%",
       filterDropdown: ({
         setSelectedKeys,
@@ -103,13 +97,13 @@ const TableDataBusiness = () => {
             onChange={(e) =>
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
-            onPressEnter={() => handleSearch(selectedKeys, confirm, "namebus")}
+            onPressEnter={() => handleSearch(selectedKeys, confirm, "name")}
             style={{ width: 188, marginBottom: 8, display: "block" }}
           />
           <Space>
             <Button
               type="primary"
-              onClick={() => handleSearch(selectedKeys, confirm, "namebus")}
+              onClick={() => handleSearch(selectedKeys, confirm, "name")}
               icon={<SearchOutlined />}
               size="small"
               style={{ width: 90 }}
@@ -132,8 +126,8 @@ const TableDataBusiness = () => {
         />
       ),
       onFilter: (value, record) =>
-        record["namebus"]
-          ? record["namebus"]
+        record["name"]
+          ? record["name"]
               .toString()
               .toLowerCase()
               .includes(value.toLowerCase())
@@ -144,7 +138,7 @@ const TableDataBusiness = () => {
         }
       },
       render: (text) =>
-        searchedColumn === "namebus" ? (
+        searchedColumn === "name" ? (
           <Highlighter
             highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
             searchWords={[searchText]}
@@ -155,20 +149,6 @@ const TableDataBusiness = () => {
           text
         ),
     },
-    {
-      title: "Nit",
-      dataIndex: "ofbus",
-      key: "ofbus",
-      width: "8%",
-    },
-
-    {
-      title: "Direccion",
-      dataIndex: "directionbus",
-      key: "directionbus",
-      width: "8%",
-    },
-
     {
       title: "Acciones",
       key: "action",
@@ -181,10 +161,14 @@ const TableDataBusiness = () => {
             size={"default"}
             ghost
             onClick={() => {
-              const resultFilterUpdate = arraybusiness.filter(
-                (e) => e.identifierbus == text.identifierbus
+              // const resultFilterUpdate = arraybusiness.filter(
+              //   (e) => e.identifierbus == text.identifierbus
+              // );
+              // functionArrayUpdateBusiness(resultFilterUpdate);
+              const resultFilterUpdate = arrayuser.filter(
+                (e) => e.identifier == text.identifier
               );
-              functionArrayUpdateBusiness(resultFilterUpdate);
+              functionArrayUpdateUser(resultFilterUpdate);
               functionModalUpdate(true);
             }}
             // onClick={() => {
@@ -203,39 +187,39 @@ const TableDataBusiness = () => {
             size={"default"}
             ghost
             onClick={() => {
-              functionDeleteBusiness(text.identifierbus).then((e) => {
-                if (e === true) {
-                  messageSuccess("Correcto Elemento Borrado", 2);
-                  functionReadBusiness();
-                } else {
-                  messageError("Error, Intente mas Tarde", 2);
-                }
-              });
+              //   functionDeleteBusiness(text.identifierbus).then((e) => {
+              //     if (e === true) {
+              //       messageSuccess("Correcto Elemento Borrado", 2);
+              //       functionReadBusiness();
+              //     } else {
+              //       messageError("Error, Intente mas Tarde", 2);
+              //     }
+              //   });
             }}
           />
         </Fragment>
       ),
     },
   ];
-
-  //================================================================
-  //INICIO DE COMPONENTE
-  //================================================================
+  // =====================================================
+  // INICIO DE COMPONENTE}
+  // =====================================================
   return (
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Table
         columns={columns}
-        dataSource={arraybusiness}
+        dataSource={arrayuser}
         sorter={true}
         pagination={{ pageSize: 10, responsive: true }}
         scroll={{ x: 1200, y: "max-content" }}
         bordered
       />
-      <ModalModifyBusiness />
+      {/* <ModalModifyBusiness /> */}
+      <ModalModifyUser />
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
 };
 
-export default TableDataBusiness;
+export default TableDataUser;

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select } from "antd";
@@ -18,13 +18,12 @@ import userContext from "../../hook/user/userContext";
 const { Option } = Select;
 const { TextArea } = Input;
 
-//================================================================
-//INICIO DE CLASE
-//================================================================
-const ModalAddUser = () => {
-  //-----------------------------------------------------------------
-  //ZONE USE - STATE
+// =====================================================
+// INICIO DE CLASE  */}
+// =====================================================
+const ModalModifyUser = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
   const [dataform, setDataForm] = useState({
     name: "",
     surname: "",
@@ -51,59 +50,43 @@ const ModalAddUser = () => {
   };
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
-  const { functionCreateUser, functionReadUser } = useContext(userContext);
-
+  const {
+    modalupdateuser,
+    arrayupdateuser,
+    functionCreateUser,
+    functionReadUser,
+    functionModalUpdate,
+  } = useContext(userContext);
+  //-----------------------------------------------------------------
+  //ZONE USE - EFFECT
+  useEffect(() => {
+    if (modalupdateuser === true) {
+      setIsModalVisible(true);
+    }
+  }, [modalupdateuser]);
+  useEffect(() => {
+    setDataForm({
+      ...dataform,
+      name: arrayupdateuser[0].name,
+      surname: arrayupdateuser[0].surname,
+      user: arrayupdateuser[0].user,
+      email: arrayupdateuser[0].email,
+      ci: arrayupdateuser[0].ci,
+      password: arrayupdateuser[0].password,
+      rolenew: arrayupdateuser[0].role,
+    });
+  }, [arrayupdateuser[0].identifier]);
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickBusiness = (e) => {
     e.preventDefault();
-
-    if (
-      name.toLowerCase().trim() == "" ||
-      surname.toLowerCase().trim() == "" ||
-      user.toLowerCase().trim() == "" ||
-      email.toLowerCase().trim() == "" ||
-      ci.toLowerCase().trim() == "" ||
-      password.toLowerCase().trim() == "" ||
-      rolenew.trim() == ""
-    ) {
-      messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
-    } else {
-      functionCreateUser(
-        name,
-        surname,
-        user,
-        email,
-        ci,
-        password,
-        rolenew
-      ).then((elem) => {
-        if (elem === "duplicate") {
-          //Mensage de WARNING
-          messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
-        } else if (elem === "fail-create") {
-          //Mensaje de ERROR
-          messageError("Error, Intente mas Tarde", 2);
-        } else {
-          //Mensaje de CORRECTO
-          messageSuccess(`Perfecto, Usuario Creado Correctamente ${elem}`, 2);
-          //Cierrar el MODAL de ADD COMPANY
-          setIsModalVisible(false);
-          // //
-          // functionReadBusiness();
-          functionReadUser();
-          // //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
-          resetForm();
-        }
-      });
-    }
   };
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
   //Funcion CERRAR MODAL de ADD COMPATN
   const handleCancel = () => {
     setIsModalVisible(false);
-    resetForm();
+    functionModalUpdate(false);
   };
 
   //Funcion ABRIR el MODAL de ADD COMPANY
@@ -125,9 +108,9 @@ const ModalAddUser = () => {
     });
   };
 
-  //================================================================
-  //INICIO DE COMPONENTE
-  //================================================================
+  // =====================================================
+  // INICIO DE COMPONENTE}
+  // =====================================================
   return (
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
@@ -252,16 +235,8 @@ const ModalAddUser = () => {
         {/* ------------------------- ********** ------------------------- */}
       </Modal>
       {/* ------------------------- ********** ------------------------- */}
-      <Button
-        type="primary"
-        onClick={openModalUser}
-        icon={<PlusCircleOutlined />}
-      >
-        Registrar Usuario
-      </Button>
-      {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
 };
 
-export default ModalAddUser;
+export default ModalModifyUser;

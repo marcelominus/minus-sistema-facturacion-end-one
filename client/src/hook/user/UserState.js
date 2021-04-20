@@ -30,7 +30,7 @@ import {
 //Importamos la variable de FUNCION de TOKEN que permite INGREASAR HEAD AXIOS
 import tokenAuth from "../../config/token";
 //------------------------------------------------------------------------
-const ToolState = (props) => {
+const UserState = (props) => {
   //-----------------------------------------------------------------
   //INITIAL STATE
   //identifiercom, identifierbus, name, surname, user, email, ci, password, rolenew
@@ -58,16 +58,14 @@ const ToolState = (props) => {
   //FUNCION PAR APODER ABRIR AUTOMATICAMENTE EL MODAL
   //-----------------------------------------------------------------
   //
-  const functionCreateBusiness = async (
+  const functionCreateUser = async (
     value_1,
     value_2,
     value_3,
     value_4,
     value_5,
     value_6,
-    value_7,
-    value_8,
-    value_9
+    value_7
   ) => {
     //Extraer el TOKEN del LOCAL STORE
     const token = localStorage.getItem("token");
@@ -76,35 +74,23 @@ const ToolState = (props) => {
       tokenAuth(token);
     }
     try {
+      let dataTokenCompany = localStorage.getItem("tokencompany");
+      let dataTokenBusiness = localStorage.getItem("tokenbusiness");
       const url = direction_admin_user_create;
-      const petitionCreateBusiness = await clienteAxios.post(url, {
-        identifiercom: value_1,
-        identifierbus: value_2,
-        name: value_3,
-        surname: value_4,
-        user: value_5,
-        email: value_6,
-        ci: value_7,
-        password: value_7,
+      const petitionCreateUser = await clienteAxios.post(url, {
+        identifiercom: dataTokenCompany,
+        identifierbus: dataTokenBusiness,
+        name: value_1,
+        surname: value_2,
+        user: value_3,
+        email: value_4,
+        ci: value_5,
+        password: value_6,
         rolenew: value_7,
       });
 
-      const solutionPetitionCreate = petitionCreateBusiness.data;
+      const solutionPetitionCreate = petitionCreateUser.data;
       if (solutionPetitionCreate.response == "success") {
-        //Creamos la nueva variables para el acceso
-        const newInformation = {
-          namebus: value_1,
-          ofbus: value_2,
-          citybus: value_3,
-          placebus: value_4,
-          directionbus: value_5,
-          economicactivitybus: value_6,
-          identifierbus: solutionPetitionCreate.data,
-        };
-        dispatch({
-          type: USER_CREATE,
-          payload: newInformation,
-        });
         return solutionPetitionCreate.data;
       } else {
         return solutionPetitionCreate.response;
@@ -113,6 +99,57 @@ const ToolState = (props) => {
       return false;
     }
   };
+
+  //******************************************************************************
+  const functionReadUser = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      let dataTokenCompany = localStorage.getItem("tokencompany");
+      let dataTokenBusiness = localStorage.getItem("tokenbusiness");
+      const url = direction_admin_user_read;
+      const petitionReadUser = await clienteAxios.post(url, {
+        identifiercom: dataTokenCompany,
+        identifierbus: dataTokenBusiness,
+      });
+      const solutionPetitionRead = petitionReadUser.data;
+      if (solutionPetitionRead.response == "empty") {
+        dispatch({
+          type: USER_READ,
+          payload: [],
+        });
+        return false;
+      } else {
+        dispatch({
+          type: USER_READ,
+          payload: solutionPetitionRead.data,
+        });
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //-----------------------------------------------------------------
+  //FUNCION PAR APODER ABRIR AUTOMATICAMENTE EL MODAL
+  const functionModalUpdate = (valor) => {
+    dispatch({
+      type: USER_MODAL_UPDATE,
+      payload: valor,
+    });
+  };
+  //-----------------------------------------------------------------
+  //FUNCION PAR APODER COPIAR EL LINK SELECCIONADO
+  const functionArrayUpdateUser = (valor) => {
+    dispatch({
+      type: USER_ARRAY_UPDATE,
+      payload: valor,
+    });
+  };
+
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -122,6 +159,10 @@ const ToolState = (props) => {
         arrayuser: state.arrayuser,
         modalupdateuser: state.modalupdateuser,
         arrayupdateuser: state.arrayupdateuser,
+        functionCreateUser,
+        functionReadUser,
+        functionModalUpdate,
+        functionArrayUpdateUser,
       }}
     >
       {props.children}
@@ -129,4 +170,4 @@ const ToolState = (props) => {
   );
 };
 
-export default ToolState;
+export default UserState;
