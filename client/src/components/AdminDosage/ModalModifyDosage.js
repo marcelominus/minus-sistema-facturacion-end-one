@@ -1,21 +1,8 @@
-import React, { Fragment, useState, useEffect, useContext } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
-import {
-  Modal,
-  Button,
-  Row,
-  Col,
-  Input,
-  Select,
-  DatePicker,
-  Space,
-  InputNumber,
-} from "antd";
+import { Modal, Button, Row, Col, Input, Select } from "antd";
 import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
-//****************************************************************
-//Importamos la libreria de MOMENT
-import moment from "moment";
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -30,18 +17,13 @@ import dosageContext from "../../hook/dosage/dosageContext";
 //Creamos las variables de SELECT
 const { Option } = Select;
 const { TextArea } = Input;
-const { RangePicker } = DatePicker;
-//================================================================
-//INICIO DE CLASE
-//================================================================
-const ModalAddDosage = () => {
-  //-----------------------------------------------------------------
-  //Creamos el formato de la variable
-  const dateFormat = "MM/DD/YYYY";
 
-  //-----------------------------------------------------------------
-  //ZONE USE - STATE
+// =====================================================
+// INICIO DE CLASE  */}
+// =====================================================
+const ModalModifyDosage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
   const [dataform, setDataForm] = useState({
     datestartdos: `${moment().subtract(4, "h").format("MM/DD/YYYY")}`,
     dateenddos: "",
@@ -80,6 +62,7 @@ const ModalAddDosage = () => {
   //ZONE USE - CONTEXT
   //   const { functionCreateUser, functionReadUser } = useContext(userContext);
   const { functionCreateDosage } = useContext(dosageContext);
+
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
   useEffect(() => {}, []);
@@ -154,9 +137,9 @@ const ModalAddDosage = () => {
     });
   };
 
-  //================================================================
-  //INICIO DE COMPONENTE
-  //================================================================
+  // =====================================================
+  // INICIO DE COMPONENTE}
+  // =====================================================
   return (
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
@@ -331,4 +314,4 @@ const ModalAddDosage = () => {
   );
 };
 
-export default ModalAddDosage;
+export default ModalModifyDosage;

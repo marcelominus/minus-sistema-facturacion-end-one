@@ -17,6 +17,7 @@ import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
 import TableSelectionData from "../../components/tools/TableSelectionData";
 import ModalAddDosage from "../../components/AdminDosage/ModalAddDosage";
+import TableDataDosage from '../../components/AdminDosage/TableDataDosage'
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -50,6 +51,7 @@ const AdminDosage = (props) => {
               <ModalSelectionDate props={props} />
               <TableSelectionData />
               <ModalAddDosage />
+              <TableDataDosage />
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}
