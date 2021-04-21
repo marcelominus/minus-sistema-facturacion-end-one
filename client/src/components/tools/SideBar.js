@@ -65,12 +65,15 @@ const SideBar = () => {
             <Link to="/user">Usuario</Link>
           </Menu.Item>
           <Menu.Item key="5" icon={<DesktopOutlined />}>
-            Dosificacion
+            <Link to="/dosage">Dosificacion</Link>
           </Menu.Item>
           <Menu.Item key="6" icon={<DesktopOutlined />}>
-            Facturacion
+            Productos
           </Menu.Item>
           <Menu.Item key="7" icon={<DesktopOutlined />}>
+            Facturacion
+          </Menu.Item>
+          <Menu.Item key="8" icon={<DesktopOutlined />}>
             <Link to="/selection">Seleccionar Area</Link>
           </Menu.Item>
         </Menu>

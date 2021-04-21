@@ -149,6 +149,72 @@ const UserState = (props) => {
       payload: valor,
     });
   };
+  //-----------------------------------------------------------------
+  //Function de CAMBIO DE BUSINESS
+  const functionUpdateUser = async (
+    value_1,
+    value_2,
+    value_3,
+    value_4,
+    value_5,
+    value_6,
+    value_7,
+    value_8
+  ) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      let dataTokenCompany = localStorage.getItem("tokencompany");
+      let dataTokenBusiness = localStorage.getItem("tokenbusiness");
+      const url = direction_admin_user_update;
+      const petitionUpdateUser = await clienteAxios.post(url, {
+        identifiercom: dataTokenCompany,
+        identifierbus: dataTokenBusiness,
+        name: value_1,
+        surname: value_2,
+        user: value_3,
+        email: value_4,
+        ci: value_5,
+        password: value_6,
+        rolenew: value_7,
+        identifiernew: value_8,
+      });
+      const solutionPetitionUpdate = petitionUpdateUser.data;
+      if (solutionPetitionUpdate.response == "success") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //-----------------------------------------------------------------
+  //FUNCION BORRAR COMPANY
+  const functionDeleteUser = async (valor) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      const url = direction_admin_user_delete;
+      const petitionDeleteUser = await clienteAxios.post(url, {
+        identifiernew: valor,
+      });
+      const solutionPetitionDelete = petitionDeleteUser.data;
+      if (solutionPetitionDelete.response == "success") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //================================================================
   //INICIO DE COMPONENTE
@@ -163,6 +229,8 @@ const UserState = (props) => {
         functionReadUser,
         functionModalUpdate,
         functionArrayUpdateUser,
+        functionUpdateUser,
+        functionDeleteUser,
       }}
     >
       {props.children}

@@ -10,7 +10,7 @@ const rolePermission = require('../../middleware/permissions/permissionsAdmin');
 //=====================================
 module.exports = () => {
      //ROUTAS DE LOGIN
-    router.post('/dosage-all-create', auth, adminDosageController.createBusiness);
+    router.post('/dosage-all-create', auth, adminDosageController.createDosage);
     router.post('/dosage-all-read', auth, adminDosageController.readDosage);
     router.post('/dosage-all-update', auth, adminDosageController.updateDosage);
     router.post('/dosage-all-delete', auth, adminDosageController.deleteDosage);

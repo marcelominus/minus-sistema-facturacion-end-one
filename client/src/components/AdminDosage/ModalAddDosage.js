@@ -1,8 +1,21 @@
-import React, { Fragment, useEffect, useState, useContext } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
-import { Modal, Button, Row, Col, Input, Select } from "antd";
+import {
+  Modal,
+  Button,
+  Row,
+  Col,
+  Input,
+  Select,
+  DatePicker,
+  Space,
+  InputNumber,
+} from "antd";
 import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
+//****************************************************************
+//Importamos la libreria de MOMENT
+import moment from "moment";
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -12,28 +25,43 @@ import {
 } from "../../resource/js/messages";
 //*******************************************************
 //Importamos los CONTEXT
-import userContext from "../../hook/user/userContext";
+// import userContext from "../../hook/user/userContext";
 //****************************************************************
 //Creamos las variables de SELECT
 const { Option } = Select;
 const { TextArea } = Input;
+const { RangePicker } = DatePicker;
+//================================================================
+//INICIO DE CLASE
+//================================================================
+const ModalAddDosage = () => {
+  //-----------------------------------------------------------------
+  //Creamos el formato de la variable
+  const dateFormat = "MM/DD/YYYY";
 
-// =====================================================
-// INICIO DE CLASE  */}
-// =====================================================
-const ModalModifyUser = () => {
+  //-----------------------------------------------------------------
+  //ZONE USE - STATE
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const [dataform, setDataForm] = useState({
-    name: "",
-    surname: "",
-    user: "",
-    email: "",
-    ci: "",
-    password: "",
-    rolenew: "",
+    datestartdos: `${moment().subtract(4, "h").format("MM/DD/YYYY")}`,
+    dateenddos: "",
+    sfcdos: "",
+    numberauthorizationdos: "",
+    numbernotestartdos: "",
+    dosagedos: "",
+    legenddos: "",
+    conditiondos: "",
   });
-  const { name, surname, user, email, ci, password, rolenew } = dataform;
+  const {
+    datestartdos,
+    dateenddos,
+    sfcdos,
+    numberauthorizationdos,
+    numbernotestartdos,
+    dosagedos,
+    legenddos,
+    conditiondos,
+  } = dataform;
   //Carga la informacion de COMPANY
   const onChangeAddUser = (e) => {
     setDataForm({
@@ -42,95 +70,30 @@ const ModalModifyUser = () => {
     });
   };
   //Carga de TIPO DE MONEDA
-  const onChangeAddRol = (e) => {
+  const onChangeAddState = (e) => {
     setDataForm({
       ...dataform,
-      rolenew: e,
+      conditiondos: e,
     });
   };
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
-  const {
-    modalupdateuser,
-    arrayupdateuser,
-    functionReadUser,
-    functionModalUpdate,
-    functionUpdateUser,
-  } = useContext(userContext);
+  //   const { functionCreateUser, functionReadUser } = useContext(userContext);
+
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
-  useEffect(() => {
-    if (modalupdateuser === true) {
-      setIsModalVisible(true);
-    }
-  }, [modalupdateuser]);
-  useEffect(() => {
-    setDataForm({
-      ...dataform,
-      name: arrayupdateuser[0].name,
-      surname: arrayupdateuser[0].surname,
-      user: arrayupdateuser[0].user,
-      email: arrayupdateuser[0].email,
-      ci: arrayupdateuser[0].ci,
-      password: arrayupdateuser[0].password,
-      rolenew: arrayupdateuser[0].role,
-    });
-  }, [arrayupdateuser[0].identifier]);
+  useEffect(() => {}, []);
   //-----------------------------------------------------------------
   //Funciones de usuario
-  const onClickUser = (e) => {
+  const onClickBusiness = (e) => {
     e.preventDefault();
-    //Verifiacmos las entradas de usuario
-    if (
-      name.toLowerCase().trim() == "" ||
-      surname.toLowerCase().trim() == "" ||
-      user.toLowerCase().trim() == "" ||
-      email.toLowerCase().trim() == "" ||
-      ci.toLowerCase().trim() == "" ||
-      password.toLowerCase().trim() == "" ||
-      rolenew.trim() == ""
-    ) {
-      messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
-    } else {
-      functionUpdateUser(
-        name,
-        surname,
-        user,
-        email,
-        ci,
-        password,
-        rolenew,
-        arrayupdateuser[0].identifier
-      ).then((elem) => {
-        if (elem === "duplicate") {
-          //Mensage de WARNING
-          messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
-        } else if (elem === "fail-create") {
-          //Mensaje de ERROR
-          messageError("Error, Intente mas Tarde", 2);
-        } else {
-          //Mensaje de CORRECTO
-          messageSuccess(
-            `Perfecto, Sucursal Modificada correctamente Correctamente ${elem}`,
-            2
-          );
-          //Cierrar el MODAL de ADD COMPANY
-          setIsModalVisible(false);
-          //
-          functionModalUpdate(false);
-          //
-          functionReadUser();
-          //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
-        }
-      });
-    }
   };
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
   //Funcion CERRAR MODAL de ADD COMPATN
   const handleCancel = () => {
     setIsModalVisible(false);
-    functionModalUpdate(false);
+    resetForm();
   };
 
   //Funcion ABRIR el MODAL de ADD COMPANY
@@ -152,9 +115,9 @@ const ModalModifyUser = () => {
     });
   };
 
-  // =====================================================
-  // INICIO DE COMPONENTE}
-  // =====================================================
+  //================================================================
+  //INICIO DE COMPONENTE
+  //================================================================
   return (
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
@@ -164,7 +127,7 @@ const ModalModifyUser = () => {
         width={800}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
-          <Button key="send" type="primary" onClick={onClickUser}>
+          <Button key="send" type="primary" onClick={onClickBusiness}>
             Enviar
           </Button>,
           //BUTTON DE CANCELAR Y CERRAR MODAL
@@ -174,113 +137,157 @@ const ModalModifyUser = () => {
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
+        {/* const {identifierbus, datestartdos, dateenddos, sfcdos, numberauthorizationdos, numbernotestartdos, dosagedos, legenddos, conditiondos} = req.body; */}
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Nombre de Empleado
+            Fecha de Inicio
           </Col>
           <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="Ingrese el nombre de Usuario"
-              prefix={<UserOutlined />}
-              name="name"
-              onChange={onChangeAddUser}
-              value={name}
+            <DatePicker
+              defaultValue={moment(
+                `${moment().subtract(4, "h").format("l")}`,
+                dateFormat
+              )}
+              format={dateFormat}
+              onChange={(e) =>
+                setDataForm({
+                  ...dataform,
+                  dateenddos: moment(e._d).format("MM/DD/YYYY"),
+                })
+              }
+              style={{ width: "100%" }}
             />
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Apeliido de Empleado
+            Fecha de Final
           </Col>
           <Col span={12} style={{ background: "blue" }}>
-            <Input
+            <DatePicker
+              format={dateFormat}
+              style={{ width: "100%" }}
+              onChange={(e) =>
+                setDataForm({
+                  ...dataform,
+                  dateenddos: moment(e._d).format("MM/DD/YYYY"),
+                })
+              }
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12} style={{ background: "transparent" }}>
+            SFC
+          </Col>
+          <Col span={12} style={{ background: "blue" }}>
+            <InputNumber
               placeholder="Ingrese el Apellido de Usuario"
               prefix={<UserOutlined />}
-              name="surname"
-              onChange={onChangeAddUser}
-              value={surname}
+              style={{ width: "100%" }}
+              defaultValue={0}
+              onChange={(e) => {
+                setDataForm({
+                  ...dataform,
+                  sfcdos: e,
+                });
+              }}
             />
           </Col>
         </Row>
 
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Email de Empleado
+            Numero de Autorizacion de Dosificacion
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
               placeholder="Ingrese la Direccion de la Sucursal"
               prefix={<UserOutlined />}
-              name="email"
+              name="numberauthorizationdos"
               onChange={onChangeAddUser}
-              value={email}
+              value={numberauthorizationdos}
             />
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Carnet de Empleado
+            Numero de Inicio de Nota
           </Col>
           <Col span={12} style={{ background: "blue" }}>
-            <Input
+            <InputNumber
               placeholder="Ingrese la Direccion de la Sucursal"
               prefix={<UserOutlined />}
-              name="ci"
-              onChange={onChangeAddUser}
-              value={ci}
+              style={{ width: "100%" }}
+              defaultValue={0}
+              onChange={(e) => {
+                setDataForm({
+                  ...dataform,
+                  numbernotestartdos: e,
+                });
+              }}
             />
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            USER de Empleado
+            Llave de Dosificacion
           </Col>
           <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="Ingrese la Ciudad de la Sucursal"
-              prefix={<UserOutlined />}
-              name="user"
+            <TextArea
+              rows={2}
+              placeholder="Ingrese la Actividad Economica de la Sucursal"
+              name="dosagedos"
               onChange={onChangeAddUser}
-              value={user}
+              value={dosagedos}
             />
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            PASSWORD de Empleado
+            Legenda 453
           </Col>
           <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="Lugar de la Sucursal"
-              prefix={<UserOutlined />}
-              name="password"
+            <TextArea
+              rows={3}
+              placeholder="Ingrese la Actividad Economica de la Sucursal"
+              name="legenddos"
               onChange={onChangeAddUser}
-              value={password}
+              value={legenddos}
             />
           </Col>
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Seleccione rol de Usuario
+            Estado
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Select
               defaultValue=""
               style={{ width: "100%" }}
-              onChange={onChangeAddRol}
-              value={rolenew}
+              onChange={onChangeAddState}
+              value={conditiondos}
             >
               <Option value="">--Seleccione una Opcion--</Option>
-              <Option value="admin-all">Administrador</Option>
-              <Option value="user">Empleado</Option>
+              <Option value="admin-all">Habilitado</Option>
+              <Option value="user">DesHabilitado</Option>
             </Select>
           </Col>
         </Row>
+
         {/* ------------------------- ********** ------------------------- */}
       </Modal>
+      {/* ------------------------- ********** ------------------------- */}
+      <Button
+        type="primary"
+        onClick={openModalUser}
+        icon={<PlusCircleOutlined />}
+      >
+        Registrar Dosificacion
+      </Button>
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
 };
 
-export default ModalModifyUser;
+export default ModalAddDosage;

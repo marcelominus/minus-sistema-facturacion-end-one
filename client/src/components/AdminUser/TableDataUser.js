@@ -20,11 +20,12 @@ import Highlighter from "react-highlight-words";
 //*******************************************************
 //Importamos los Context
 import userContext from "../../hook/user/userContext";
+import toolContext from "../../hook/tool/toolContext";
 //****************************************************************
-//
 // import ModalViewLogo from "./ModalViewLogo";
 import ModalModifyUser from "./ModalModifyUser";
-//
+//****************************************************************
+//Importamos los Mensajes de MESSAGES
 import { messageError, messageSuccess } from "../../resource/js/messages";
 
 // =====================================================
@@ -44,13 +45,23 @@ const TableDataUser = () => {
     functionReadUser,
     functionModalUpdate,
     functionArrayUpdateUser,
+    functionDeleteUser,
   } = useContext(userContext);
+  const { tableselection, functionTableSelection } = useContext(toolContext);
   //-------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
     //Funcion para poder llamar la tabla
     functionReadUser();
   }, []);
+  useEffect(() => {
+    let dataTokenCompany = localStorage.getItem("tokencompany");
+    let dataTokenBusiness = localStorage.getItem("tokenbusiness");
+    if (dataTokenCompany !== "" && dataTokenBusiness !== "") {
+      functionReadUser();
+      functionTableSelection(false);
+    }
+  }, [tableselection]);
   //-------------------------------------------------------
   //ZONE DE FUNCTION
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -171,14 +182,6 @@ const TableDataUser = () => {
               functionArrayUpdateUser(resultFilterUpdate);
               functionModalUpdate(true);
             }}
-            // onClick={() => {
-            //   functionUpdateModal(true);
-            //   const resultFilterUpdate = arraycompany.filter(
-            //     (e) => e.identifiercom == text.identifiercom
-            //   );
-            //   functionLoadIdCompanyUpdate(resultFilterUpdate);
-            //   functionIdCompanyUpdate(text.identifiercom);
-            // }}
           />
 
           <Button
@@ -187,14 +190,14 @@ const TableDataUser = () => {
             size={"default"}
             ghost
             onClick={() => {
-              //   functionDeleteBusiness(text.identifierbus).then((e) => {
-              //     if (e === true) {
-              //       messageSuccess("Correcto Elemento Borrado", 2);
-              //       functionReadBusiness();
-              //     } else {
-              //       messageError("Error, Intente mas Tarde", 2);
-              //     }
-              //   });
+              functionDeleteUser(text.identifier).then((e) => {
+                if (e === true) {
+                  messageSuccess("Correcto Elemento Borrado", 2);
+                  functionReadUser();
+                } else {
+                  messageError("Error, Intente mas Tarde", 2);
+                }
+              });
             }}
           />
         </Fragment>

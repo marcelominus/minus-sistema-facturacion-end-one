@@ -202,13 +202,11 @@ exports.updateUserAll = async(req, res)=> {
             //
             if(rolenew == 'admin-all'){
                 avatar = constants.directionAvatarAdminAll;
-                identifiercomVar = constants.identifiercomAdmin;
-                identifierbusVar = constants.identifierbusAdmin;
             }else{
                 avatar = constants.directionAvatarUser;
-                identifierbusVar = identifierbus;
-                identifiercomVar = identifiercom;
             }
+            identifierbusVar = identifierbus;
+            identifiercomVar = identifiercom;
             //
             const updateUser  = await LoginModel.update({
                 identifiercom : identifiercomVar,

@@ -13,7 +13,7 @@ const LoginModel = require('../../model/login/loginModel');
 
 //Importamos las variables de constantes
 //=================================================
-exports.createBusiness = async (req,res) => {
+exports.createDosage = async (req,res) => {
     //VARIABLES DE ACCESO-VERIFICACION TOKEN
     const identifier = req.user.identifier;
     const role = req.user.role;
