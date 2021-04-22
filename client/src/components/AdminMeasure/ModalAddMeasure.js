@@ -118,7 +118,7 @@ const ModalAddMeasure = () => {
             <Input
               placeholder="Ingrese la Direccion de la Sucursal"
               prefix={<UserOutlined />}
-              name="numberauthorizationdos"
+              name="unitmeasure"
               onChange={onChangeAddMeasure}
               //   value={numberauthorizationdos}
             />
@@ -132,7 +132,7 @@ const ModalAddMeasure = () => {
             <Input
               placeholder="Ingrese la Direccion de la Sucursal"
               prefix={<UserOutlined />}
-              name="numberauthorizationdos"
+              name="descriptionmeasure"
               onChange={onChangeAddMeasure}
               //   value={numberauthorizationdos}
             />
