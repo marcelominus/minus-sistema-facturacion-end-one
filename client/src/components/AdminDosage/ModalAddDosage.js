@@ -79,7 +79,9 @@ const ModalAddDosage = () => {
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
   //   const { functionCreateUser, functionReadUser } = useContext(userContext);
-  const { functionCreateDosage } = useContext(dosageContext);
+  const { functionCreateDosage, functionReadDosage } = useContext(
+    dosageContext
+  );
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
   useEffect(() => {}, []);
@@ -89,8 +91,6 @@ const ModalAddDosage = () => {
     e.preventDefault();
 
     if (
-      datestartdos.toLowerCase().trim() == "" ||
-      dateenddos.toLowerCase().trim() == "" ||
       numberauthorizationdos.toLowerCase().trim() == "" ||
       dosagedos.toLowerCase().trim() == "" ||
       legenddos.trim() == "" ||
@@ -120,8 +120,7 @@ const ModalAddDosage = () => {
           //Cierrar el MODAL de ADD COMPANY
           setIsModalVisible(false);
           // //
-          // functionReadBusiness();
-          // functionReadUser();
+          functionReadDosage();
           // //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
           resetForm();
         }

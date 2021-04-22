@@ -24,7 +24,7 @@ import dosageContext from "../../hook/dosage/dosageContext";
 import toolContext from "../../hook/tool/toolContext";
 //****************************************************************
 // import ModalViewLogo from "./ModalViewLogo";
-// import ModalModifyUser from "./ModalModifyUser";
+import ModalModifyDosage from "./ModalModifyDosage";
 //****************************************************************
 //Importamos los Mensajes de MESSAGES
 import { messageError, messageSuccess } from "../../resource/js/messages";
@@ -37,11 +37,15 @@ const TableDataDosage = () => {
   //ZONE USE STATE
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
-  const [directionimg, setDirectionImg] = useState("");
   const searchInput = useRef(null);
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
-  const { arraydosage, functionReadDosage } = useContext(dosageContext);
+  const {
+    arraydosage,
+    functionReadDosage,
+    functionModalUpdate,
+    functionArrayUpdateDosage,
+  } = useContext(dosageContext);
   const { tableselection, functionTableSelection } = useContext(toolContext);
   //-------------------------------------------------------
   //ZONE USE EFFECT
@@ -172,15 +176,12 @@ const TableDataDosage = () => {
             size={"default"}
             ghost
             onClick={() => {
-              // const resultFilterUpdate = arraybusiness.filter(
-              //   (e) => e.identifierbus == text.identifierbus
-              // );
-              // functionArrayUpdateBusiness(resultFilterUpdate);
-              //   const resultFilterUpdate = arrayuser.filter(
-              //     (e) => e.identifier == text.identifier
-              //   );
-              //   functionArrayUpdateUser(resultFilterUpdate);
-              //   functionModalUpdate(true);
+              const resultFilterUpdate = arraydosage.filter(
+                (e) => e.identifierdos == text.identifierdos
+              );
+              console.log(resultFilterUpdate);
+              functionArrayUpdateDosage(resultFilterUpdate);
+              functionModalUpdate(true);
             }}
           />
 
@@ -218,8 +219,8 @@ const TableDataDosage = () => {
         scroll={{ x: 1200, y: "max-content" }}
         bordered
       />
-      {/* <ModalModifyBusiness /> */}
-      {/* <ModalModifyUser /> */}
+      <ModalModifyDosage />
+
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );

@@ -1,8 +1,27 @@
-import React, { Fragment, useEffect, useState, useContext } from "react";
+import React, {
+  Fragment,
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+} from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
-import { Modal, Button, Row, Col, Input, Select } from "antd";
+import {
+  Modal,
+  Button,
+  Row,
+  Col,
+  Input,
+  Select,
+  DatePicker,
+  Space,
+  InputNumber,
+} from "antd";
 import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
+//****************************************************************
+//Importamos la libreria de MOMENT
+import moment from "moment";
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -17,11 +36,18 @@ import dosageContext from "../../hook/dosage/dosageContext";
 //Creamos las variables de SELECT
 const { Option } = Select;
 const { TextArea } = Input;
+const { RangePicker } = DatePicker;
 
 // =====================================================
 // INICIO DE CLASE  */}
 // =====================================================
 const ModalModifyDosage = () => {
+  //-----------------------------------------------------------------
+  //Creamos el formato de la variable
+  const dateFormat = "MM/DD/YYYY";
+  //
+  const nombreRef = useRef(null);
+  //
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [dataform, setDataForm] = useState({
@@ -61,19 +87,40 @@ const ModalModifyDosage = () => {
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
   //   const { functionCreateUser, functionReadUser } = useContext(userContext);
-  const { functionCreateDosage } = useContext(dosageContext);
+  const {
+    modalupdatedosage,
+    arrayupdatedosage,
+    functionCreateDosage,
+    functionModalUpdate,
+  } = useContext(dosageContext);
 
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (modalupdatedosage === true) {
+      setIsModalVisible(true);
+    }
+  }, [modalupdatedosage]);
+
+  useEffect(() => {
+    setDataForm({
+      ...dataform,
+      datestartdos: arrayupdatedosage[0].datestartdos,
+      dateenddos: arrayupdatedosage[0].dateenddos,
+      sfcdos: arrayupdatedosage[0].sfcdos,
+      numberauthorizationdos: arrayupdatedosage[0].numberauthorizationdos,
+      numbernotestartdos: arrayupdatedosage[0].numbernotestartdos,
+      dosagedos: arrayupdatedosage[0].dosagedos,
+      legenddos: arrayupdatedosage[0].legenddos,
+      conditiondos: arrayupdatedosage[0].conditiondos,
+    });
+  }, [arrayupdatedosage[0].identifierdos]);
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickDosage = (e) => {
     e.preventDefault();
 
     if (
-      datestartdos.toLowerCase().trim() == "" ||
-      dateenddos.toLowerCase().trim() == "" ||
       numberauthorizationdos.toLowerCase().trim() == "" ||
       dosagedos.toLowerCase().trim() == "" ||
       legenddos.trim() == "" ||
@@ -116,13 +163,8 @@ const ModalModifyDosage = () => {
   //Funcion CERRAR MODAL de ADD COMPATN
   const handleCancel = () => {
     setIsModalVisible(false);
-    resetForm();
-  };
-
-  //Funcion ABRIR el MODAL de ADD COMPANY
-  const openModalUser = (e) => {
-    e.preventDefault();
-    setIsModalVisible(true);
+    functionModalUpdate(false);
+    console.log(moment(nombreRef.current.props.value.i).format("MM/DD/YYYY"));
   };
 
   //Funcion para RESETEAR las entradas del FORMULARIO
@@ -166,10 +208,6 @@ const ModalModifyDosage = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <DatePicker
-              defaultValue={moment(
-                `${moment().subtract(4, "h").format("l")}`,
-                dateFormat
-              )}
               format={dateFormat}
               onChange={(e) =>
                 setDataForm({
@@ -177,6 +215,7 @@ const ModalModifyDosage = () => {
                   dateenddos: moment(e._d).format("MM/DD/YYYY"),
                 })
               }
+              value={moment(datestartdos)}
               style={{ width: "100%" }}
             />
           </Col>
@@ -195,6 +234,8 @@ const ModalModifyDosage = () => {
                   dateenddos: moment(e._d).format("MM/DD/YYYY"),
                 })
               }
+              value={moment(dateenddos)}
+              ref={nombreRef}
             />
           </Col>
         </Row>
@@ -207,14 +248,13 @@ const ModalModifyDosage = () => {
               placeholder="Ingrese el Apellido de Usuario"
               prefix={<UserOutlined />}
               style={{ width: "100%" }}
-              defaultValue={0}
+              defaultValue={parseInt(sfcdos)}
               onChange={(e) => {
                 setDataForm({
                   ...dataform,
                   sfcdos: e,
                 });
               }}
-              value={sfcdos}
             />
           </Col>
         </Row>
@@ -242,14 +282,13 @@ const ModalModifyDosage = () => {
               placeholder="Ingrese la Direccion de la Sucursal"
               prefix={<UserOutlined />}
               style={{ width: "100%" }}
-              defaultValue={0}
+              defaultValue={parseInt(numbernotestartdos)}
               onChange={(e) => {
                 setDataForm({
                   ...dataform,
                   numbernotestartdos: e,
                 });
               }}
-              value={numbernotestartdos}
             />
           </Col>
         </Row>
@@ -301,14 +340,6 @@ const ModalModifyDosage = () => {
 
         {/* ------------------------- ********** ------------------------- */}
       </Modal>
-      {/* ------------------------- ********** ------------------------- */}
-      <Button
-        type="primary"
-        onClick={openModalUser}
-        icon={<PlusCircleOutlined />}
-      >
-        Registrar Dosificacion
-      </Button>
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
