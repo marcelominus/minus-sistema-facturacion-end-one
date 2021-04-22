@@ -42,3 +42,9 @@ export const direction_admin_dosage_create = `${IP_SERVER}/admin-dos/dosage-all-
 export const direction_admin_dosage_read = `${IP_SERVER}/admin-dos/dosage-all-read`;
 export const direction_admin_dosage_update = `${IP_SERVER}/admin-dos/dosage-all-update`;
 export const direction_admin_dosage_delete = `${IP_SERVER}/admin-dos/dosage-all-delete`;
+
+//DIRECTION DOSAGE
+export const direction_admin_measure_create = `${IP_SERVER}/admin-mea/measure-all-create`;
+export const direction_admin_measure_read = `${IP_SERVER}/admin-mea/measure-all-read`;
+export const direction_admin_measure_update = `${IP_SERVER}/admin-mea/measure-all-update`;
+export const direction_admin_measure_delete = `${IP_SERVER}/admin-mea/measure-all-delete`;

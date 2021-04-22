@@ -68,7 +68,7 @@ const SideBar = () => {
             <Link to="/dosage">Dosificacion</Link>
           </Menu.Item>
           <Menu.Item key="6" icon={<DesktopOutlined />}>
-            Productos
+            <Link to='/product'>Productos</Link>
           </Menu.Item>
           <Menu.Item key="7" icon={<DesktopOutlined />}>
             Facturacion

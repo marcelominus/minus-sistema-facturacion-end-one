@@ -134,7 +134,8 @@ const DosageState = (props) => {
     value_5,
     value_6,
     value_7,
-    value_8
+    value_8,
+    value_9
   ) => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -142,22 +143,21 @@ const DosageState = (props) => {
       tokenAuth(token);
     }
     try {
-      let dataTokenCompany = localStorage.getItem("tokencompany");
       let dataTokenBusiness = localStorage.getItem("tokenbusiness");
       const url = direction_admin_dosage_update;
-      const petitionUpdateUser = await clienteAxios.post(url, {
-        identifiercom: dataTokenCompany,
+      const petitionUpdateDosage = await clienteAxios.post(url, {
         identifierbus: dataTokenBusiness,
-        name: value_1,
-        surname: value_2,
-        user: value_3,
-        email: value_4,
-        ci: value_5,
-        password: value_6,
-        rolenew: value_7,
-        identifiernew: value_8,
+        datestartdos: value_1,
+        dateenddos: value_2,
+        sfcdos: value_3,
+        numberauthorizationdos: value_4,
+        numbernotestartdos: value_5,
+        dosagedos: value_6,
+        legenddos: value_7,
+        conditiondos: value_8,
+        identifierdos: value_9,
       });
-      const solutionPetitionUpdate = petitionUpdateUser.data;
+      const solutionPetitionUpdate = petitionUpdateDosage.data;
       if (solutionPetitionUpdate.response == "success") {
         return true;
       } else {
@@ -184,6 +184,29 @@ const DosageState = (props) => {
       payload: valor,
     });
   };
+  //-----------------------------------------------------------------
+  //FUNCION BORRAR COMPANY
+  const functionDeleteDosage = async (valor) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      const url = direction_admin_dosage_delete;
+      const petitionDeleteDosage = await clienteAxios.post(url, {
+        identifiernew: valor,
+      });
+      const solutionPetitionDelete = petitionDeleteDosage.data;
+      if (solutionPetitionDelete.response == "success") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -196,7 +219,9 @@ const DosageState = (props) => {
         functionCreateDosage,
         functionReadDosage,
         functionModalUpdate,
-        functionArrayUpdateDosage
+        functionArrayUpdateDosage,
+        functionUpdateDosage,
+        functionDeleteDosage,
       }}
     >
       {props.children}

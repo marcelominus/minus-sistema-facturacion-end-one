@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Layout } from "antd";
 //Importamos framer motion
 import { motion } from "framer-motion";
@@ -6,32 +6,28 @@ import {
   pageTransitionStart,
   pageVariantsStart,
 } from "../../resource/js/effects";
-//****************************************************************
-//
-import ModalSelectionDate from "../../components/tools/ModalSelectionData";
-import ReturnData from "../../components/tools/ReturnData";
-import TableSelectionData from '../../components/tools/TableSelectionData';
-
 //*******************************************************
 //Importamos los componentes
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
-import ModalAddUser from '../../components/AdminUser/ModalAddUser';
-import TableDataUser from '../../components/AdminUser/TableDataUser';
+//****************************************************************
+//
+import ModalSelectionDate from "../../components/tools/ModalSelectionData";
+import ReturnData from "../../components/tools/ReturnData";
+import TableSelectionData from "../../components/tools/TableSelectionData";
+import ModalAddMeasure from '../../components/AdminMeasure/ModalAddMeasure';
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
-//*******************************************************
-//
 
 // =====================================================
 // INICIO DE CLASE  */}
 // =====================================================
-const AdminUser = (props) => {
-  //================================================================
-  //INICIO DE COMPONENTE
-  //================================================================
+const AdminProduct = (props) => {
+  // =====================================================
+  // INICIO DE COMPONENTE}
+  // =====================================================
   return (
     <Fragment>
       <ReturnData props={props} />
@@ -52,8 +48,7 @@ const AdminUser = (props) => {
             >
               <ModalSelectionDate props={props} />
               <TableSelectionData />
-              <ModalAddUser />
-              <TableDataUser />
+              <ModalAddMeasure />
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}
@@ -65,4 +60,4 @@ const AdminUser = (props) => {
   );
 };
 
-export default AdminUser;
+export default AdminProduct;

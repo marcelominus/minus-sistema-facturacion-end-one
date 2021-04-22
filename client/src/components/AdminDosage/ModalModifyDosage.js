@@ -51,11 +51,11 @@ const ModalModifyDosage = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [dataform, setDataForm] = useState({
-    datestartdos: `${moment().subtract(4, "h").format("MM/DD/YYYY")}`,
+    datestartdos: "",
     dateenddos: "",
-    sfcdos: "10",
+    sfcdos: "",
     numberauthorizationdos: "",
-    numbernotestartdos: "0",
+    numbernotestartdos: "",
     dosagedos: "",
     legenddos: "",
     conditiondos: "",
@@ -91,7 +91,9 @@ const ModalModifyDosage = () => {
     modalupdatedosage,
     arrayupdatedosage,
     functionCreateDosage,
+    functionReadDosage,
     functionModalUpdate,
+    functionUpdateDosage,
   } = useContext(dosageContext);
 
   //-----------------------------------------------------------------
@@ -128,7 +130,7 @@ const ModalModifyDosage = () => {
     ) {
       messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
     } else {
-      functionCreateDosage(
+      functionUpdateDosage(
         datestartdos,
         dateenddos,
         sfcdos,
@@ -136,24 +138,25 @@ const ModalModifyDosage = () => {
         numbernotestartdos,
         dosagedos,
         legenddos,
-        conditiondos
+        conditiondos,
+        arrayupdatedosage[0].identifierdos
       ).then((elem) => {
         if (elem === "duplicate") {
           //Mensage de WARNING
-          messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
+          messageWarning("Entradas REPETIDAS, Revise nuevamente los datos", 2);
         } else if (elem === "fail-create") {
           //Mensaje de ERROR
           messageError("Error, Intente mas Tarde", 2);
         } else {
           //Mensaje de CORRECTO
-          messageSuccess(`Perfecto, Usuario Creado Correctamente ${elem}`, 2);
+          messageSuccess(
+            `Perfecto, Dosificacion Modificada Correctamente ${elem}`,
+            2
+          );
           //Cierrar el MODAL de ADD COMPANY
           setIsModalVisible(false);
-          // //
-          // functionReadBusiness();
-          // functionReadUser();
-          // //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
-          resetForm();
+          functionModalUpdate(false);
+          functionReadDosage();
         }
       });
     }

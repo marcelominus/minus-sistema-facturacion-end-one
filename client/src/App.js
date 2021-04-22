@@ -13,6 +13,7 @@ import AdminInvoice from "./page/admin/AdminInvoice";
 import AdminStart from "./page/admin/AdminStart";
 import AdminUser from "./page/admin/AdminUser";
 import AdminSelection from "./page/admin/AdminSelection";
+import AdminProduct from './page/admin/AdminProduct';
 import Error404 from "./page/error/Error404";
 //****************************************************************
 //
@@ -61,6 +62,8 @@ const App = () => {
           <Route path="/start" exact={true} component={AdminStart} />
           <Route path="/user" exact={true} component={AdminUser} />
           <Route path="/selection" exact={true} component={AdminSelection} />
+          <Route path="/product" exact={true} component={AdminProduct} />
+
           <Route component={Error404} />
         </Switch>
       </AnimatePresence>

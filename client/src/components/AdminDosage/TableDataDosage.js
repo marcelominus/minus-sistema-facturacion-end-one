@@ -45,6 +45,7 @@ const TableDataDosage = () => {
     functionReadDosage,
     functionModalUpdate,
     functionArrayUpdateDosage,
+    functionDeleteDosage,
   } = useContext(dosageContext);
   const { tableselection, functionTableSelection } = useContext(toolContext);
   //-------------------------------------------------------
@@ -85,8 +86,8 @@ const TableDataDosage = () => {
     },
     {
       title: "Empresa",
-      dataIndex: "dayremaindos",
-      key: "dayremaindos",
+      dataIndex: "legenddos",
+      key: "legenddos",
       width: "10%",
     },
     {
@@ -191,14 +192,14 @@ const TableDataDosage = () => {
             size={"default"}
             ghost
             onClick={() => {
-              //   functionDeleteUser(text.identifier).then((e) => {
-              //     if (e === true) {
-              //       messageSuccess("Correcto Elemento Borrado", 2);
-              //       functionReadUser();
-              //     } else {
-              //       messageError("Error, Intente mas Tarde", 2);
-              //     }
-              //   });
+              functionDeleteDosage(text.identifierdos).then((e) => {
+                if (e === true) {
+                  messageSuccess("Correcto Elemento Borrado", 2);
+                  functionReadDosage();
+                } else {
+                  messageError("Error, Intente mas Tarde", 2);
+                }
+              });
             }}
           />
         </Fragment>
