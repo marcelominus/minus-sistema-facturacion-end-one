@@ -15,7 +15,7 @@ exports.createProduct = async (req,res) => {
     const identifier = req.user.identifier;
     const role = req.user.role;
     //VARIABLES DE ENTRADA
-    const {identifierbus, codepro, shortdescriptionpro, longdescriptionpro, unitmeasurepro, pricepro, conditionpro, dateentrypro} = req.body;
+    const {identifierbus, shortdescriptionpro, longdescriptionpro, unitmeasurepro, pricepro } = req.body;
     
     //
     try {
@@ -36,7 +36,6 @@ exports.createProduct = async (req,res) => {
                 where : {
                     identifierbus : identifierbus,
                     [Op.or]: [
-                        {codepro : codepro}, 
                         {shortdescriptionpro : shortdescriptionpro},
                     ]
                 },
@@ -52,13 +51,11 @@ exports.createProduct = async (req,res) => {
                 const createProduct = await AdminProductModel.create({
                     identifierbus : identifierbus,
                     identifierpro : identifierEnd,
-                    codepro : codepro,
                     shortdescriptionpro : shortdescriptionpro,
                     longdescriptionpro : longdescriptionpro,
                     unitmeasurepro : unitmeasurepro,
                     pricepro : pricepro,
-                    conditionpro : conditionpro,
-                    dateentrypro : dateentrypro
+                    
                 });
                 if(createProduct){
                     res.json({ response : 'success'});
@@ -117,7 +114,7 @@ exports.updateProduct = async(req, res)=> {
     const role = req.user.role;
 
     //VARIABLES DE ENTRADA
-    const { identifierpro, codepro, shortdescriptionpro, longdescriptionpro, unitmeasurepro, pricepro, conditionpro, dateentrypro} = req.body;
+    const { identifierpro,  shortdescriptionpro, longdescriptionpro, unitmeasurepro, pricepro} = req.body;
     //
     try {
         //Verifica la existencia del usuario que realiza la peticion
@@ -133,13 +130,11 @@ exports.updateProduct = async(req, res)=> {
             res.json({ response : 'empty'});
         }else{
             const updateProduct  = await AdminProductModel.update({
-                    codepro : codepro,
                     shortdescriptionpro : shortdescriptionpro,
                     longdescriptionpro : longdescriptionpro,
                     unitmeasurepro : unitmeasurepro,
                     pricepro : pricepro,
-                    conditionpro : conditionpro,
-                    dateentrypro : dateentrypro 
+                    
             },{
                 where : {
                     identifierpro : identifierpro

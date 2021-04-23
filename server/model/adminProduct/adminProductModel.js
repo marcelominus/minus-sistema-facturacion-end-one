@@ -24,9 +24,9 @@ const Product = db.define(
         identifierpro: {   
             type : Sequelize.STRING,
         },
-        codepro : {
-            type : Sequelize.STRING,
-        },
+        // codepro : {
+        //     type : Sequelize.STRING,
+        // },
         shortdescriptionpro : {
             type : Sequelize.STRING,
         },
@@ -39,16 +39,16 @@ const Product = db.define(
         pricepro : {
             type : Sequelize.STRING,
         },
-        directionimagepro : {
-            type : Sequelize.STRING,
-            defaultValue : constants.productDefault
-        },
-        conditionpro : {
-            type : Sequelize.STRING,
-        },
-        dateentrypro : {
-            type : Sequelize.STRING,
-        },
+        // directionimagepro : {
+        //     type : Sequelize.STRING,
+        //     defaultValue : constants.productDefault
+        // },
+        // conditionpro : {
+        //     type : Sequelize.STRING,
+        // },
+        // dateentrypro : {
+        //     type : Sequelize.STRING,
+        // },
     }, {
         charset: 'utf8',
         collate: 'utf8_unicode_ci'

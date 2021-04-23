@@ -48,3 +48,11 @@ export const direction_admin_measure_create = `${IP_SERVER}/admin-mea/measure-al
 export const direction_admin_measure_read = `${IP_SERVER}/admin-mea/measure-all-read`;
 export const direction_admin_measure_update = `${IP_SERVER}/admin-mea/measure-all-update`;
 export const direction_admin_measure_delete = `${IP_SERVER}/admin-mea/measure-all-delete`;
+
+//DIRECTION PRODUCT
+export const direction_admin_product_create = `${IP_SERVER}/admin-pro/product-all-create`;
+export const direction_admin_product_read = `${IP_SERVER}/admin-pro/product-all-read`;
+export const direction_admin_product_update = `${IP_SERVER}/admin-pro/product-all-update`;
+export const direction_admin_product_delete = `${IP_SERVER}/admin-pro/product-all-delete`;
+
+
