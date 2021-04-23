@@ -145,7 +145,7 @@ exports.deleteMeasure = async(req, res) => {
     const role = req.user.role;
 
     //VARIABLES DE ENTRADA
-    const {identifierbus, idmeasure} = req.body;
+    const {idmeasure} = req.body;
 
     try {
         //Verifica la existencia del usuario que realiza la peticion
@@ -163,7 +163,6 @@ exports.deleteMeasure = async(req, res) => {
             const deleteMeasure = await AdminMeasureModel.destroy({
                 where : {
                     idmeasure : idmeasure,
-                    identifierbus : identifierbus
                 }
             });
             if(deleteMeasure){

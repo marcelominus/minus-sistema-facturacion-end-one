@@ -167,7 +167,6 @@ const ModalModifyDosage = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
     functionModalUpdate(false);
-    console.log(moment(nombreRef.current.props.value.i).format("MM/DD/YYYY"));
   };
 
   //Funcion para RESETEAR las entradas del FORMULARIO

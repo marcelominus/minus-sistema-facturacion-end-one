@@ -17,6 +17,7 @@ import ModalSelectionDate from "../../components/tools/ModalSelectionData";
 import ReturnData from "../../components/tools/ReturnData";
 import TableSelectionData from "../../components/tools/TableSelectionData";
 import ModalAddMeasure from '../../components/AdminMeasure/ModalAddMeasure';
+import DrawerTopMeasure from '../../components/AdminMeasure/DrawerTopMeasure';
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -48,7 +49,8 @@ const AdminProduct = (props) => {
             >
               <ModalSelectionDate props={props} />
               <TableSelectionData />
-              <ModalAddMeasure />
+              {/* <ModalAddMeasure /> */}
+              <DrawerTopMeasure />
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}

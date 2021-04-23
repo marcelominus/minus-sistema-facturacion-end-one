@@ -7,12 +7,12 @@ import measureReducer from "./measureReducer";
 
 // Importamos los TYPES
 import {
-  DOSAGE_CREATE,
-  DOSAGE_READ,
-  DOSAGE_UPDATE,
-  DOSAGE_MODAL_UPDATE,
-  DOSAGE_ARRAY_UPDATE,
-  DOSAGE_DELETE,
+  MEASURE_CREATE,
+  MEASURE_READ,
+  MEASURE_UPDATE,
+  MEASURE_MODAL_UPDATE,
+  MEASURE_ARRAY_UPDATE,
+  MEASURE_DELETE,
 } from "../../utils/index";
 // Importamos las direcciones de LOGIN
 import {
@@ -27,7 +27,7 @@ import tokenAuth from "../../config/token";
 //================================================================
 //INICIO DE CLASE
 //================================================================
-const DosageState = (props) => {
+const MeasureState = (props) => {
   const initialState = {
     arraymeasure: [], //ARRAY PRINCIPAL CONTENEDOR DE COMPANIAS
     modalupdatemeasure: false,
@@ -39,7 +39,7 @@ const DosageState = (props) => {
       },
     ],
   };
-  const [state, dispatch] = useReducer(measureContext, initialState);
+  const [state, dispatch] = useReducer(measureReducer, initialState);
   //-----------------------------------------------------------------
   //FUNCION PAR APODER ABRIR AUTOMATICAMENTE EL MODAL
   //-----------------------------------------------------------------
@@ -70,7 +70,104 @@ const DosageState = (props) => {
       return false;
     }
   };
+  //******************************************************************************
+  const functionReadMeasure = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      let dataTokenBusiness = localStorage.getItem("tokenbusiness");
+      const url = direction_admin_measure_read;
+      const petitionReadMeasure = await clienteAxios.post(url, {
+        identifierbus: dataTokenBusiness,
+      });
+      const solutionPetitionRead = petitionReadMeasure.data;
+      if (solutionPetitionRead.response == "empty") {
+        dispatch({
+          type: MEASURE_READ,
+          payload: [],
+        });
+        return false;
+      } else {
+        dispatch({
+          type: MEASURE_READ,
+          payload: solutionPetitionRead.data,
+        });
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //-----------------------------------------------------------------
+  //Function de CAMBIO DE BUSINESS
+  const functionUpdateMeasure = async (value_1, value_2, value_3) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      let dataTokenBusiness = localStorage.getItem("tokenbusiness");
+      const url = direction_admin_measure_update;
+      const petitionUpdateMeasure = await clienteAxios.post(url, {
+        identifierbus: dataTokenBusiness,
+        unitmeasure: value_1,
+        descriptionmeasure: value_2,
+        idmeasure: value_3,
+      });
+      const solutionPetitionUpdate = petitionUpdateMeasure.data;
+      if (solutionPetitionUpdate.response == "success") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  //-----------------------------------------------------------------
+  //FUNCION PAR APODER ABRIR AUTOMATICAMENTE EL MODAL
+  const functionModalUpdate = (valor) => {
+    dispatch({
+      type: MEASURE_MODAL_UPDATE,
+      payload: valor,
+    });
+  };
+  //-----------------------------------------------------------------
+  //FUNCION PAR APODER COPIAR EL LINK SELECCIONADO
+  const functionArrayUpdateMeasure = (valor) => {
+    dispatch({
+      type: MEASURE_ARRAY_UPDATE,
+      payload: valor,
+    });
+  };
+  //-----------------------------------------------------------------
+  //FUNCION BORRAR COMPANY
+  const functionDeleteMeasure = async (valor) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      const url = direction_admin_measure_delete;
+      const petitionDeleteMeasure = await clienteAxios.post(url, {
+        idmeasure: valor,
+      });
+      const solutionPetitionDelete = petitionDeleteMeasure.data;
+      if (solutionPetitionDelete.response == "success") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -79,8 +176,13 @@ const DosageState = (props) => {
       value={{
         arraymeasure: state.arraymeasure,
         modalupdatemeasure: state.modalupdatemeasure,
-        arrayupdatemeasure: state.measure,
+        arrayupdatemeasure: state.arrayupdatemeasure,
         functionCreateMeasure,
+        functionReadMeasure,
+        functionUpdateMeasure,
+        functionModalUpdate,
+        functionArrayUpdateMeasure,
+        functionDeleteMeasure,
       }}
     >
       {props.children}
@@ -88,4 +190,4 @@ const DosageState = (props) => {
   );
 };
 
-export default DosageState;
+export default MeasureState;

@@ -31,7 +31,7 @@ export default (state, action) => {
     case MEASURE_ARRAY_UPDATE:
       return {
         ...state,
-        arrayupdatedosage: action.payload,
+        arrayupdatemeasure: action.payload,
       };
     default:
       return state;
