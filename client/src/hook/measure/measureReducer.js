@@ -1,6 +1,7 @@
 import {
   MEASURE_CREATE,
   MEASURE_READ,
+  MEASURE_MODAL,
   MEASURE_MODAL_UPDATE,
   MEASURE_ARRAY_UPDATE,
   MEASURE_UPDATE,
@@ -22,6 +23,11 @@ export default (state, action) => {
       return {
         ...state,
         arraymeasure: action.payload,
+      };
+    case MEASURE_MODAL:
+      return {
+        ...state,
+        modalmeasure: action.payload,
       };
     case MEASURE_MODAL_UPDATE:
       return {

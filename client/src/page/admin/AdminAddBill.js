@@ -7,30 +7,32 @@ import {
   pageVariantsStart,
 } from "../../resource/js/effects";
 //*******************************************************
+//
+
+//*******************************************************
 //Importamos los componentes
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
-//****************************************************************
 //
 import ModalSelectionDate from "../../components/tools/ModalSelectionData";
 import ReturnData from "../../components/tools/ReturnData";
 import TableSelectionData from "../../components/tools/TableSelectionData";
-import ModalAddMeasure from "../../components/AdminMeasure/ModalAddMeasure"; // **** ---- ****
+import TableCurrentDosage from "../../components/AdminDosage/TableCurrentDosage";
+import FormAddBill from "../../components/AdminBill/FormAddBill";
+import ModalAddProductUnique from "../../components/AdminBill/ModalAddProductUnique";
+import TableProductBill from "../../components/AdminBill/TableProductBill";
 import DrawerTopMeasure from "../../components/AdminMeasure/DrawerTopMeasure";
-import ModalAddProduct from "../../components/AdminProduct/ModalAddProduct";
-import TableDataProduct from "../../components/AdminProduct/TableDataProduct";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
+//*******************************************************
+//
 
 // =====================================================
 // INICIO DE CLASE  */}
 // =====================================================
-const AdminProduct = (props) => {
-  // =====================================================
-  // INICIO DE COMPONENTE}
-  // =====================================================
+const AdminAddBill = (props) => {
   return (
     <Fragment>
       <ReturnData props={props} />
@@ -50,14 +52,22 @@ const AdminProduct = (props) => {
               className="container-padding"
             >
               <ModalSelectionDate props={props} />
+              {/* ------------------------- ********** ------------------------- */}
               <TableSelectionData />
-              {/* <ModalAddMeasure /> */}
+              {/* ------------------------- ********** ------------------------- */}
+              <TableCurrentDosage />
+              {/* ------------------------- ********** ------------------------- */}
+              <FormAddBill props={props}/>
+              {/* ------------------------- ********** ------------------------- */}
+              <ModalAddProductUnique />
+              {/* ------------------------- ********** ------------------------- */}
+              <TableProductBill/>
+              {/* ------------------------- ********** ------------------------- */}
               <DrawerTopMeasure />
-              <ModalAddProduct />
-              <TableDataProduct />
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}
+          {/* </motion.div> */}
           <FooterPage />
           {/* ------------------------- ********** ------------------------- */}
         </Layout>
@@ -66,4 +76,4 @@ const AdminProduct = (props) => {
   );
 };
 
-export default AdminProduct;
+export default AdminAddBill;

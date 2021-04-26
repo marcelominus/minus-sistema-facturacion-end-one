@@ -210,3 +210,46 @@ exports.deleteDosage = async(req, res) => {
         res.json({ response : 'fail-server'});
     }
 }
+
+//=================================================================
+//Lectura de la informacion de Login Usuario
+exports.readDosageCurrent = async(req, res) => {
+    // res.json({ uno : req.usuario});
+    const role = req.user.role;
+    const identifier = req.user.identifier;
+
+    //
+    const {identifierbus} = req.body;
+    try {
+        const consultationUser = await LoginModel.findAll({
+            where : {
+                identifier : identifier,
+                role : role
+            },
+            raw : true
+        });
+        if( consultationUser == 0 ){
+            res.json({ response : 'empty'});
+        }else{
+            // LECTURA DE INFORMACION SOLO ALL => ADMIN, USER / (super admin)
+            const consultationDosage  = await AdminDosageModel.findAll({
+                where : {
+                    identifierbus : identifierbus
+                },
+                raw : true,
+                order: [
+                    ['iddosage', 'DESC'],
+                ],
+                limit : 1
+            });
+            if( consultationDosage === 0 ){
+                res.json({ response : 'empty'})
+            }else{
+                res.json({ response : 'success' , data : consultationDosage});
+            }
+            //LECTURA TOTAL DE SOLO USER => ADMIN / (admin)
+        }
+    } catch (error) {
+        res.json({ response : 'fail-server'});
+    }
+}

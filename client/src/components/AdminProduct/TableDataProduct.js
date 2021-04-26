@@ -17,51 +17,60 @@ import {
 //****************************************************************
 //Importamos el HIGT de LETTERS
 import Highlighter from "react-highlight-words";
+//*******************************************************
+//Importamos los Context
+// import userContext from "../../hook/user/userContext";
+import productContext from "../../hook/product/productContext";
+import toolContext from "../../hook/tool/toolContext";
 //****************************************************************
-//Importamos el CONTEXT
-import businessContext from "../../hook/business/businessContext";
-//****************************************************************
-//
 // import ModalViewLogo from "./ModalViewLogo";
-// import ModalModifyCompany from "./ModalModifyCompany";
+// import ModalModifyDosage from "./ModalModifyDosage";
+import ModalModifyProduct from "./ModalModifyProduct";
+//****************************************************************
+//Importamos los Mensajes de MESSAGES
 import { messageError, messageSuccess } from "../../resource/js/messages";
-//-----------------------------------------------------------------
-//
-import ModalModifyBusiness from "./ModalModifyBusiness";
+
 //================================================================
 //INICIO DE CLASE
 //================================================================
-const TableDataBusiness = () => {
+const TableDataProduct = () => {
   //-------------------------------------------------------
   //ZONE USE STATE
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
-  const [directionimg, setDirectionImg] = useState("");
   const searchInput = useRef(null);
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
   const {
-    arraybusiness,
-    functionReadBusiness,
+    arrayproduct,
+    functionReadProduct,
     functionModalUpdate,
-    functionArrayUpdateBusiness,
-    functionDeleteBusiness,
-  } = useContext(businessContext);
+    functionArrayUpdateProduct,
+    functionDeleteProduct,
+    // functionDeleteMeasure,
+  } = useContext(productContext);
+  const { tableselection, functionTableSelection } = useContext(toolContext);
   //-------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
     //Funcion para poder llamar la tabla
-    functionReadBusiness().then((e) => {
-      console.log(arraybusiness);
-    });
+    functionReadProduct();
   }, []);
+  useEffect(() => {
+    let dataTokenCompany = localStorage.getItem("tokencompany");
+    let dataTokenBusiness = localStorage.getItem("tokenbusiness");
+    if (dataTokenCompany !== "" && dataTokenBusiness !== "") {
+      functionReadProduct();
+      functionTableSelection(false);
+    }
+  }, [tableselection]);
 
   //-------------------------------------------------------
   //ZONE DE FUNCTION
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
-    setSearchedColumn("namebus");
+    setSearchedColumn("shortdescriptionpro");
   };
 
   const handleReset = (clearFilters) => {
@@ -74,20 +83,20 @@ const TableDataBusiness = () => {
   const columns = [
     {
       title: "Id",
-      dataIndex: "idbusiness",
-      key: "idbusiness",
+      dataIndex: "idproduct",
+      key: "idproduct",
       width: "5%",
     },
     {
       title: "Empresa",
-      dataIndex: "namecom",
-      key: "namecom",
+      dataIndex: "longdescriptionpro",
+      key: "longdescriptionpro",
       width: "10%",
     },
     {
       title: "Nombre",
-      dataIndex: "namebus",
-      key: "namebus",
+      dataIndex: "shortdescriptionpro",
+      key: "shortdescriptionpro",
       width: "15%",
       filterDropdown: ({
         setSelectedKeys,
@@ -103,13 +112,17 @@ const TableDataBusiness = () => {
             onChange={(e) =>
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
-            onPressEnter={() => handleSearch(selectedKeys, confirm, "namebus")}
+            onPressEnter={() =>
+              handleSearch(selectedKeys, confirm, "shortdescriptionpro")
+            }
             style={{ width: 188, marginBottom: 8, display: "block" }}
           />
           <Space>
             <Button
               type="primary"
-              onClick={() => handleSearch(selectedKeys, confirm, "namebus")}
+              onClick={() =>
+                handleSearch(selectedKeys, confirm, "shortdescriptionpro")
+              }
               icon={<SearchOutlined />}
               size="small"
               style={{ width: 90 }}
@@ -132,8 +145,8 @@ const TableDataBusiness = () => {
         />
       ),
       onFilter: (value, record) =>
-        record["namebus"]
-          ? record["namebus"]
+        record["shortdescriptionpro"]
+          ? record["shortdescriptionpro"]
               .toString()
               .toLowerCase()
               .includes(value.toLowerCase())
@@ -144,7 +157,7 @@ const TableDataBusiness = () => {
         }
       },
       render: (text) =>
-        searchedColumn === "namebus" ? (
+        searchedColumn === "shortdescriptionpro" ? (
           <Highlighter
             highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
             searchWords={[searchText]}
@@ -155,20 +168,6 @@ const TableDataBusiness = () => {
           text
         ),
     },
-    {
-      title: "Encargado",
-      dataIndex: "ofbus",
-      key: "ofbus",
-      width: "8%",
-    },
-
-    {
-      title: "Direccion",
-      dataIndex: "directionbus",
-      key: "directionbus",
-      width: "8%",
-    },
-
     {
       title: "Acciones",
       key: "action",
@@ -181,20 +180,13 @@ const TableDataBusiness = () => {
             size={"default"}
             ghost
             onClick={() => {
-              const resultFilterUpdate = arraybusiness.filter(
-                (e) => e.identifierbus == text.identifierbus
+              const resultFilterUpdate = arrayproduct.filter(
+                (e) => e.idproduct == text.idproduct
               );
-              functionArrayUpdateBusiness(resultFilterUpdate);
+              //   console.log(resultFilterUpdate);
+              functionArrayUpdateProduct(resultFilterUpdate);
               functionModalUpdate(true);
             }}
-            // onClick={() => {
-            //   functionUpdateModal(true);
-            //   const resultFilterUpdate = arraycompany.filter(
-            //     (e) => e.identifiercom == text.identifiercom
-            //   );
-            //   functionLoadIdCompanyUpdate(resultFilterUpdate);
-            //   functionIdCompanyUpdate(text.identifiercom);
-            // }}
           />
 
           <Button
@@ -203,10 +195,10 @@ const TableDataBusiness = () => {
             size={"default"}
             ghost
             onClick={() => {
-              functionDeleteBusiness(text.identifierbus).then((e) => {
+              functionDeleteProduct(text.identifierpro).then((e) => {
                 if (e === true) {
                   messageSuccess("Correcto Elemento Borrado", 2);
-                  functionReadBusiness();
+                  functionReadProduct();
                 } else {
                   messageError("Error, Intente mas Tarde", 2);
                 }
@@ -223,19 +215,17 @@ const TableDataBusiness = () => {
   //================================================================
   return (
     <Fragment>
-      {/* ------------------------- ********** ------------------------- */}
       <Table
         columns={columns}
-        dataSource={arraybusiness}
+        dataSource={arrayproduct}
         sorter={true}
         pagination={{ pageSize: 10, responsive: true }}
         scroll={{ x: 1200, y: "max-content" }}
         bordered
       />
-      <ModalModifyBusiness />
-      {/* ------------------------- ********** ------------------------- */}
+      <ModalModifyProduct />
     </Fragment>
   );
 };
 
-export default TableDataBusiness;
+export default TableDataProduct;

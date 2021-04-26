@@ -1,16 +1,7 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
-import {
-  Modal,
-  Button,
-  Row,
-  Col,
-  Input,
-  Select,
-  Space,
-  InputNumber,
-} from "antd";
+import { Modal, Button, Row, Col, Input, Select, InputNumber } from "antd";
 import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
 //*******************************************************
 //Importamos las funciones de MESSAGES
@@ -19,7 +10,7 @@ import {
   messageWarning,
   messageSuccess,
 } from "../../resource/js/messages";
-//*******************************************************
+//****************************************************************
 //Importamos los CONTEXT
 import productContext from "../../hook/product/productContext";
 import measureContext from "../../hook/measure/measureContext";
@@ -31,7 +22,7 @@ const { TextArea } = Input;
 //================================================================
 //INICIO DE CLASE
 //================================================================
-const ModalAddMeasure = () => {
+const ModalModifyProduct = () => {
   //-----------------------------------------------------------------
   //ZONE USE - STATE
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -48,6 +39,7 @@ const ModalAddMeasure = () => {
     pricepro,
   } = dataform;
   //Carga la informacion de COMPANY
+  //Carga la informacion de COMPANY
   const onChangeAddProduct = (e) => {
     setDataForm({
       ...dataform,
@@ -63,17 +55,33 @@ const ModalAddMeasure = () => {
   };
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
-  const { functionCreateProduct, functionReadProduct } = useContext(
-    productContext
-  );
+  //   const { functionCreateUser, functionReadUser } = useContext(userContext);
+  const {
+    modalupdateproduct,
+    arrayupdateproduct,
+    functionReadProduct,
+    functionModalUpdate,
+    functionUpdateProduct,
+  } = useContext(productContext);
   const { arraymeasure, functionModal, functionReadMeasure } = useContext(
     measureContext
   );
   //-----------------------------------------------------------------
-  //
+  //ZONE USE - EFFECT
   useEffect(() => {
-    functionReadMeasure();
-  }, []);
+    if (modalupdateproduct === true) {
+      setIsModalVisible(true);
+    }
+  }, [modalupdateproduct]);
+  useEffect(() => {
+    setDataForm({
+      ...dataform,
+      shortdescriptionpro: arrayupdateproduct[0].shortdescriptionpro,
+      longdescriptionpro: arrayupdateproduct[0].longdescriptionpro,
+      unitmeasurepro: arrayupdateproduct[0].unitmeasurepro,
+      pricepro: arrayupdateproduct[0].pricepro,
+    });
+  }, [arrayupdateproduct[0].identifierpro]);
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickProduct = (e) => {
@@ -82,62 +90,58 @@ const ModalAddMeasure = () => {
     if (
       shortdescriptionpro.toLowerCase().trim() == "" ||
       longdescriptionpro.toLowerCase().trim() == ""
-      // unitmeasurepro.trim() == ""
     ) {
       messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
     } else {
-      functionCreateProduct(
+      functionUpdateProduct(
         shortdescriptionpro,
         longdescriptionpro,
         unitmeasurepro,
-        pricepro
+        pricepro,
+        arrayupdateproduct[0].identifierpro
       ).then((elem) => {
         if (elem === "duplicate") {
           //Mensage de WARNING
-          messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
+          messageWarning("Entradas REPETIDAS, Revise nuevamente los datos", 2);
         } else if (elem === "fail-create") {
           //Mensaje de ERROR
           messageError("Error, Intente mas Tarde", 2);
         } else {
           //Mensaje de CORRECTO
-          messageSuccess(`Perfecto, Usuario Creado Correctamente ${elem}`, 2);
+          messageSuccess(
+            `Perfecto, Dosificacion Modificada Correctamente ${elem}`,
+            2
+          );
           //Cierrar el MODAL de ADD COMPANY
           setIsModalVisible(false);
-          // //
+          functionModalUpdate(false);
           functionReadProduct();
-          // //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
-          resetForm();
         }
       });
     }
   };
+
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
   //Funcion CERRAR MODAL de ADD COMPATN
+
   const handleCancel = () => {
     setIsModalVisible(false);
-    resetForm();
+    functionModalUpdate(false);
   };
 
   //Funcion ABRIR el MODAL de ADD COMPANY
-  const openModalProduct = (e) => {
+  const openDrawerUser = (e) => {
     e.preventDefault();
     setIsModalVisible(true);
   };
-
   //Funcion para RESETEAR las entradas del FORMULARIO
   const resetForm = () => {
     setDataForm({
-      shortdescriptionpro: "",
-      longdescriptionpro: "",
-      unitmeasurepro: "",
-      pricepro: "",
+      unitmeasure: "",
+      descriptionmeasure: "",
     });
   };
-
-  //================================================================
-  //INICIO DE COMPONENTE
-  //================================================================
   return (
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
@@ -200,7 +204,7 @@ const ModalAddMeasure = () => {
               <Option value="">--Seleccione una Opcion--</Option>
               {arraymeasure.map((e, key) => {
                 return (
-                  <Option value={e.unitmeasure} key={key}>
+                  <Option value={e.idmeasure} key={key}>
                     {e.unitmeasure}
                   </Option>
                 );
@@ -243,16 +247,8 @@ const ModalAddMeasure = () => {
         {/* ------------------------- ********** ------------------------- */}
       </Modal>
       {/* ------------------------- ********** ------------------------- */}
-      <Button
-        type="primary"
-        onClick={openModalProduct}
-        icon={<PlusCircleOutlined />}
-      >
-        Registrar Producto
-      </Button>
-      {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
 };
 
-export default ModalAddMeasure;
+export default ModalModifyProduct;

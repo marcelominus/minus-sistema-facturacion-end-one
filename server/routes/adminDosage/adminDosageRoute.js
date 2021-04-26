@@ -14,6 +14,10 @@ module.exports = () => {
     router.post('/dosage-all-read', auth, adminDosageController.readDosage);
     router.post('/dosage-all-update', auth, adminDosageController.updateDosage);
     router.post('/dosage-all-delete', auth, adminDosageController.deleteDosage);
+    //-----------------------------------------------------------------
+    //DOSAGE UNIQUE
+    router.post('/dosage-all-read-current', auth, adminDosageController.readDosageCurrent);
+
     //
     return router;
 }

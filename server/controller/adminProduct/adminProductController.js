@@ -115,6 +115,7 @@ exports.updateProduct = async(req, res)=> {
 
     //VARIABLES DE ENTRADA
     const { identifierpro,  shortdescriptionpro, longdescriptionpro, unitmeasurepro, pricepro} = req.body;
+    console.log(req.body)
     //
     try {
         //Verifica la existencia del usuario que realiza la peticion
@@ -147,6 +148,7 @@ exports.updateProduct = async(req, res)=> {
             }
         }
     } catch (error) {
+        console.log(error);
         res.json({ response : 'fail-server'});
     }
 }

@@ -71,7 +71,7 @@ const SideBar = () => {
             <Link to='/product'>Productos</Link>
           </Menu.Item>
           <Menu.Item key="7" icon={<DesktopOutlined />}>
-            Facturacion
+            <Link to='/bill'>Facturacion</Link>
           </Menu.Item>
           <Menu.Item key="8" icon={<DesktopOutlined />}>
             <Link to="/selection">Seleccionar Area</Link>

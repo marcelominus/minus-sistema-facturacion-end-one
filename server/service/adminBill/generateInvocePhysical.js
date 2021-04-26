@@ -5,20 +5,22 @@ const generateInvoice = (valor1, valor2, valor3, valor4, valor5, valor6, valor7,
     
     let htmlCode = '';
     let htmlCodeEnd = '';
+    let key = 1;
     const datosProducts = valor19.split('|');
+    console.log(datosProducts);
     datosProducts.map( e => {
         let date = e.split('&')
         htmlCode = `
             <tr>
-              <td>${date[0]}</td>
-              <td>${date[1]}</td>
+              <td>${key}</td>
+              <td>${date[0]} (${date[1]})</td>
               <td>${date[2]}</td>
               <td>${date[3]}</td>
               <td>${date[4]}</td>
             </tr>
         `;
         htmlCodeEnd = htmlCodeEnd + htmlCode;
-        
+        key = key + 1;
     })
     
     // valor19.map( e => {
@@ -244,7 +246,7 @@ const generateInvoice = (valor1, valor2, valor3, valor4, valor5, valor6, valor7,
                                     <div><strong>NUMERO DE FACTURA N°: </strong>${valor13}</div>
                                     <div><strong>NUMERO AUTORIZACION N°: </strong>${valor14}</div>
                                 </div><br>
-                                <div><strong>COPIA</strong></div><br>
+                                <div><strong>ORIGINAL</strong></div><br>
                                 <div class="text-activity-economic"><strong>ACTIVIDAD ECONOMICA</strong></div><br>
                                 <div class="text-activity-economic-text">${valor15}</div>
                         </div>
@@ -267,9 +269,9 @@ const generateInvoice = (valor1, valor2, valor3, valor4, valor5, valor6, valor7,
                         <div class="table-invoice">
                             <table>
                                 <tr class="subtitulo-table">
-                                  <th class="table-1">CODIGO</th>
-                                  <th class="table-2">CANTIDAD</th>
+                                  <th class="table-1">Nro</th>
                                   <th class="table-3">DESCRIPCION</th>
+                                  <th class="table-2">CANTIDAD</th>
                                   <th class="table-4">P/UNIT</th>
                                   <th class="table-5">TOTAL</th>
                                 </tr>

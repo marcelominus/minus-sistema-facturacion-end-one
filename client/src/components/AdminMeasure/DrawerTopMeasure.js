@@ -45,13 +45,17 @@ const DrawerTopMeasure = () => {
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
   //   const { functionCreateUser, functionReadUser } = useContext(userContext);
-  const { functionCreateMeasure, functionReadMeasure } = useContext(
+  const {modalmeasure, functionCreateMeasure, functionReadMeasure, functionModal } = useContext(
     measureContext
   );
 
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if(modalmeasure === true){
+      setIsDrawerVisible(true);
+    }
+  }, [modalmeasure]);
 
   //-----------------------------------------------------------------
   //Funciones de usuario
@@ -90,6 +94,7 @@ const DrawerTopMeasure = () => {
 
   const handleCancel = () => {
     setIsDrawerVisible(false);
+    functionModal(false);
   };
 
   //Funcion ABRIR el MODAL de ADD COMPANY
@@ -110,10 +115,9 @@ const DrawerTopMeasure = () => {
   //================================================================
   return (
     <Fragment>
-      <p>DESDE EL DRAWER TOP MEASRE</p>
-      <Button type="primary" onClick={openDrawerUser}>
+      {/* <Button type="primary" onClick={openDrawerUser}>
         Open
-      </Button>
+      </Button> */}
       <Drawer
         title="Basic Drawer"
         placement={"top"}
@@ -125,7 +129,7 @@ const DrawerTopMeasure = () => {
       >
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Numero de Autorizacion de Dosificacion
+            Unidad de Medida
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
@@ -139,7 +143,7 @@ const DrawerTopMeasure = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Numero de Autorizacion de Dosificacion
+           Descripcion de Medida
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input

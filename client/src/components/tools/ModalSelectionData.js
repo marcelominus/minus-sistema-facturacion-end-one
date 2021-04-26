@@ -15,6 +15,7 @@ import {
 import companyContext from "../../hook/company/companyContext";
 import businessContext from "../../hook/business/businessContext";
 import toolsContext from "../../hook/tool/toolContext";
+import dosageContext from '../../hook/dosage/dosageContext';
 //****************************************************************
 //Creamos las variables de SELECT
 const { Option } = Select;
@@ -53,6 +54,7 @@ const ModalSelectionData = ({ props }) => {
     functionSelectionInformationCompany,
     functionSelectionInformationBusiness,
   } = useContext(toolsContext);
+  const {dosageselection, functionTableSelectionDosage} = useContext(dosageContext);
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
   useEffect(() => {
@@ -77,6 +79,7 @@ const ModalSelectionData = ({ props }) => {
     functionSelectionInformationBusiness(identifierbus);
     setIsModalVisible(false);
     functionTableSelection(true);
+    functionTableSelectionDosage(true);
   };
 
   //Funcion CERRAR MODAL de ADD COMPANY

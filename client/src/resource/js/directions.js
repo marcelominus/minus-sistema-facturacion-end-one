@@ -42,7 +42,7 @@ export const direction_admin_dosage_create = `${IP_SERVER}/admin-dos/dosage-all-
 export const direction_admin_dosage_read = `${IP_SERVER}/admin-dos/dosage-all-read`;
 export const direction_admin_dosage_update = `${IP_SERVER}/admin-dos/dosage-all-update`;
 export const direction_admin_dosage_delete = `${IP_SERVER}/admin-dos/dosage-all-delete`;
-
+export const direction_admin_dosage_read_current = `${IP_SERVER}/admin-dos/dosage-all-read-current`;
 //DIRECTION DOSAGE
 export const direction_admin_measure_create = `${IP_SERVER}/admin-mea/measure-all-create`;
 export const direction_admin_measure_read = `${IP_SERVER}/admin-mea/measure-all-read`;
@@ -55,4 +55,5 @@ export const direction_admin_product_read = `${IP_SERVER}/admin-pro/product-all-
 export const direction_admin_product_update = `${IP_SERVER}/admin-pro/product-all-update`;
 export const direction_admin_product_delete = `${IP_SERVER}/admin-pro/product-all-delete`;
 
-
+//DIRECTION BILL
+export const direction_admin_bill_create = `${IP_SERVER}/admin-bill/bill-all-create`;

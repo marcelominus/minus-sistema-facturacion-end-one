@@ -14,6 +14,8 @@ import AdminStart from "./page/admin/AdminStart";
 import AdminUser from "./page/admin/AdminUser";
 import AdminSelection from "./page/admin/AdminSelection";
 import AdminProduct from './page/admin/AdminProduct';
+import AdminBill from './page/admin/AdminBill';
+import AdminAddBill from './page/admin/AdminAddBill';
 import Error404 from "./page/error/Error404";
 //****************************************************************
 //
@@ -63,7 +65,8 @@ const App = () => {
           <Route path="/user" exact={true} component={AdminUser} />
           <Route path="/selection" exact={true} component={AdminSelection} />
           <Route path="/product" exact={true} component={AdminProduct} />
-
+          <Route path="/bill" exact={true} component={AdminBill} />
+          <Route path="/bill-add" exact={true} component={AdminAddBill} />
           <Route component={Error404} />
         </Switch>
       </AnimatePresence>

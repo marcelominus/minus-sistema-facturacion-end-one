@@ -44,12 +44,7 @@ const AdminStart = () => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit
-                maxime ut beatae repudiandae! Quae et laudantium saepe est,
-                excepturi, blanditiis quos recusandae id, cum at sunt sit
-                corrupti omnis facilis.
-              </p>
+              <h1>Bienvenido al sistema de facturacion</h1>
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}

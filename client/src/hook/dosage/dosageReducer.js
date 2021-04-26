@@ -5,6 +5,8 @@ import {
   DOSAGE_ARRAY_UPDATE,
   DOSAGE_UPDATE,
   DOSAGE_DELETE,
+  DOSAGE_READ_CURRENT,
+  DOSAGE_SELECTION,
 } from "../../utils/index";
 
 //Zona de SWITCH
@@ -32,6 +34,16 @@ export default (state, action) => {
       return {
         ...state,
         arrayupdatedosage: action.payload,
+      };
+    case DOSAGE_READ_CURRENT:
+      return {
+        ...state,
+        arraydosagecurrent: action.payload,
+      };
+    case DOSAGE_SELECTION:
+      return {
+        ...state,
+        dosageselection: action.payload,
       };
     default:
       return state;

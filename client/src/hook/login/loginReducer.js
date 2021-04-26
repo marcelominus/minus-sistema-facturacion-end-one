@@ -8,6 +8,7 @@ export default (state, action) => {
       localStorage.setItem("token", action.payload);
       localStorage.setItem("tokencompany", "");
       localStorage.setItem("tokenbusiness", "");
+      localStorage.setItem("tokendosage", "");
       localStorage.setItem("datauser", JSON.stringify([]));
 
       // localStorage.setItem('datauser', "")

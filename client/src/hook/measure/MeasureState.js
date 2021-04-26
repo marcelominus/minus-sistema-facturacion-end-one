@@ -10,6 +10,7 @@ import {
   MEASURE_CREATE,
   MEASURE_READ,
   MEASURE_UPDATE,
+  MEASURE_MODAL,
   MEASURE_MODAL_UPDATE,
   MEASURE_ARRAY_UPDATE,
   MEASURE_DELETE,
@@ -31,6 +32,7 @@ const MeasureState = (props) => {
   const initialState = {
     arraymeasure: [], //ARRAY PRINCIPAL CONTENEDOR DE COMPANIAS
     modalupdatemeasure: false,
+    modalmeasure: false,
     arrayupdatemeasure: [
       {
         identifierbus: "",
@@ -128,6 +130,14 @@ const MeasureState = (props) => {
       console.log(error);
     }
   };
+  //-----------------------------------------------------------------
+  //
+  const functionModal = (valor) => {
+    dispatch({
+      type: MEASURE_MODAL,
+      payload: valor,
+    });
+  };
 
   //-----------------------------------------------------------------
   //FUNCION PAR APODER ABRIR AUTOMATICAMENTE EL MODAL
@@ -137,6 +147,7 @@ const MeasureState = (props) => {
       payload: valor,
     });
   };
+
   //-----------------------------------------------------------------
   //FUNCION PAR APODER COPIAR EL LINK SELECCIONADO
   const functionArrayUpdateMeasure = (valor) => {
@@ -175,11 +186,13 @@ const MeasureState = (props) => {
     <measureContext.Provider
       value={{
         arraymeasure: state.arraymeasure,
+        modalmeasure: state.modalmeasure,
         modalupdatemeasure: state.modalupdatemeasure,
         arrayupdatemeasure: state.arrayupdatemeasure,
         functionCreateMeasure,
         functionReadMeasure,
         functionUpdateMeasure,
+        functionModal,
         functionModalUpdate,
         functionArrayUpdateMeasure,
         functionDeleteMeasure,

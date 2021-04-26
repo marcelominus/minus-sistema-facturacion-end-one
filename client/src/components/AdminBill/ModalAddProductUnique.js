@@ -1,17 +1,9 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
-import {
-  Modal,
-  Button,
-  Row,
-  Col,
-  Input,
-  Select,
-  Space,
-  InputNumber,
-} from "antd";
+import { Modal, Button, Row, Col, Input, InputNumber, Select } from "antd";
 import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
+
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -19,9 +11,10 @@ import {
   messageWarning,
   messageSuccess,
 } from "../../resource/js/messages";
-//*******************************************************
+
+//****************************************************************
 //Importamos los CONTEXT
-import productContext from "../../hook/product/productContext";
+import billContext from "../../hook/bill/billContext";
 import measureContext from "../../hook/measure/measureContext";
 //****************************************************************
 //Creamos las variables de SELECT
@@ -31,24 +24,19 @@ const { TextArea } = Input;
 //================================================================
 //INICIO DE CLASE
 //================================================================
-const ModalAddMeasure = () => {
+const ModalAddProductUnique = () => {
   //-----------------------------------------------------------------
-  //ZONE USE - STATE
+  //ZONE USE STATE
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [dataform, setDataForm] = useState({
-    shortdescriptionpro: "",
-    longdescriptionpro: "",
-    unitmeasurepro: "",
-    pricepro: "0",
+    shortdescription: "",
+    unitmeasure: "",
+    amount: "",
+    price: "",
   });
-  const {
-    shortdescriptionpro,
-    longdescriptionpro,
-    unitmeasurepro,
-    pricepro,
-  } = dataform;
+  const { shortdescription, unitmeasure, amount, price } = dataform;
   //Carga la informacion de COMPANY
-  const onChangeAddProduct = (e) => {
+  const onChangeAddProductUnique = (e) => {
     setDataForm({
       ...dataform,
       [e.target.name]: e.target.value,
@@ -58,80 +46,74 @@ const ModalAddMeasure = () => {
   const onChangeAddMeasure = (e) => {
     setDataForm({
       ...dataform,
-      unitmeasurepro: e,
+      unitmeasure: e,
     });
   };
-  //-------------------------------------------------------
-  //ZONE USE - CONTEXT
-  const { functionCreateProduct, functionReadProduct } = useContext(
-    productContext
-  );
+  //-----------------------------------------------------------------
+  //ZONE USE CONTEXT
+  const {
+    modalbillunique,
+    functionModalBillUnique,
+    functionArrayProductBill,
+  } = useContext(billContext);
   const { arraymeasure, functionModal, functionReadMeasure } = useContext(
     measureContext
   );
   //-----------------------------------------------------------------
-  //
+  //ZONE USE EFFECT
   useEffect(() => {
     functionReadMeasure();
   }, []);
+
+  useEffect(() => {
+    if (modalbillunique === true) {
+      setIsModalVisible(true);
+    }
+  }, [modalbillunique]);
+
   //-----------------------------------------------------------------
   //Funciones de usuario
-  const onClickProduct = (e) => {
+  const onClickBill = (e) => {
     e.preventDefault();
 
     if (
-      shortdescriptionpro.toLowerCase().trim() == "" ||
-      longdescriptionpro.toLowerCase().trim() == ""
-      // unitmeasurepro.trim() == ""
+      shortdescription.toLowerCase().trim() == "" ||
+      amount === "" ||
+      price === "" ||
+      amount === null ||
+      price === null
     ) {
       messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
     } else {
-      functionCreateProduct(
-        shortdescriptionpro,
-        longdescriptionpro,
-        unitmeasurepro,
-        pricepro
-      ).then((elem) => {
-        if (elem === "duplicate") {
-          //Mensage de WARNING
-          messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
-        } else if (elem === "fail-create") {
-          //Mensaje de ERROR
-          messageError("Error, Intente mas Tarde", 2);
-        } else {
-          //Mensaje de CORRECTO
-          messageSuccess(`Perfecto, Usuario Creado Correctamente ${elem}`, 2);
-          //Cierrar el MODAL de ADD COMPANY
-          setIsModalVisible(false);
-          // //
-          functionReadProduct();
-          // //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
-          resetForm();
-        }
-      });
+      messageSuccess("Correcto, Datos Correctos");
+      let subtotal = 0;
+
+      subtotal = parseInt(dataform.price) * parseInt(dataform.amount);
+      dataform.subtotal = subtotal;
+
+      functionArrayProductBill(dataform);
+      setIsModalVisible(false);
+      functionModalBillUnique(false);
+      resetForm();
     }
   };
+
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
   //Funcion CERRAR MODAL de ADD COMPATN
   const handleCancel = () => {
     setIsModalVisible(false);
+    functionModalBillUnique(false);
     resetForm();
-  };
-
-  //Funcion ABRIR el MODAL de ADD COMPANY
-  const openModalProduct = (e) => {
-    e.preventDefault();
-    setIsModalVisible(true);
   };
 
   //Funcion para RESETEAR las entradas del FORMULARIO
   const resetForm = () => {
     setDataForm({
-      shortdescriptionpro: "",
-      longdescriptionpro: "",
-      unitmeasurepro: "",
-      pricepro: "",
+      shortdescription: "",
+      amount: "",
+      price: "",
+      unitmeasure: "",
     });
   };
 
@@ -147,8 +129,8 @@ const ModalAddMeasure = () => {
         width={800}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
-          <Button key="send" type="primary" onClick={onClickProduct}>
-            Enviar
+          <Button key="send" type="primary" onClick={onClickBill}>
+            Ok
           </Button>,
           //BUTTON DE CANCELAR Y CERRAR MODAL
           <Button key="cancel" type="primary" onClick={handleCancel}>
@@ -157,35 +139,21 @@ const ModalAddMeasure = () => {
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Titulo Producto
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="Ingrese el nombre de Usuario"
-              prefix={<UserOutlined />}
-              name="shortdescriptionpro"
-              onChange={onChangeAddProduct}
-              value={shortdescriptionpro}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Descripcion Producto
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="Ingrese el Apellido de Usuario"
-              prefix={<UserOutlined />}
-              name="longdescriptionpro"
-              onChange={onChangeAddProduct}
-              value={longdescriptionpro}
-            />
-          </Col>
-        </Row>
 
+        <Row>
+          <Col span={12} style={{ background: "transparent" }}>
+            Nombre de Producto
+          </Col>
+          <Col span={12} style={{ background: "blue" }}>
+            <Input
+              placeholder="Ingrese el nombre de Sucursal"
+              prefix={<UserOutlined />}
+              name="shortdescription"
+              onChange={onChangeAddProductUnique}
+              value={shortdescription}
+            />
+          </Col>
+        </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
             Selecciones la Unidad
@@ -195,7 +163,7 @@ const ModalAddMeasure = () => {
               defaultValue=""
               onChange={onChangeAddMeasure}
               style={{ width: "100%" }}
-              value={unitmeasurepro}
+              value={unitmeasure}
             >
               <Option value="">--Seleccione una Opcion--</Option>
               {arraymeasure.map((e, key) => {
@@ -221,6 +189,26 @@ const ModalAddMeasure = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
+            Cantidad del Producto
+          </Col>
+          <Col span={12} style={{ background: "blue" }}>
+            <InputNumber
+              placeholder="Ingrese la Direccion de la Sucursal"
+              prefix={<UserOutlined />}
+              style={{ width: "100%" }}
+              defaultValue={0}
+              onChange={(e) => {
+                setDataForm({
+                  ...dataform,
+                  amount: e,
+                });
+              }}
+              value={amount}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12} style={{ background: "transparent" }}>
             Precio del Producto
           </Col>
           <Col span={12} style={{ background: "blue" }}>
@@ -232,27 +220,18 @@ const ModalAddMeasure = () => {
               onChange={(e) => {
                 setDataForm({
                   ...dataform,
-                  pricepro: e,
+                  price: e,
                 });
               }}
-              value={pricepro}
+              value={price}
             />
           </Col>
         </Row>
-
         {/* ------------------------- ********** ------------------------- */}
       </Modal>
-      {/* ------------------------- ********** ------------------------- */}
-      <Button
-        type="primary"
-        onClick={openModalProduct}
-        icon={<PlusCircleOutlined />}
-      >
-        Registrar Producto
-      </Button>
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );
 };
 
-export default ModalAddMeasure;
+export default ModalAddProductUnique;

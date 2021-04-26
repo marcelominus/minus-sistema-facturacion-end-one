@@ -7,30 +7,29 @@ import {
   pageVariantsStart,
 } from "../../resource/js/effects";
 //*******************************************************
+//
+
+//*******************************************************
 //Importamos los componentes
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
-//****************************************************************
 //
 import ModalSelectionDate from "../../components/tools/ModalSelectionData";
 import ReturnData from "../../components/tools/ReturnData";
 import TableSelectionData from "../../components/tools/TableSelectionData";
-import ModalAddMeasure from "../../components/AdminMeasure/ModalAddMeasure"; // **** ---- ****
-import DrawerTopMeasure from "../../components/AdminMeasure/DrawerTopMeasure";
-import ModalAddProduct from "../../components/AdminProduct/ModalAddProduct";
-import TableDataProduct from "../../components/AdminProduct/TableDataProduct";
+import ButtonAddBill from "../../components/AdminBill/ButtonAddBill";
+import TableCurrentDosage from "../../components/AdminDosage/TableCurrentDosage";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
+//*******************************************************
+//
 
 // =====================================================
 // INICIO DE CLASE  */}
 // =====================================================
-const AdminProduct = (props) => {
-  // =====================================================
-  // INICIO DE COMPONENTE}
-  // =====================================================
+const AdminBill = (props) => {
   return (
     <Fragment>
       <ReturnData props={props} />
@@ -51,13 +50,15 @@ const AdminProduct = (props) => {
             >
               <ModalSelectionDate props={props} />
               <TableSelectionData />
-              {/* <ModalAddMeasure /> */}
-              <DrawerTopMeasure />
-              <ModalAddProduct />
-              <TableDataProduct />
+              {/* ------------------------- ********** ------------------------- */}
+              <TableCurrentDosage />
+              {/* ------------------------- ********** ------------------------- */}
+              <ButtonAddBill props={props} />
+              {/* ------------------------- ********** ------------------------- */}
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}
+          {/* </motion.div> */}
           <FooterPage />
           {/* ------------------------- ********** ------------------------- */}
         </Layout>
@@ -66,4 +67,4 @@ const AdminProduct = (props) => {
   );
 };
 
-export default AdminProduct;
+export default AdminBill;
