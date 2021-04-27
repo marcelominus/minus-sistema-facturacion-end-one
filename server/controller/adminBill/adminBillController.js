@@ -132,7 +132,8 @@ exports.createBill = async (req,res) => {
             //Convertimos las imagenes en BASE 64 para poder imprimirlo en el PDF
             const nameImageLogo = consultationDataCompany[0].directionimgcom.split('/');
             const imageAsBase64Company =await fs.readFileSync(`./public/img/company/${nameImageLogo[6]}`, 'base64');
-            
+            const imageAsBase64CompanyEnd = `data:image/png;base64,${imageAsBase64Company}`;
+
             if( consultationDataCompany.length == 0  || consultationDataBusiness.length == 0 ){
                 res.json({ response : 'empty'})
             }else{
@@ -161,15 +162,36 @@ exports.createBill = async (req,res) => {
                 const legenddos = consultationDataDosage[0].legenddos;
 
                 const content = generateInvoceNew.generateInvoice(imageAsBase64Company, imageAsBase64Qr, namecom, directioncom, placecom, citycom, telephonecom, namebus, directionbus, placebus, citybus, nitcom, invoiceNumber, authorizationNumber,  activityeconomic, datepresentbill, reasonbill, nitbill, productsEncodedEnd, amountTransaction, numberString, codeGenerate, dateenddos, identifier, legenddos);
-
-                pdf.create(content, options).toFile(`./public/pdf/${identifierBillEnd}.pdf`, function(err, res) {
-                    if (err){
-                        console.log(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
-                res.json({ response : 'success' , data : `${identifierBillEnd}.pdf`});
+                console.log(imageAsBase64CompanyEnd);
+                const responsedata = { 
+                    imagecompany : `http://localhost:4001/state/img/company/${nameImageLogo[6]}`, 
+                    imageqr : imageAsBase64Qr,
+                    namecom : namecom,
+                    directioncom : directioncom,
+                    placecom : placecom,
+                    citycom : citycom,
+                    telephonecom : telephonecom,
+                    namebus : namebus,
+                    directionbus : directionbus,
+                    placebus : placebus,
+                    citybus : citybus,
+                    nitcom :nitcom,
+                    invoicenumber : invoiceNumber,
+                    authorizationNumber : authorizationNumber,
+                    activityeconomic : activityeconomic,
+                    datepresentbill : datepresentbill,
+                    reasonbill : reasonbill,
+                    nitbill : nitbill,
+                    productsencoded : productsEncodedEnd,
+                    amounttransaction : amountTransaction,
+                    numberstring : numberString,
+                    codegenerate : codeGenerate,
+                    dateenddos : dateenddos,
+                    identifier : identifier,
+                    legenddos : legenddos
+                }
+                
+                res.json({ response : 'success' , data : responsedata});
 
             }
         

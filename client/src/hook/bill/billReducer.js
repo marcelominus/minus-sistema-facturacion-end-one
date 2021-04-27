@@ -3,6 +3,8 @@ import {
   BILL_ARRAY_PRODUCT,
   BILL_TOTAL_PRODUCT,
   BILL_ARRAY_RESET,
+  BILL_MODAL_SELECTION,
+  BILL_ARRAY_BILL_PRINT,
 } from "../../utils/index";
 
 //Zona de SWITCH
@@ -29,6 +31,16 @@ export default (state, action) => {
       return {
         ...state,
         totalproduct: action.payload,
+      };
+    case BILL_MODAL_SELECTION:
+      return {
+        ...state,
+        modalbillselection: action.payload,
+      };
+    case BILL_ARRAY_BILL_PRINT:
+      return {
+        ...state,
+        arraybillprint: action.payload,
       };
     default:
       return state;

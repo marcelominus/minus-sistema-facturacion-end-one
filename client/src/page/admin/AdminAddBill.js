@@ -23,6 +23,7 @@ import FormAddBill from "../../components/AdminBill/FormAddBill";
 import ModalAddProductUnique from "../../components/AdminBill/ModalAddProductUnique";
 import TableProductBill from "../../components/AdminBill/TableProductBill";
 import DrawerTopMeasure from "../../components/AdminMeasure/DrawerTopMeasure";
+import ModalCopyOriginal from "../../components/AdminBill/ModalCopyOriginal";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -57,11 +58,13 @@ const AdminAddBill = (props) => {
               {/* ------------------------- ********** ------------------------- */}
               <TableCurrentDosage />
               {/* ------------------------- ********** ------------------------- */}
-              <FormAddBill props={props}/>
+              <FormAddBill props={props} />
+              {/* --------------------------------------------------  */}
+              <ModalCopyOriginal />
               {/* ------------------------- ********** ------------------------- */}
               <ModalAddProductUnique />
               {/* ------------------------- ********** ------------------------- */}
-              <TableProductBill/>
+              <TableProductBill />
               {/* ------------------------- ********** ------------------------- */}
               <DrawerTopMeasure />
             </motion.div>

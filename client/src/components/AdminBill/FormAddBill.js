@@ -73,6 +73,8 @@ const FormAddBill = ({ props }) => {
     functionModalBillUnique,
     functionCreateBill,
     functionArrayProductBillReset,
+    functionModalBillSelection,
+    functionArrayBillPrint,
   } = useContext(billContext);
 
   //-----------------------------------------------------------------
@@ -102,16 +104,19 @@ const FormAddBill = ({ props }) => {
       } else {
         //Mensaje de CORRECTO
         messageSuccess(`Perfecto, Usuario Creado Correctamente `, 2);
+
+        functionArrayBillPrint(elem);
+        functionModalBillSelection(true);
         //Cierrar el MODAL de ADD COMPANY
         // setIsModalVisible(false);
         // // //
         // functionReadDosage();
         // // //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
-        resetForm();
-        setTimeout(() => {
-          window.open(`http://localhost:4001/state/pdf/${elem}`, "Data");
-          props.history.push("/bill");
-        }, 2000);
+        // resetForm();
+        // setTimeout(() => {
+        //   window.open(`http://localhost:4001/state/pdf/${elem}`, "Data");
+        //   props.history.push("/bill");
+        // }, 2000);
       }
     });
   };
