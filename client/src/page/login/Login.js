@@ -31,7 +31,10 @@ import logincontext from "../../hook/login/loginContext";
 //*******************************************************
 //
 import Loading from "../../components/tools/Loading";
+//
 
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import Movie from "./Movie";
 //================================================================
 //INICIO DE CLASE
 //================================================================
@@ -160,6 +163,19 @@ const Login = (props) => {
                   INGRESAR
                 </Button>
                 <hr />
+                <PDFDownloadLink
+                  document={<Movie />}
+                  fileName="movielist.pdf"
+                  style={{
+                    textDecoration: "none",
+                    padding: "10px",
+                    color: "#4a4a4a",
+                    backgroundColor: "#f2f2f2",
+                    border: "1px solid #4a4a4a",
+                  }}
+                >
+                  {({ blob, url, loading, error }) => console.log(url)}
+                </PDFDownloadLink>
                 {/* --------------------------------------------------  */}
               </div>
             </Col>
