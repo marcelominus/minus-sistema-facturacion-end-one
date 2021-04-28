@@ -53,8 +53,11 @@ const ModalAddProductUnique = () => {
   //ZONE USE CONTEXT
   const {
     modalbillunique,
+    arrayproductselection,
     functionModalBillUnique,
     functionArrayProductBill,
+    functionOpenDrawerTop,
+    
   } = useContext(billContext);
   const { arraymeasure, functionModal, functionReadMeasure } = useContext(
     measureContext
@@ -70,7 +73,15 @@ const ModalAddProductUnique = () => {
       setIsModalVisible(true);
     }
   }, [modalbillunique]);
-
+  useEffect(() => {
+    setDataForm({
+      ...dataform,
+      shortdescription : arrayproductselection[0].shortdescriptionpro,
+      unitmeasure : arrayproductselection[0].unitmeasurepro,
+      amount : arrayproductselection[0].identifierpro,
+      price : arrayproductselection[0].pricepro,
+    });
+  }, [arrayproductselection[0].identifierpro])
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickBill = (e) => {
@@ -105,6 +116,11 @@ const ModalAddProductUnique = () => {
     setIsModalVisible(false);
     functionModalBillUnique(false);
     resetForm();
+  };
+
+  //Funcion para poder ABRIR EL DRAWER TOP
+  const onClickOpenDrawer = () => {
+    functionOpenDrawerTop(true);
   };
 
   //Funcion para RESETEAR las entradas del FORMULARIO
@@ -144,7 +160,7 @@ const ModalAddProductUnique = () => {
           <Col span={12} style={{ background: "transparent" }}>
             Nombre de Producto
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={10} style={{ background: "blue" }}>
             <Input
               placeholder="Ingrese el nombre de Sucursal"
               prefix={<UserOutlined />}
@@ -152,6 +168,16 @@ const ModalAddProductUnique = () => {
               onChange={onChangeAddProductUnique}
               value={shortdescription}
             />
+          </Col>
+          <Col span={2}>
+            <Button
+              type="primary"
+              onClick={onClickOpenDrawer}
+              icon={<PlusCircleOutlined />}
+              block
+            >
+              B
+            </Button>
           </Col>
         </Row>
         <Row>

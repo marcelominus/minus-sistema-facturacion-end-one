@@ -56,6 +56,7 @@ const TableDataProduct = () => {
     //Funcion para poder llamar la tabla
     functionReadProduct();
   }, []);
+  
   useEffect(() => {
     let dataTokenCompany = localStorage.getItem("tokencompany");
     let dataTokenBusiness = localStorage.getItem("tokenbusiness");

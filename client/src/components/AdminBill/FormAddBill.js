@@ -229,13 +229,7 @@ const FormAddBill = ({ props }) => {
         >
           Nuevo Producto
         </Button>
-        <Button
-          type="primary"
-          icon={<PlusCircleOutlined />}
-          onClick={onClickOpenDrawer}
-        >
-          Anadir Productos
-        </Button>
+
         <Button
           type="primary"
           icon={<PlusCircleOutlined />}

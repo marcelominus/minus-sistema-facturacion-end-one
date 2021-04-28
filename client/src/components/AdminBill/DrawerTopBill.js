@@ -17,10 +17,15 @@ import {
   Table,
   Tag,
 } from "antd";
-import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  PlusCircleOutlined,
+  CloudUploadOutlined,
+} from "@ant-design/icons";
 //****************************************************************
 //Importamos la libreria de MOMENT
 import moment from "moment";
+
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -28,9 +33,12 @@ import {
   messageWarning,
   messageSuccess,
 } from "../../resource/js/messages";
+
 //*******************************************************
 //Importamos los CONTEXT
 import billContext from "../../hook/bill/billContext";
+import productContext from "../../hook/product/productContext";
+
 //****************************************************************
 //
 
@@ -53,21 +61,16 @@ const DrawerTopBill = () => {
     descriptionmeasure: "",
   });
   const { unitmeasure, descriptionmeasure } = dataform;
-  //Carga la informacion de COMPANY
-  const onChangeAddMeasure = (e) => {
-    setDataForm({
-      ...dataform,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
-  //   const { functionCreateUser, functionReadUser } = useContext(userContext);
-  //   const {modalmeasure, functionCreateMeasure, functionReadMeasure, functionModal } = useContext(
-  //     measureContext
-  //   );
-  const { drawertop, functionOpenDrawerTop } = useContext(billContext);
+  const {
+    drawertop,
+    functionOpenDrawerTop,
+    functionArrayProductSelection,
+  } = useContext(billContext);
+  const { arrayproduct, functionReadProduct } = useContext(productContext);
+
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
   useEffect(() => {
@@ -76,12 +79,11 @@ const DrawerTopBill = () => {
     }
   }, [drawertop]);
 
-  //-----------------------------------------------------------------
-  //Funciones de usuario
-  const onClickBillProduct = (e) => {
-    e.preventDefault();
-  };
-
+  useEffect(() => {
+    functionReadProduct().then((e) => {
+      console.log(arrayproduct);
+    });
+  }, []);
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
   //Funcion CERRAR MODAL de ADD COMPATN
@@ -92,47 +94,52 @@ const DrawerTopBill = () => {
   };
 
   const onClickInput = () => {
-    alert(nombreRef.current.value);
+    console.log(arrayproduct);
   };
-
-  //Funcion para RESETEAR las entradas del FORMULARIO
-  const resetForm = () => {
-    setDataForm({
-      unitmeasure: "",
-      descriptionmeasure: "",
-    });
-  };
-
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Producto",
+      dataIndex: "shortdescriptionpro",
+      key: "shortdescriptionpro",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Descripcion",
+      dataIndex: "longdescriptionpro",
+      key: "longdescriptionpro",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Unidad de Medida",
+      dataIndex: "unitmeasurepro",
+      key: "unitmeasurepro",
+    },
+    {
+      title: "Precio",
+      dataIndex: "pricepro",
+      key: "pricepro",
+    },
+    {
+      title: "Acciones",
+      key: "action",
+      width: "10%",
+      render: (text) => (
+        <Fragment>
+          <Button
+            type="primary"
+            icon={<CloudUploadOutlined />}
+            size={"default"}
+            ghost
+            onClick={() => {
+              const resultFilterUpdate = arrayproduct.filter(
+                (e) => e.identifierpro == text.identifierpro
+              );
+              setIsDrawerVisible(false);
+              functionOpenDrawerTop(false);
+              functionArrayProductSelection(resultFilterUpdate);
+            }}
+          />
+        </Fragment>
+      ),
     },
   ];
 
@@ -163,7 +170,7 @@ const DrawerTopBill = () => {
         </Row>
         <Row>
           <Col span={24}>
-            <Table dataSource={dataSource} columns={columns} />;
+            <Table dataSource={arrayproduct} columns={columns} />;
           </Col>
         </Row>
       </Drawer>
