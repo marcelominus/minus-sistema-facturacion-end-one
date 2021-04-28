@@ -78,7 +78,7 @@ const ModalAddProductUnique = () => {
       ...dataform,
       shortdescription : arrayproductselection[0].shortdescriptionpro,
       unitmeasure : arrayproductselection[0].unitmeasurepro,
-      amount : arrayproductselection[0].identifierpro,
+      amount : "1",
       price : arrayproductselection[0].pricepro,
     });
   }, [arrayproductselection[0].identifierpro])
