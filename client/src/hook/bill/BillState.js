@@ -12,6 +12,7 @@ import {
   BILL_ARRAY_RESET,
   BILL_MODAL_SELECTION,
   BILL_ARRAY_BILL_PRINT,
+  BILL_DRAWER_TOP,
 } from "../../utils/index";
 // Importamos las direcciones de LOGIN
 import { direction_admin_bill_create } from "../../resource/js/directions";
@@ -29,6 +30,7 @@ const BillState = (props) => {
     totalproduct: "",
     modalbillselection: false,
     arraybillprint: [],
+    drawertop: false,
   };
   //
   const [state, dispatch] = useReducer(billReducer, initialState);
@@ -120,6 +122,13 @@ const BillState = (props) => {
       payload: value,
     });
   };
+
+  const functionOpenDrawerTop = (value) => {
+    dispatch({
+      type: BILL_DRAWER_TOP,
+      payload: value,
+    });
+  };
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -131,6 +140,7 @@ const BillState = (props) => {
         totalproduct: state.totalproduct,
         modalbillselection: state.modalbillselection,
         arraybillprint: state.arraybillprint,
+        drawertop: state.drawertop,
         functionModalBillUnique,
         functionArrayProductBill,
         functionTotalProductBill,
@@ -138,6 +148,7 @@ const BillState = (props) => {
         functionArrayProductBillReset,
         functionModalBillSelection,
         functionArrayBillPrint,
+        functionOpenDrawerTop,
       }}
     >
       {props.children}

@@ -75,6 +75,7 @@ const FormAddBill = ({ props }) => {
     functionArrayProductBillReset,
     functionModalBillSelection,
     functionArrayBillPrint,
+    functionOpenDrawerTop,
   } = useContext(billContext);
 
   //-----------------------------------------------------------------
@@ -119,6 +120,10 @@ const FormAddBill = ({ props }) => {
         // }, 2000);
       }
     });
+  };
+  //Funcion para poder ABRIR EL DRAWER TOP
+  const onClickOpenDrawer = () => {
+    functionOpenDrawerTop(true);
   };
   //Funcion para RESETEAR las entradas del FORMULARIO
   const resetForm = () => {
@@ -224,7 +229,11 @@ const FormAddBill = ({ props }) => {
         >
           Nuevo Producto
         </Button>
-        <Button type="primary" icon={<PlusCircleOutlined />}>
+        <Button
+          type="primary"
+          icon={<PlusCircleOutlined />}
+          onClick={onClickOpenDrawer}
+        >
           Anadir Productos
         </Button>
         <Button

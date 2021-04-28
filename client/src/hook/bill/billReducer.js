@@ -5,6 +5,7 @@ import {
   BILL_ARRAY_RESET,
   BILL_MODAL_SELECTION,
   BILL_ARRAY_BILL_PRINT,
+  BILL_DRAWER_TOP,
 } from "../../utils/index";
 
 //Zona de SWITCH
@@ -41,6 +42,11 @@ export default (state, action) => {
       return {
         ...state,
         arraybillprint: action.payload,
+      };
+    case BILL_DRAWER_TOP:
+      return {
+        ...state,
+        drawertop: action.payload,
       };
     default:
       return state;
