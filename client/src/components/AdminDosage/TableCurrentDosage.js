@@ -74,7 +74,6 @@ const TableCurrentDosage = () => {
   //================================================================
   return (
     <Fragment>
-      <legend>Dosificacion</legend>
       <Table
         pagination={false}
         columns={columns}

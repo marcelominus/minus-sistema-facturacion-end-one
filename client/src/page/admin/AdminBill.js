@@ -1,4 +1,7 @@
 import React, { Fragment } from "react";
+//****************************************************************
+//Importamos lo componentes de ANTD
+import { Modal, Button, Row, Col, Input, Select, DatePicker } from "antd";
 import { Layout } from "antd";
 //Importamos framer motion
 import { motion } from "framer-motion";
@@ -48,10 +51,18 @@ const AdminBill = (props) => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <ModalSelectionDate props={props} />
-              <TableSelectionData />
               {/* ------------------------- ********** ------------------------- */}
-              <TableCurrentDosage />
+              <ModalSelectionDate props={props} />
+              {/* ------------------------- ********** ------------------------- */}
+              <Row>
+                <Col span={12} style={{ background: "transparent" }}>
+                  <TableSelectionData />
+                </Col>
+                <Col span={12} style={{ background: "transparent" }}>
+                  <TableCurrentDosage />
+                </Col>
+              </Row>
+              {/* ------------------------- ********** ------------------------- */}
               {/* ------------------------- ********** ------------------------- */}
               <ButtonAddBill props={props} />
               {/* ------------------------- ********** ------------------------- */}

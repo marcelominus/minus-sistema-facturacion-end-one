@@ -14,6 +14,11 @@ import {
 // INICIO DE CLASE  */}
 // =====================================================
 const Invoice = ({ type, arraybillprint }) => {
+  //================================================================
+  //INICIO DE COMPONENTE
+  //================================================================
+  const datosProducts = arraybillprint.productsencoded.split("|");
+
   //-------------------------------------------------------
   //ZONE USE - CONTEX
   // const { arraybillprint } = useContext(billContext);
@@ -142,13 +147,14 @@ const Invoice = ({ type, arraybillprint }) => {
       padding: 10,
     },
     section_3_2_1: {
-      width: "10%",
+      width: "5%",
     },
     section_3_2_2: {
-      width: "40%",
+      width: "45%",
     },
     section_3_2_3: {
       width: "15%",
+      textAlign: "center",
     },
     section_3_2_4: {
       width: "17.5%",
@@ -158,6 +164,35 @@ const Invoice = ({ type, arraybillprint }) => {
       width: "17.5%",
       textAlign: "right",
     },
+    //
+    section_3_2_1_1: {
+      width: "100%",
+      flexDirection: "row",
+      fontSize: 9,
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingTop: 4,
+    },
+    section_3_2_1_1_1: {
+      width: "5%",
+      textAlign: "center",
+    },
+    section_3_2_2_1_1: {
+      width: "45%",
+    },
+    section_3_2_3_1_1: {
+      width: "15%",
+      textAlign: "center",
+    },
+    section_3_2_4_1_1: {
+      width: "17.5%",
+      textAlign: "right",
+    },
+    section_3_2_5_1_1: {
+      width: "17.5%",
+      textAlign: "right",
+    },
+    //1
     section_3_3: {
       textAlign: "right",
       fontWeight: "bolder",
@@ -241,15 +276,17 @@ const Invoice = ({ type, arraybillprint }) => {
             </View>
             <View style={styles.section_1_3}>
               <View style={styles.container_bill}>
-                <Text>NIT 12345678</Text>
-                <Text>NUMERO DE FACTURA 1</Text>
-                <Text>Numero de Autorización : 123</Text>
+                <Text>NIT {arraybillprint.nitcom}</Text>
+                <Text>NUMERO DE FACTURA {arraybillprint.invoicenumber}</Text>
+                <Text>
+                  Numero de Autorización : {arraybillprint.authorizationNumber}
+                </Text>
               </View>
               <View style={styles.container_activity}>
                 <Text style={styles.tipe_bill}>{type}</Text>
                 <Text style={styles.title_activity}>Actividad Economica</Text>
                 <Text style={styles.activity_economic}>
-                  Venta de Galletas y productos en general
+                  {arraybillprint.activityeconomic}
                 </Text>
               </View>
             </View>
@@ -258,22 +295,23 @@ const Invoice = ({ type, arraybillprint }) => {
             <View style={styles.section_2_1}>
               <View style={styles.section_2_1_1}>
                 <Text style={styles.title_data}>FECHA : </Text>
-                <Text> 24/05/2021</Text>
+                <Text>{arraybillprint.datepresentbill}</Text>
               </View>
               <View style={styles.section_2_1_1}>
                 <Text style={styles.title_data}>RAZON SOCIAL : </Text>
-                <Text> Bolivia Joven</Text>
+                <Text>{arraybillprint.reasonbill}</Text>
               </View>
             </View>
             <View style={styles.section_2_1_1}>
               <Text style={styles.title_data}>NIT/CI : </Text>
-              <Text> 12345677</Text>
+              <Text>{arraybillprint.nitbill}</Text>
             </View>
           </View>
           <View style={styles.section_3}>
             <View style={styles.section_3_1}>
               <Text>DETALLE DE LA FACTURA</Text>
             </View>
+            {/* ------------------------- ********** ------------------------- */}
             <View style={styles.section_3_2}>
               <View style={styles.section_3_2_1}>
                 <Text>Nro</Text>
@@ -291,29 +329,57 @@ const Invoice = ({ type, arraybillprint }) => {
                 <Text>TOTAL</Text>
               </View>
             </View>
+            {/* ------------------------- ********** ------------------------- */}
+            {datosProducts.map((e) => {
+              let date = e.split("&");
+              return (
+                <View style={styles.section_3_2_1_1}>
+                  <View style={styles.section_3_2_1_1_1}>
+                    <Text>1</Text>
+                  </View>
+                  <View style={styles.section_3_2_2_1_1}>
+                    <Text>
+                      {date[0]} ( {date[1]} )
+                    </Text>
+                  </View>
+                  <View style={styles.section_3_2_3_1_1}>
+                    <Text>{date[2]}</Text>
+                  </View>
+                  <View style={styles.section_3_2_4_1_1}>
+                    <Text>{date[3]}</Text>
+                  </View>
+                  <View style={styles.section_3_2_5_1_1}>
+                    <Text>{date[4]}</Text>
+                  </View>
+                </View>
+              );
+            })}
+            {/* ------------------------- ********** ------------------------- */}
             <View style={styles.section_3_3}>
-              <Text>IMPORTE TOTAL FACTURA : (Bs)</Text>
+              <Text>
+                IMPORTE TOTAL FACTURA : {arraybillprint.amounttransaction} (Bs)
+              </Text>
             </View>
           </View>
           <View style={styles.section_4}>
             <View style={styles.section_4_1}>
               <View style={styles.section_2_1_1_1}>
                 <Text style={styles.title_data}>SON: </Text>
-                <Text> Doce Bolivianos</Text>
+                <Text>{arraybillprint.numberstring}</Text>
               </View>
               <View style={styles.section_2_1_1_1}>
                 <Text style={styles.title_data}>CODIGO DE CONTROL : </Text>
-                <Text> ER-SD-12-SD</Text>
+                <Text>{arraybillprint.codegenerate}</Text>
               </View>
               <View style={styles.section_2_1_1_1}>
                 <Text style={styles.title_data}>
                   FECHA LIMITE DE EMISION :{" "}
                 </Text>
-                <Text> 24/28/201</Text>
+                <Text>{arraybillprint.dateenddos}</Text>
               </View>
               <View style={styles.section_2_1_1_1}>
                 <Text style={styles.title_data}>Usuario : </Text>
-                <Text> 7892qwer</Text>
+                <Text>{arraybillprint.identifier}</Text>
               </View>
             </View>
             <View style={styles.section_4_2}>
@@ -325,7 +391,7 @@ const Invoice = ({ type, arraybillprint }) => {
               ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAÍS. EL USO ILÍCITO DE
               ÉSTA SERÁ SANCIONADO DE ACUERDO A LEY
             </Text>
-            <Text>Legenda 453 : Nurestros camvbios de estructura</Text>
+            <Text>Legenda 453 : {arraybillprint.legenddos}</Text>
           </View>
         </View>
       </Page>

@@ -57,7 +57,6 @@ const ModalAddProductUnique = () => {
     functionModalBillUnique,
     functionArrayProductBill,
     functionOpenDrawerTop,
-    
   } = useContext(billContext);
   const { arraymeasure, functionModal, functionReadMeasure } = useContext(
     measureContext
@@ -76,12 +75,12 @@ const ModalAddProductUnique = () => {
   useEffect(() => {
     setDataForm({
       ...dataform,
-      shortdescription : arrayproductselection[0].shortdescriptionpro,
-      unitmeasure : arrayproductselection[0].unitmeasurepro,
-      amount : "1",
-      price : arrayproductselection[0].pricepro,
+      shortdescription: arrayproductselection[0].shortdescriptionpro,
+      unitmeasure: arrayproductselection[0].unitmeasurepro,
+      amount: "1",
+      price: arrayproductselection[0].pricepro,
     });
-  }, [arrayproductselection[0].identifierpro])
+  }, [arrayproductselection[0].identifierpro]);
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickBill = (e) => {
@@ -99,9 +98,9 @@ const ModalAddProductUnique = () => {
       messageSuccess("Correcto, Datos Correctos");
       let subtotal = 0;
 
-      subtotal = parseInt(dataform.price) * parseInt(dataform.amount);
+      subtotal = parseFloat(dataform.price) * parseFloat(dataform.amount);
       dataform.subtotal = subtotal;
-
+      console.log(dataform);
       functionArrayProductBill(dataform);
       setIsModalVisible(false);
       functionModalBillUnique(false);

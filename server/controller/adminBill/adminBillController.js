@@ -161,8 +161,8 @@ exports.createBill = async (req,res) => {
                 const dateenddos = consultationDataDosage[0].dateenddos;
                 const legenddos = consultationDataDosage[0].legenddos;
 
-                const content = generateInvoceNew.generateInvoice(imageAsBase64Company, imageAsBase64Qr, namecom, directioncom, placecom, citycom, telephonecom, namebus, directionbus, placebus, citybus, nitcom, invoiceNumber, authorizationNumber,  activityeconomic, datepresentbill, reasonbill, nitbill, productsEncodedEnd, amountTransaction, numberString, codeGenerate, dateenddos, identifier, legenddos);
-                console.log(imageAsBase64CompanyEnd);
+                // const content = generateInvoceNew.generateInvoice(imageAsBase64Company, imageAsBase64Qr, namecom, directioncom, placecom, citycom, telephonecom, namebus, directionbus, placebus, citybus, nitcom, invoiceNumber, authorizationNumber,  activityeconomic, datepresentbill, reasonbill, nitbill, productsEncodedEnd, amountTransaction, numberString, codeGenerate, dateenddos, identifier, legenddos);
+
                 const responsedata = { 
                     imagecompany : `http://localhost:4001/state/img/company/${nameImageLogo[6]}`, 
                     imageqr : imageAsBase64Qr,
@@ -191,6 +191,7 @@ exports.createBill = async (req,res) => {
                     legenddos : legenddos
                 }
                 
+                console.log(responsedata);
                 res.json({ response : 'success' , data : responsedata});
 
             }

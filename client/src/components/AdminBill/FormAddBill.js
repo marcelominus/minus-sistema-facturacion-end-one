@@ -34,7 +34,6 @@ const FormAddBill = ({ props }) => {
     datepresentbill: `${moment().subtract(4, "h").format("MM/DD/YYYY")}`,
     reasonbill: "",
     paymenttypebill: "",
-    productsbill: [],
     conditionbill: "",
   });
   const {
@@ -42,7 +41,6 @@ const FormAddBill = ({ props }) => {
     datepresentbill,
     reasonbill,
     paymenttypebill,
-    productsbill,
     conditionbill,
   } = dataform;
   //Carga la informacion de COMPANY
@@ -88,38 +86,47 @@ const FormAddBill = ({ props }) => {
   const onClickSaveBill = (e) => {
     e.preventDefault();
 
-    functionCreateBill(
-      nitbill,
-      datepresentbill,
-      reasonbill,
-      paymenttypebill,
-      arrayproductbill,
-      conditionbill
-    ).then((elem) => {
-      if (elem === "duplicate") {
-        //Mensage de WARNING
-        messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
-      } else if (elem === "fail-create") {
-        //Mensaje de ERROR
-        messageError("Error, Intente mas Tarde", 2);
-      } else {
-        //Mensaje de CORRECTO
-        messageSuccess(`Perfecto, Usuario Creado Correctamente `, 2);
+    if (
+      nitbill.toLowerCase().trim() == "" ||
+      reasonbill.toLowerCase().trim() == "" ||
+      paymenttypebill.toLowerCase().trim() == "" ||
+      conditionbill.toLowerCase().trim() == ""
+    ) {
+      messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
+    } else {
+      functionCreateBill(
+        nitbill,
+        datepresentbill,
+        reasonbill,
+        paymenttypebill,
+        arrayproductbill,
+        conditionbill
+      ).then((elem) => {
+        if (elem === "duplicate") {
+          //Mensage de WARNING
+          messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
+        } else if (elem === "fail-create") {
+          //Mensaje de ERROR
+          messageError("Error, Intente mas Tarde", 2);
+        } else {
+          //Mensaje de CORRECTO
+          messageSuccess(`Perfecto, Factura Guardada Correctamente `, 2);
 
-        functionArrayBillPrint(elem);
-        functionModalBillSelection(true);
-        //Cierrar el MODAL de ADD COMPANY
-        // setIsModalVisible(false);
-        // // //
-        // functionReadDosage();
-        // // //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
-        // resetForm();
-        // setTimeout(() => {
-        //   window.open(`http://localhost:4001/state/pdf/${elem}`, "Data");
-        //   props.history.push("/bill");
-        // }, 2000);
-      }
-    });
+          functionArrayBillPrint(elem);
+          functionModalBillSelection(true);
+          //Cierrar el MODAL de ADD COMPANY
+          // setIsModalVisible(false);
+          // // //
+          // functionReadDosage();
+          // // //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
+          // resetForm();
+          // setTimeout(() => {
+          //   window.open(`http://localhost:4001/state/pdf/${elem}`, "Data");
+          //   props.history.push("/bill");
+          // }, 2000);
+        }
+      });
+    }
   };
   //Funcion para poder ABRIR EL DRAWER TOP
   const onClickOpenDrawer = () => {

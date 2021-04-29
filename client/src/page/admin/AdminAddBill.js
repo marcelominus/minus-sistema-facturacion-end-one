@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Modal, Button, Row, Col, Input, Select, DatePicker } from "antd";
 import { Layout } from "antd";
 //Importamos framer motion
 import { motion } from "framer-motion";
@@ -55,9 +56,14 @@ const AdminAddBill = (props) => {
             >
               <ModalSelectionDate props={props} />
               {/* ------------------------- ********** ------------------------- */}
-              <TableSelectionData />
-              {/* ------------------------- ********** ------------------------- */}
-              <TableCurrentDosage />
+              <Row>
+                <Col span={12} style={{ background: "transparent" }}>
+                  <TableSelectionData />
+                </Col>
+                <Col span={12} style={{ background: "transparent" }}>
+                  <TableCurrentDosage />
+                </Col>
+              </Row>
               {/* ------------------------- ********** ------------------------- */}
               <FormAddBill props={props} />
               {/* ------------------------- ********** ------------------------- */}

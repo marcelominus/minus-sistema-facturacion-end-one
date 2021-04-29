@@ -43,7 +43,7 @@ const TableProductBill = () => {
     if (arrayproductbill.length !== 0) {
       let total = 0;
       arrayproductbill.map((e) => {
-        total = parseInt(e.subtotal) + parseInt(total);
+        total = parseFloat(e.subtotal) + parseFloat(total);
       });
       functionTotalProductBill(total);
     }
@@ -59,8 +59,8 @@ const TableProductBill = () => {
     },
     {
       title: "Unidad",
-      dataIndex: "unit",
-      key: "unit",
+      dataIndex: "unitmeasure",
+      key: "unitmeasure",
     },
     {
       title: "Cantidad",
