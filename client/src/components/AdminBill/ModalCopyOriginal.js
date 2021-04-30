@@ -27,7 +27,7 @@ const { TextArea } = Input;
 //================================================================
 //INICIO DE CLASE
 //================================================================
-const ModalCopyOriginal = () => {
+const ModalCopyOriginal = ({ props }) => {
   //-------------------------------------------------------
   //ZONE USE - STATE
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -51,14 +51,9 @@ const ModalCopyOriginal = () => {
   //Funciones de usuario
   const onClickSelectOriginal = (e) => {
     e.preventDefault();
-  };
-
-  //-----------------------------------------------------------------
-  //ZONE - FUNCTION
-  //Funcion CERRAR MODAL de ADD COMPATN
-  const handleCancel = () => {
-    setIsModalVisible(false);
     functionModalBillSelection(false);
+    setIsModalVisible(false);
+    props.history.push("/bill");
   };
 
   // =====================================================
@@ -75,10 +70,6 @@ const ModalCopyOriginal = () => {
           //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickSelectOriginal}>
             Ok
-          </Button>,
-          //BUTTON DE CANCELAR Y CERRAR MODAL
-          <Button key="cancel" type="primary" onClick={handleCancel}>
-            Cancelar
           </Button>,
         ]}
       >

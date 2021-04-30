@@ -45,12 +45,12 @@ const TableProductBill = () => {
       arrayproductbill.map((e) => {
         total = parseFloat(e.subtotal) + parseFloat(total);
       });
-      functionTotalProductBill(total);
+      functionTotalProductBill(total.toFixed(2));
     }
   }, [arrayproductbill]);
 
   //-------------------------------------------------------
-  //
+  //ZONE COLUMN
   const columns = [
     {
       title: "Nombre de Producto",

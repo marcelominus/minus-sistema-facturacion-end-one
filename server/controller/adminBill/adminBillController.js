@@ -101,7 +101,7 @@ exports.createBill = async (req,res) => {
             //Convierte los productos en STRING ademas que se tienr el TOTAL
             productsbill.map( element => {
                 total = total + element.subtotal;
-                productsEncoded = `${productsEncoded}|${element.shortdescription}&${element.unitmeasure}&${element.amount}&${element.price}&${element.subtotal}`;
+                productsEncoded = `${productsEncoded}|${element.shortdescription}&${element.unitmeasure}&${element.amount}&${parseFloat(element.price).toFixed(2)}&${parseFloat(element.subtotal).toFixed(2) }`;
             })
             const productsEncodedEnd = productsEncoded.substring(1);
 
@@ -132,7 +132,6 @@ exports.createBill = async (req,res) => {
             //Convertimos las imagenes en BASE 64 para poder imprimirlo en el PDF
             const nameImageLogo = consultationDataCompany[0].directionimgcom.split('/');
             const imageAsBase64Company =await fs.readFileSync(`./public/img/company/${nameImageLogo[6]}`, 'base64');
-            const imageAsBase64CompanyEnd = `data:image/png;base64,${imageAsBase64Company}`;
 
             if( consultationDataCompany.length == 0  || consultationDataBusiness.length == 0 ){
                 res.json({ response : 'empty'})
@@ -183,17 +182,33 @@ exports.createBill = async (req,res) => {
                     reasonbill : reasonbill,
                     nitbill : nitbill,
                     productsencoded : productsEncodedEnd,
-                    amounttransaction : amountTransaction,
+                    amounttransaction : parseFloat(amountTransaction).toFixed(2),
                     numberstring : numberString,
                     codegenerate : codeGenerate,
                     dateenddos : dateenddos,
                     identifier : identifier,
                     legenddos : legenddos
                 }
-                
-                console.log(responsedata);
-                res.json({ response : 'success' , data : responsedata});
-
+                console.log(productsEncodedEnd);
+                const createBill = await AdminBillModel.create({
+                    identifierbill : identifierBillEnd,
+                    identifierbus : identifierbus,
+                    identifierdos : identifierDosEnd,
+                    numberbill : numberBill,
+                    nitbill : nitbill,
+                    reasonbill : reasonbill,
+                    datepresentbill : datepresentbill,
+                    paymenttypebill : paymenttypebill,
+                    productsbill : productsEncodedEnd,
+                    totalbill : parseFloat(amountTransaction).toFixed(2),
+                    controlcodebill : codeGenerate,
+                    conditionbill : conditionbill,
+                });
+                if(createBill){
+                    res.json({ response : 'success', data : responsedata});
+                }else{
+                    res.json({ response : 'fail-create'});
+                }
             }
         
         }

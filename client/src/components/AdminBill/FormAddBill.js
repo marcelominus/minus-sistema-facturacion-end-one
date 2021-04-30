@@ -1,8 +1,11 @@
-import React, { Fragment, useState, useContext } from "react";
+//****************************************************************
+//Importamos librerias de REACT
+import React, { Fragment, useState, useContext, useEffect } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select, DatePicker } from "antd";
 import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
+
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -10,9 +13,11 @@ import {
   messageWarning,
   messageSuccess,
 } from "../../resource/js/messages";
-//-----------------------------------------------------------------
+
+//****************************************************************
 //Importamos el Context
 import billContext from "../../hook/bill/billContext";
+
 //****************************************************************
 //Importamos la libreria de MOMENT
 import moment from "moment";
@@ -24,7 +29,7 @@ const { Option } = Select;
 //================================================================
 const FormAddBill = ({ props }) => {
   //-----------------------------------------------------------------
-  //Creamos el formato de la variable
+  //Creamos el formato de la variable TIME
   const dateFormat = "MM/DD/YYYY";
 
   //-----------------------------------------------------------------
@@ -50,20 +55,21 @@ const FormAddBill = ({ props }) => {
       [e.target.name]: e.target.value,
     });
   };
-  //Carga de TIPO DE MONEDA
+  //Carga de TIPO DE PAGO FACTURA
   const onChangeAddType = (e) => {
     setDataForm({
       ...dataform,
       paymenttypebill: e,
     });
   };
-  //Carga de TIPO DE MONEDA
+  //Carga de CONDITION DE PAGO FACTURA
   const onChangeAddCondition = (e) => {
     setDataForm({
       ...dataform,
       conditionbill: e,
     });
   };
+
   //-----------------------------------------------------------------
   //ZONE USE CONTEXT
   const {
@@ -73,13 +79,18 @@ const FormAddBill = ({ props }) => {
     functionArrayProductBillReset,
     functionModalBillSelection,
     functionArrayBillPrint,
-    functionOpenDrawerTop,
   } = useContext(billContext);
 
   //-----------------------------------------------------------------
-  //
+  //ZONE USE EFFECT
+  useEffect(() => {
+    functionArrayProductBillReset();
+  }, []);
+  //-----------------------------------------------------------------
+  //ZONE FUNCTION
   const onClickAddProductUnique = (e) => {
     e.preventDefault();
+    //Abre el MODAL
     functionModalBillUnique(true);
   };
 
@@ -90,7 +101,8 @@ const FormAddBill = ({ props }) => {
       nitbill.toLowerCase().trim() == "" ||
       reasonbill.toLowerCase().trim() == "" ||
       paymenttypebill.toLowerCase().trim() == "" ||
-      conditionbill.toLowerCase().trim() == ""
+      conditionbill.toLowerCase().trim() == "" ||
+      arrayproductbill.length === 0
     ) {
       messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
     } else {
@@ -128,10 +140,7 @@ const FormAddBill = ({ props }) => {
       });
     }
   };
-  //Funcion para poder ABRIR EL DRAWER TOP
-  const onClickOpenDrawer = () => {
-    functionOpenDrawerTop(true);
-  };
+
   //Funcion para RESETEAR las entradas del FORMULARIO
   const resetForm = () => {
     setDataForm({

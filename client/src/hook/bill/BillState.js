@@ -14,6 +14,7 @@ import {
   BILL_ARRAY_BILL_PRINT,
   BILL_DRAWER_TOP,
   BILL_ARRAY_PRODUCT_SELECTION,
+  BILL_ARRAY_SELECTION_RESET,
 } from "../../utils/index";
 // Importamos las direcciones de LOGIN
 import { direction_admin_bill_create } from "../../resource/js/directions";
@@ -36,7 +37,7 @@ const BillState = (props) => {
       {
         shortdescriptionpro: "",
         unitmeasurepro: "",
-        amountpro: "",
+        amountpro: "1",
         pricepro: "",
       },
     ],
@@ -145,6 +146,12 @@ const BillState = (props) => {
       payload: value,
     });
   };
+
+  const functionArrayProductSelectionReset = () => {
+    dispatch({
+      type: BILL_ARRAY_SELECTION_RESET,
+    });
+  };
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -167,6 +174,7 @@ const BillState = (props) => {
         functionArrayBillPrint,
         functionOpenDrawerTop,
         functionArrayProductSelection,
+        functionArrayProductSelectionReset,
       }}
     >
       {props.children}

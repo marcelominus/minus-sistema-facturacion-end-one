@@ -31,7 +31,7 @@ const ModalAddProductUnique = () => {
   const [dataform, setDataForm] = useState({
     shortdescription: "",
     unitmeasure: "",
-    amount: "",
+    amount: "1",
     price: "",
   });
   const { shortdescription, unitmeasure, amount, price } = dataform;
@@ -98,9 +98,10 @@ const ModalAddProductUnique = () => {
       messageSuccess("Correcto, Datos Correctos");
       let subtotal = 0;
 
-      subtotal = parseFloat(dataform.price) * parseFloat(dataform.amount);
+      subtotal =
+        parseFloat(dataform.price).toFixed(2) *
+        parseFloat(dataform.amount).toFixed(2);
       dataform.subtotal = subtotal;
-      console.log(dataform);
       functionArrayProductBill(dataform);
       setIsModalVisible(false);
       functionModalBillUnique(false);
@@ -221,7 +222,7 @@ const ModalAddProductUnique = () => {
               placeholder="Ingrese la Direccion de la Sucursal"
               prefix={<UserOutlined />}
               style={{ width: "100%" }}
-              defaultValue={0}
+              defaultValue={1}
               onChange={(e) => {
                 setDataForm({
                   ...dataform,

@@ -7,6 +7,7 @@ import {
   BILL_ARRAY_BILL_PRINT,
   BILL_DRAWER_TOP,
   BILL_ARRAY_PRODUCT_SELECTION,
+  BILL_ARRAY_SELECTION_RESET,
 } from "../../utils/index";
 
 //Zona de SWITCH
@@ -53,6 +54,18 @@ export default (state, action) => {
       return {
         ...state,
         arrayproductselection: action.payload,
+      };
+    case BILL_ARRAY_SELECTION_RESET:
+      return {
+        ...state,
+        arrayproductselection: [
+          {
+            shortdescriptionpro: "",
+            unitmeasurepro: "",
+            amountpro: "1",
+            pricepro: "",
+          },
+        ],
       };
     default:
       return state;
