@@ -8,6 +8,9 @@ import {
   BILL_DRAWER_TOP,
   BILL_ARRAY_PRODUCT_SELECTION,
   BILL_ARRAY_SELECTION_RESET,
+  BILL_TABLE_READ,
+  BILL_ARRAY_PRODUCT_SET,
+  BILL_TABLE_READ_COPY
 } from "../../utils/index";
 
 //Zona de SWITCH
@@ -66,6 +69,16 @@ export default (state, action) => {
             pricepro: "",
           },
         ],
+      };
+    case BILL_TABLE_READ:
+      return {
+        ...state,
+        arraybill: action.payload,
+      };
+    case BILL_ARRAY_PRODUCT_SET:
+      return {
+        ...state,
+        arrayproductbill: action.payload,
       };
     default:
       return state;

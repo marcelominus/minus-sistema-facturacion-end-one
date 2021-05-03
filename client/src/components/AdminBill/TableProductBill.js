@@ -35,6 +35,7 @@ const TableProductBill = () => {
     totalproduct,
     arrayproductbill,
     functionTotalProductBill,
+    functionSetArrayProductBill
   } = useContext(billContext);
 
   //-----------------------------------------------------------------
@@ -76,6 +77,27 @@ const TableProductBill = () => {
       title: "SubTotal",
       dataIndex: "subtotal",
       key: "subtotal",
+    },
+    {
+      title: "Acciones",
+      key: "action",
+      width: "10%",
+      render: (text) => (
+        <Fragment>
+          <Button
+            type="primary"
+            icon={<CloudUploadOutlined />}
+            size={"default"}
+            ghost
+            onClick={() => {
+              const resultFilterDeleteProduct = arrayproductbill.filter(
+                (e) => e.id !== text.id
+              );
+              functionSetArrayProductBill(resultFilterDeleteProduct);
+            }}
+          />
+        </Fragment>
+      ),
     },
   ];
 

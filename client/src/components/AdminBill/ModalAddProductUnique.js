@@ -3,7 +3,9 @@ import React, { Fragment, useState, useContext, useEffect } from "react";
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, InputNumber, Select } from "antd";
 import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
-
+//****************************************************************
+//
+import shortid from "shortid";
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -54,6 +56,7 @@ const ModalAddProductUnique = () => {
   const {
     modalbillunique,
     arrayproductselection,
+    arrayproductbill,
     functionModalBillUnique,
     functionArrayProductBill,
     functionOpenDrawerTop,
@@ -102,6 +105,8 @@ const ModalAddProductUnique = () => {
         parseFloat(dataform.price).toFixed(2) *
         parseFloat(dataform.amount).toFixed(2);
       dataform.subtotal = subtotal;
+
+      dataform.id = `${shortid.generate()}-product`;
       functionArrayProductBill(dataform);
       setIsModalVisible(false);
       functionModalBillUnique(false);

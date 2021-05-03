@@ -7,6 +7,7 @@ const fs = require('fs');
 const options = { 
     format: 'Letter',
 };
+const moment = require('moment');
 //Importamos OP de SEQUELIZE para las operaciones OR y AND
 const Op = require('Sequelize').Op;
 //Importamos el MODELL
@@ -187,9 +188,9 @@ exports.createBill = async (req,res) => {
                     codegenerate : codeGenerate,
                     dateenddos : dateenddos,
                     identifier : identifier,
-                    legenddos : legenddos
+                    legenddos : legenddos,
+                    conditionbill : conditionbill
                 }
-                console.log(productsEncodedEnd);
                 const createBill = await AdminBillModel.create({
                     identifierbill : identifierBillEnd,
                     identifierbus : identifierbus,
@@ -219,3 +220,185 @@ exports.createBill = async (req,res) => {
     }
 }
 
+//=================================================================
+//Lectura de la informacion de Login Usuario
+exports.readBill = async(req, res) => {
+    // res.json({ uno : req.usuario});
+    const role = req.user.role;
+    const identifier = req.user.identifier;
+
+    const {identifierbus} = req.body;
+    //
+    try {
+        const consultationUser = await LoginModel.findAll({
+            where : {
+                identifier : identifier,
+                role : role
+            },
+            raw : true
+        });
+        if( consultationUser == 0 ){
+            res.json({ response : 'empty'});
+        }else{
+             // LECTURA DE INFORMACION SOLO ALL => ADMIN, USER / (super admin)
+            const consultationBill  = await AdminBillModel.findAll({
+                where : {
+                    identifierbus : identifierbus,
+                },
+                raw : true
+            });
+            if( consultationBill.length === 0 ){
+                res.json({ response : 'empty'})
+            }else{
+                res.json({ response : 'success' , data : consultationBill});
+            }
+        }
+    } catch (error) {
+        res.json({ response : 'fail-server'});
+    }
+}
+
+//=================================================================
+//Lectura de la informacion de Login Usuario
+exports.readBillUnique = async(req, res) => {
+    // res.json({ uno : req.usuario});
+    const role = req.user.role;
+    const identifier = req.user.identifier;
+
+    const {identifierbill} = req.body;
+    //
+    try {
+        const consultationUser = await LoginModel.findAll({
+            where : {
+                identifier : identifier,
+                role : role
+            },
+            raw : true
+        });
+        if( consultationUser == 0 ){
+            res.json({ response : 'empty'});
+        }else{
+             // LECTURA DE INFORMACION SOLO ALL => ADMIN, USER / (super admin)
+            const consultationBillUnique  = await AdminBillModel.findAll({
+                where : {
+                    identifierbill : identifierbill,
+                },
+                raw : true
+            });
+
+            //Realizamos la peticion para pedir informacion de la sucursal
+            const consultationDataBusiness = await AdminBusinessModel.findAll({
+                where : {
+                    identifierbus : consultationBillUnique[0].identifierbus
+                },
+                raw : true
+            })
+
+            //REalizamos la peticion para pedir informacion de la Empresa
+            const consultationDataCompany = await AdminCompanyModel.findAll({
+                where : {
+                    identifiercom : consultationDataBusiness[0].identifiercom
+                },
+                raw : true
+            })
+            
+            //Realizamos la peticion para pedir informacion de la Dosificacion
+            const consultationDataDosage = await AdminDosageModel.findAll({
+                where : {
+                    identifierdos : consultationBillUnique[0].identifierdos
+                },
+                raw : true
+            })
+
+            //-----------------------------------------------------------------
+            //
+            const numberString = generateNumberLetras.numeroALetras(parseFloat(consultationBillUnique[0].totalbill).toFixed(2), {
+                plural: "BOLIVIANOS",
+                singular: "BOLIVIANO",
+                centPlural: "CENTAVOS",
+                centSingular: "CENTAVO"
+            });
+
+            //-----------------------------------------------------------------
+            //
+            const qrcodegenerate = `${consultationDataCompany[0].nitcom}|${consultationBillUnique[0].numberbill}|${consultationDataDosage[0].numberauthorizationdos}|${moment(consultationBillUnique[0].datepresentbill).format('MM/DD/YYYY')}|${parseFloat(consultationBillUnique[0].totalbill).toFixed(2)}|${parseFloat(consultationBillUnique[0].totalbill).toFixed(2)}|${consultationBillUnique[0].controlcodebill}|${consultationBillUnique[0].nitbill}|0|0|0|0`;
+            const imageAsBase64Qr = await qrcode.toDataURL( qrcodegenerate );
+
+            const responsedata = { 
+                imagecompany : consultationDataCompany[0].directionimgcom, 
+                imageqr : imageAsBase64Qr,
+                namecom : consultationDataCompany[0].namecom,
+                directioncom : consultationDataCompany[0].directioncom,
+                placecom : consultationDataCompany[0].placecom,
+                citycom : consultationDataCompany[0].citycom,
+                telephonecom : consultationDataCompany[0].telephonecom,
+                namebus : consultationDataBusiness[0].namebus,
+                directionbus : consultationDataBusiness[0].directionbus,
+                placebus : consultationDataBusiness[0].placebus,
+                citybus : consultationDataBusiness[0].citybus,
+                nitcom : consultationDataCompany[0].nitcom,
+                invoicenumber : consultationBillUnique[0].numberbill,
+                authorizationNumber : consultationDataDosage[0].numberauthorizationdos,
+                activityeconomic : consultationDataBusiness[0].economicactivitybus,
+                datepresentbill : moment(consultationBillUnique[0].datepresentbill).format('MM/DD/YYYY') ,
+                reasonbill : consultationBillUnique[0].reasonbill,
+                nitbill : consultationBillUnique[0].nitbill,
+                productsencoded : consultationBillUnique[0].productsbill,
+                amounttransaction : parseFloat(consultationBillUnique[0].totalbill).toFixed(2),
+                numberstring : numberString,
+                codegenerate : consultationBillUnique[0].controlcodebill,
+                dateenddos : consultationDataDosage[0].dateenddos,
+                identifier : identifier,
+                legenddos : consultationDataDosage[0].legenddos,
+                conditionbill : consultationBillUnique[0].conditionbill
+            }
+            if( consultationBillUnique.length === 0 ){
+                res.json({ response : 'empty'})
+            }else{
+                res.json({ response : 'success' , data : responsedata});
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({ response : 'fail-server'});
+    }
+}
+
+//=================================================================
+//Lectura de la informacion de Login Usuario
+exports.updateBillCondition = async(req, res) => {
+    // res.json({ uno : req.usuario});
+    const role = req.user.role;
+    const identifier = req.user.identifier;
+
+    const {identifierbill, conditionbill} = req.body;
+    //
+    try {
+        const consultationUser = await LoginModel.findAll({
+            where : {
+                identifier : identifier,
+                role : role
+            },
+            raw : true
+        });
+        if( consultationUser == 0 ){
+            res.json({ response : 'empty'});
+        }else{
+             // LECTURA DE INFORMACION SOLO ALL => ADMIN, USER / (super admin)
+             const updateBusiness  = await AdminBillModel.update({
+                conditionbill : conditionbill
+            }, {
+                where : {
+                    identifierbill : identifierbill
+                }
+            })
+            if( updateBusiness ){
+                res.json({ response : 'success'})
+            }else{
+                res.json({ response : 'fail-update'})
+            }
+        }
+    } catch (error) {
+        res.json({ response : 'fail-server'});
+    }
+}

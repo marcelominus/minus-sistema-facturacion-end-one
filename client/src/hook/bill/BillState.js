@@ -15,9 +15,17 @@ import {
   BILL_DRAWER_TOP,
   BILL_ARRAY_PRODUCT_SELECTION,
   BILL_ARRAY_SELECTION_RESET,
+  BILL_TABLE_READ,
+  BILL_ARRAY_PRODUCT_SET,
+  BILL_TABLE_READ_COPY,
 } from "../../utils/index";
 // Importamos las direcciones de LOGIN
-import { direction_admin_bill_create } from "../../resource/js/directions";
+import {
+  direction_admin_bill_create,
+  direction_admin_bill_read,
+  direction_admin_bill_read_unique,
+  direction_admin_bill_update_condition,
+} from "../../resource/js/directions";
 //Importamos la variable de FUNCION de TOKEN que permite INGREASAR HEAD AXIOS
 import tokenAuth from "../../config/token";
 
@@ -41,6 +49,7 @@ const BillState = (props) => {
         pricepro: "",
       },
     ],
+    arraybill: [],
   };
   //
   const [state, dispatch] = useReducer(billReducer, initialState);
@@ -152,6 +161,91 @@ const BillState = (props) => {
       type: BILL_ARRAY_SELECTION_RESET,
     });
   };
+
+  const functionReadBill = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      let dataTokenBusiness = localStorage.getItem("tokenbusiness");
+      const url = direction_admin_bill_read;
+      const petitionReadBill = await clienteAxios.post(url, {
+        identifierbus: dataTokenBusiness,
+      });
+      const solutionPetitionRead = petitionReadBill.data;
+      if (solutionPetitionRead.response == "empty") {
+        dispatch({
+          type: BILL_TABLE_READ,
+          payload: [],
+        });
+        return false;
+      } else {
+        dispatch({
+          type: BILL_TABLE_READ,
+          payload: solutionPetitionRead.data,
+        });
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const functionSetArrayProductBill = (value) => {
+    dispatch({
+      type: BILL_ARRAY_PRODUCT_SET,
+      payload: value,
+    });
+  };
+
+  const functionReadBillCopy = async (value) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      const url = direction_admin_bill_read_unique;
+      const petitionReadBill = await clienteAxios.post(url, {
+        identifierbill: value,
+      });
+      const solutionPetitionReadCopy = petitionReadBill.data;
+      if (solutionPetitionReadCopy.response == "fail-server") {
+        return false;
+      } else {
+        return solutionPetitionReadCopy.data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const functionUpdateConditionBill = async (value_1, value_2) => {
+    //direction_admin_bill_update_condition
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      const url = direction_admin_bill_update_condition;
+      const petitionUpdateBillCondition = await clienteAxios.post(url, {
+        identifierbill: value_1,
+        conditionbill: value_2,
+      });
+      const solutionPetitionUpdate = petitionUpdateBillCondition.data;
+      console.log(solutionPetitionUpdate);
+      if (solutionPetitionUpdate.response == "success") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -165,6 +259,7 @@ const BillState = (props) => {
         arraybillprint: state.arraybillprint,
         drawertop: state.drawertop,
         arrayproductselection: state.arrayproductselection,
+        arraybill: state.arraybill,
         functionModalBillUnique,
         functionArrayProductBill,
         functionTotalProductBill,
@@ -175,6 +270,10 @@ const BillState = (props) => {
         functionOpenDrawerTop,
         functionArrayProductSelection,
         functionArrayProductSelectionReset,
+        functionReadBill,
+        functionSetArrayProductBill,
+        functionReadBillCopy,
+        functionUpdateConditionBill,
       }}
     >
       {props.children}

@@ -44,6 +44,7 @@ const ModalCopyOriginal = ({ props }) => {
   useEffect(() => {
     if (modalbillselection === true) {
       setIsModalVisible(true);
+      functionModalBillSelection(false);
     }
   }, [modalbillselection]);
 

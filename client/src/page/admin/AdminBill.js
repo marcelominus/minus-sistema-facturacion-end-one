@@ -23,6 +23,9 @@ import ReturnData from "../../components/tools/ReturnData";
 import TableSelectionData from "../../components/tools/TableSelectionData";
 import ButtonAddBill from "../../components/AdminBill/ButtonAddBill";
 import TableCurrentDosage from "../../components/AdminDosage/TableCurrentDosage";
+import TableBill from "../../components/AdminBill/TableBill";
+import ModalCopyOriginal from "../../components/AdminBill/ModalCopyOriginal";
+
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -63,9 +66,11 @@ const AdminBill = (props) => {
                 </Col>
               </Row>
               {/* ------------------------- ********** ------------------------- */}
-              {/* ------------------------- ********** ------------------------- */}
               <ButtonAddBill props={props} />
               {/* ------------------------- ********** ------------------------- */}
+              <TableBill />
+              {/* ------------------------- ********** ------------------------- */}
+              <ModalCopyOriginal props={props}/>
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}

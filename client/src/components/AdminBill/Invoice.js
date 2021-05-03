@@ -8,6 +8,9 @@ import {
   StyleSheet,
   Image,
 } from "@react-pdf/renderer";
+//****************************************************************
+//
+import anulate from "../../resource/img/anulado.jpg";
 //*******************************************************
 //
 // =====================================================
@@ -248,6 +251,9 @@ const Invoice = ({ type, arraybillprint }) => {
       fontWeight: "bolder",
       fontSize: 10,
     },
+    img_anulate: {
+      width: "40%",
+    },
   });
 
   return (
@@ -329,6 +335,7 @@ const Invoice = ({ type, arraybillprint }) => {
                 <Text>TOTAL</Text>
               </View>
             </View>
+
             {/* ------------------------- ********** ------------------------- */}
             {datosProducts.map((e) => {
               let date = e.split("&");
@@ -354,6 +361,26 @@ const Invoice = ({ type, arraybillprint }) => {
                 </View>
               );
             })}
+
+            {arraybillprint.conditionbill === "anulado" ? (
+              <View
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "red",
+                    fontSize: 40,
+                  }}
+                >
+                  ANULADO
+                </Text>
+              </View>
+            ) : null}
+
             {/* ------------------------- ********** ------------------------- */}
             <View style={styles.section_3_3}>
               <Text>

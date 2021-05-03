@@ -57,3 +57,6 @@ export const direction_admin_product_delete = `${IP_SERVER}/admin-pro/product-al
 
 //DIRECTION BILL
 export const direction_admin_bill_create = `${IP_SERVER}/admin-bill/bill-all-create`;
+export const direction_admin_bill_read = `${IP_SERVER}/admin-bill/bill-all-read`;
+export const direction_admin_bill_read_unique = `${IP_SERVER}/admin-bill/bill-all-read-unique`;
+export const direction_admin_bill_update_condition = `${IP_SERVER}/admin-bill/bill-all-update-condition`;
