@@ -165,7 +165,7 @@ const TableDataCompany = () => {
     },
 
     {
-      title: "Logo",
+      title: "Acciones Logo",
       key: "action",
       width: "10%",
       render: (text) => (
@@ -195,7 +195,7 @@ const TableDataCompany = () => {
       ),
     },
     {
-      title: "Acciones",
+      title: "Acciones Admin",
       key: "action",
       width: "10%",
       render: (text) => (
@@ -206,12 +206,11 @@ const TableDataCompany = () => {
             size={"default"}
             ghost
             onClick={() => {
-              functionUpdateModal(true);
               const resultFilterUpdate = arraycompany.filter(
                 (e) => e.identifiercom == text.identifiercom
               );
+              functionUpdateModal(true);
               functionLoadIdCompanyUpdate(resultFilterUpdate);
-              functionIdCompanyUpdate(text.identifiercom);
             }}
           />
 
@@ -249,6 +248,7 @@ const TableDataCompany = () => {
         pagination={{ pageSize: 10, responsive: true }}
         scroll={{ x: 1200, y: "max-content" }}
         bordered
+        locale={{ emptyText: "Sin Datos" }}
       />
       {/* ------------------------- ********** ------------------------- */}
       <ModalViewLogo directionimg={directionimg} />

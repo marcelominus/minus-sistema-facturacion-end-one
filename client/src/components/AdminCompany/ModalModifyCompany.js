@@ -25,10 +25,7 @@ const ModalModifyCompany = () => {
     functionUpdateModal,
     idcompanyupdatearray,
     functionUpdateCompany,
-    idcompanyupdate,
     functionReadCompany,
-    // functionCreateCompany,
-    // functionLoadLogo,
   } = useContext(companyContext);
 
   //-----------------------------------------------------------------
@@ -44,7 +41,6 @@ const ModalModifyCompany = () => {
     placecom: "",
     directioncom: "",
     ofcom: "",
-    codecom: "",
   });
   const {
     namecom,
@@ -56,7 +52,6 @@ const ModalModifyCompany = () => {
     placecom,
     directioncom,
     ofcom,
-    codecom,
   } = dataform;
   //
   const onChangeAddCompany = (e) => {
@@ -86,14 +81,16 @@ const ModalModifyCompany = () => {
       placecom: idcompanyupdatearray[0].placecom,
       directioncom: idcompanyupdatearray[0].directioncom,
       ofcom: idcompanyupdatearray[0].ofcom,
-      codecom: idcompanyupdatearray[0].codecom,
     });
-  }, [idcompanyupdatearray[0].namecom]);
+  }, [idcompanyupdatearray[0].identifiercom]);
+
   //-----------------------------------------------------------------
   //ZONE FUNCTION
   //Funcion de ONCLICK de ENVIO DE INFORMACION
   const onClickCompany = (e) => {
     e.preventDefault();
+
+    //----------------------------------------------------------------
     functionUpdateCompany(
       namecom,
       nitcom,
@@ -104,8 +101,7 @@ const ModalModifyCompany = () => {
       placecom,
       directioncom,
       ofcom,
-      codecom,
-      idcompanyupdate
+      idcompanyupdatearray[0].identifiercom
     ).then((e) => {
       if (e === true) {
         //Leememos la inforamcion de la BASE DE DATOS
@@ -150,12 +146,11 @@ const ModalModifyCompany = () => {
             Cancelar
           </Button>,
         ]}
-        // onCancel={handleCancel}
       >
         {/* ------------------------- ********** ------------------------- */}
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Nombre Compañia
+            Nombre Empresa
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
@@ -169,7 +164,7 @@ const ModalModifyCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            NIT Compañia
+            NIT Empresa
           </Col>
           <Col span={12}>
             <Input
@@ -182,7 +177,7 @@ const ModalModifyCompany = () => {
           </Col>
         </Row>
         <Row>
-          <Col span={12}>Telefono Compañia</Col>
+          <Col span={12}>Telefono Empresa</Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
               placeholder="default size"
@@ -195,7 +190,7 @@ const ModalModifyCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Email Compañia
+            Email Empresarial
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
@@ -209,7 +204,7 @@ const ModalModifyCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Moneda Compañia
+            Moneda
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
@@ -237,7 +232,7 @@ const ModalModifyCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Place Compañia
+            Lugar Empresa
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
@@ -251,7 +246,7 @@ const ModalModifyCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Direccion Compañia
+            Direccion Empresa
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
@@ -265,7 +260,7 @@ const ModalModifyCompany = () => {
         </Row>
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Perteneciente Compañia
+            Perteneciente Empresa
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
@@ -277,24 +272,8 @@ const ModalModifyCompany = () => {
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Codigo Compañia
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="default size"
-              prefix={<UserOutlined />}
-              name="codecom"
-              onChange={onChangeAddCompany}
-              value={codecom}
-            />
-          </Col>
-        </Row>
         {/* ------------------------- ********** ------------------------- */}
       </Modal>
-      {/* ------------------------- ********** ------------------------- */}
-
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );

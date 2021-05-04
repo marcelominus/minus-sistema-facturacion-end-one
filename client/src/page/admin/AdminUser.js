@@ -1,24 +1,25 @@
 import React, { Fragment, useEffect } from "react";
 import { Layout } from "antd";
-//Importamos framer motion
+//****************************************************************
+//Importamos MOTION para framer-motion
 import { motion } from "framer-motion";
 import {
   pageTransitionStart,
   pageVariantsStart,
 } from "../../resource/js/effects";
 //****************************************************************
-//
+//Importamos COMPONENTES de RETORNO CREACION DE INFORMACION INICIAL
 import ModalSelectionDate from "../../components/tools/ModalSelectionData";
 import ReturnData from "../../components/tools/ReturnData";
-import TableSelectionData from '../../components/tools/TableSelectionData';
+import TableSelectionData from "../../components/tools/TableSelectionData";
 
 //*******************************************************
-//Importamos los componentes
+//Importamos los COMPONENTES de USER
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
-import ModalAddUser from '../../components/AdminUser/ModalAddUser';
-import TableDataUser from '../../components/AdminUser/TableDataUser';
+import ModalAddUser from "../../components/AdminUser/ModalAddUser";
+import TableDataUser from "../../components/AdminUser/TableDataUser";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;

@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
 //****************************************************************
-//
-import { Modal, Button } from "antd";
+//Importamos Componentes de ATND
+import { Modal, Button, Tag } from "antd";
+import { WarningOutlined } from "@ant-design/icons";
+
 //****************************************************************
 //Importamos los CONTEXT
 import startContext from "../../hook/start/startContext";
@@ -57,13 +59,11 @@ const ModalStart = () => {
             Entendido
           </Button>,
         ]}
-        // onCancel={handleCancel}
       >
         <p>
-          NoNO se encuentra registrado ninguna {messageone} {messagetwo}
-        </p>
-        <p>
-          Ingrese los nuevos datos de {messageone} {messagetwo}
+          <WarningOutlined /> No se encuentra registrado ninguna{" "}
+          {messageone !== "" ? <Tag color="purple">{messageone}</Tag> : null}
+          {messagetwo !== "" ? <Tag color="purple">{messagetwo}</Tag> : null}
         </p>
       </Modal>
     </Fragment>

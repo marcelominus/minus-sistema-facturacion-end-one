@@ -16,6 +16,7 @@ import companyContext from "../../hook/company/companyContext";
 //****************************************************************
 //Creamos las variables de SELECT
 const { Option } = Select;
+
 //================================================================
 //INICIO DE CLASE
 //================================================================
@@ -39,7 +40,6 @@ const ModalAddCompany = () => {
     placecom: "",
     directioncom: "",
     ofcom: "",
-    codecom: "",
   });
   const {
     namecom,
@@ -51,7 +51,6 @@ const ModalAddCompany = () => {
     placecom,
     directioncom,
     ofcom,
-    codecom,
   } = dataform;
   //Carga la informacion de COMPANY
   const onChangeAddCompany = (e) => {
@@ -81,8 +80,7 @@ const ModalAddCompany = () => {
       citycom.toLowerCase().trim() == "" ||
       placecom.toLowerCase().trim() == "" ||
       directioncom.toLowerCase().trim() == "" ||
-      ofcom.toLowerCase().trim() == "" ||
-      codecom.toLowerCase().trim() == ""
+      ofcom.toLowerCase().trim() == ""
     ) {
       messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
     } else {
@@ -95,8 +93,7 @@ const ModalAddCompany = () => {
         citycom,
         placecom,
         directioncom,
-        ofcom,
-        codecom
+        ofcom
       ).then((elem) => {
         if (elem === "duplicate") {
           //Mensage de WARNING
@@ -125,11 +122,13 @@ const ModalAddCompany = () => {
     setIsModalVisible(false);
     resetForm();
   };
+
   //Funcion ABRIR el MODAL de ADD COMPANY
   const openModalCompany = (e) => {
     e.preventDefault();
     setIsModalVisible(true);
   };
+
   //Funcion para RESETEAR las entradas del FORMULARIO
   const resetForm = () => {
     setDataForm({
@@ -142,9 +141,9 @@ const ModalAddCompany = () => {
       placecom: "",
       directioncom: "",
       ofcom: "",
-      codecom: "",
     });
   };
+
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -171,7 +170,7 @@ const ModalAddCompany = () => {
           <Col span={12} style={{ background: "transparent" }}>
             Nombre Empresa
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el nombre de Empresa"
               prefix={<UserOutlined />}
@@ -185,7 +184,7 @@ const ModalAddCompany = () => {
           <Col span={12} style={{ background: "transparent" }}>
             NIT Empresa
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el codigo de NIT"
               prefix={<UserOutlined />}
@@ -213,7 +212,7 @@ const ModalAddCompany = () => {
           <Col span={12} style={{ background: "transparent" }}>
             Email Empresa
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el Email Empresarial"
               prefix={<UserOutlined />}
@@ -227,7 +226,7 @@ const ModalAddCompany = () => {
           <Col span={12} style={{ background: "transparent" }}>
             Moneda usada
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Select
               onChange={onChangeAddCompanyCoin}
               defaultValue=""
@@ -243,7 +242,7 @@ const ModalAddCompany = () => {
           <Col span={12} style={{ background: "transparent" }}>
             Ciudad Empresa
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese la Ciudad de la Empresa"
               prefix={<UserOutlined />}
@@ -257,7 +256,7 @@ const ModalAddCompany = () => {
           <Col span={12} style={{ background: "transparent" }}>
             Lugar Empresa
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Lugar de la Empresa"
               prefix={<UserOutlined />}
@@ -271,7 +270,7 @@ const ModalAddCompany = () => {
           <Col span={12} style={{ background: "transparent" }}>
             Direccion de Empresa
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese la Direccion de la Empresa"
               prefix={<UserOutlined />}
@@ -285,27 +284,13 @@ const ModalAddCompany = () => {
           <Col span={12} style={{ background: "transparent" }}>
             Perteneciente de la Empresa
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el Nombre de Propietario"
               prefix={<UserOutlined />}
               name="ofcom"
               onChange={onChangeAddCompany}
               value={ofcom}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Codigo De Empresa
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="Ingrese el Codigo de la Empresa Ciudad"
-              prefix={<UserOutlined />}
-              name="codecom"
-              onChange={onChangeAddCompany}
-              value={codecom}
             />
           </Col>
         </Row>

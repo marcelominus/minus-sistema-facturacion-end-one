@@ -6,7 +6,6 @@ import companyContext from "./companyContext";
 import companyReducer from "./companyReducer";
 // Importamos los TYPES
 import {
-  COMPANY_CREATE,
   COMPANY_READ,
   COMPANY_SAVE_COMPANY,
   COMPANY_MODAL_LOGO,
@@ -14,7 +13,6 @@ import {
   COMPANY_MODAL_UPDATE,
   COMPANY_SAVE_COMPANY_UPDATE,
   COMPANY_DIRECTION_LOGO,
-  COMPANY_SAVE_ID_COMPANY_UPDATE,
 } from "../../utils/index";
 //Importamos las direcciones de LOGIN
 import {
@@ -49,10 +47,8 @@ const CompanyState = (props) => {
         placecom: "",
         directioncom: "",
         ofcom: "",
-        code: "",
       },
     ],
-    idcompanyupdate: "", //INFORMACION DE ID PARA PODER CAMBIAR INFORMACION
     directionimglogo: "", //DIRECTION DE LOGO DE IMAGEN ** NO UTILIZADA **
   };
   const [state, dispatch] = useReducer(companyReducer, initialState);
@@ -67,8 +63,7 @@ const CompanyState = (props) => {
     value_6,
     value_7,
     value_8,
-    value_9,
-    value_10
+    value_9
   ) => {
     //Extraer el TOKEN del LOCAL STORE
     const token = localStorage.getItem("token");
@@ -89,7 +84,6 @@ const CompanyState = (props) => {
         placecom: value_7,
         directioncom: value_8,
         ofcom: value_9,
-        codecom: value_10,
       });
 
       const solutionPetitionCreate = petitionCreateCompany.data;
@@ -97,25 +91,6 @@ const CompanyState = (props) => {
         dispatch({
           type: COMPANY_SAVE_COMPANY,
           payload: solutionPetitionCreate.data,
-        });
-
-        //Creamos la nueva variables para el acceso
-        const newInformation = {
-          identifiercom: solutionPetitionCreate.data,
-          namecom: value_1,
-          nitcom: value_2,
-          telephonecom: value_3,
-          emailcom: value_4,
-          coincom: value_5,
-          citycom: value_6,
-          placecom: value_7,
-          directioncom: value_8,
-          ofcom: value_9,
-          codecom: value_10,
-        };
-        dispatch({
-          type: COMPANY_CREATE,
-          payload: newInformation,
         });
         return solutionPetitionCreate.data;
       } else {
@@ -142,6 +117,8 @@ const CompanyState = (props) => {
       //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
       tokenAuth(token);
     }
+
+    //----------------------------------------------------------------
     try {
       const url = direction_admin_company_read;
       const petitionReadCompany = await clienteAxios.post(url);
@@ -186,6 +163,7 @@ const CompanyState = (props) => {
       console.log("error");
     }
   };
+
   //-----------------------------------------------------------------
   //HABILITA EL MODAL PARA PODER ACCEDER EN EL LOGO
   const functionLoadLogoView = (valor) => {
@@ -194,6 +172,7 @@ const CompanyState = (props) => {
       payload: valor,
     });
   };
+
   //-----------------------------------------------------------------
   //GUARDA EL ID DE COMPANY EN RESPUSETA DEL CREATE TAMBIEN PARA CAMBIAR EL LOGO
   const functionLoadIdCompany = (valor) => {
@@ -213,19 +192,10 @@ const CompanyState = (props) => {
   };
 
   //-----------------------------------------------------------------
-  //GUARDA EL ARRAY DE COMPONENTES DE COMPANIES
+  //GUARDA EL ARRAY DE COMPONENTES DE COMPANY
   const functionLoadIdCompanyUpdate = (valor) => {
     dispatch({
       type: COMPANY_SAVE_COMPANY_UPDATE,
-      payload: valor,
-    });
-  };
-
-  //-----------------------------------------------------------------
-  //GUARDA EL ID DE COMPONENTES DE COMPANIES
-  const functionIdCompanyUpdate = (valor) => {
-    dispatch({
-      type: COMPANY_SAVE_ID_COMPANY_UPDATE,
       payload: valor,
     });
   };
@@ -243,8 +213,7 @@ const CompanyState = (props) => {
     value_7,
     value_8,
     value_9,
-    value_10,
-    value_0
+    value_10
   ) => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -263,8 +232,7 @@ const CompanyState = (props) => {
         placecom: value_7,
         directioncom: value_8,
         ofcom: value_9,
-        codecom: value_10,
-        identifiercom: value_0,
+        identifiercom: value_10,
       });
       const solutionPetitionUpdate = petitionUpdateCompany.data;
       if (solutionPetitionUpdate.response == "success") {
@@ -320,7 +288,6 @@ const CompanyState = (props) => {
         idcompany: state.idcompany,
         idcompanyupdatearray: state.idcompanyupdatearray,
         directionimglogo: state.directionimglogo,
-        idcompanyupdate: state.idcompanyupdate,
         functionCreateCompany, //
         functionReadCompany, //
         functionSendImg, //
@@ -331,7 +298,6 @@ const CompanyState = (props) => {
         functionLoadImgModal,
         functionLoadIdCompanyUpdate, //
         functionUpdateCompany,
-        functionIdCompanyUpdate,
         functionDeleteCompany,
       }}
     >

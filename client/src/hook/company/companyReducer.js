@@ -1,5 +1,4 @@
 import {
-  COMPANY_CREATE,
   COMPANY_READ,
   COMPANY_SAVE_COMPANY,
   COMPANY_MODAL_LOGO,
@@ -7,20 +6,11 @@ import {
   COMPANY_MODAL_UPDATE,
   COMPANY_SAVE_COMPANY_UPDATE,
   COMPANY_DIRECTION_LOGO,
-  COMPANY_SAVE_ID_COMPANY_UPDATE,
 } from "../../utils/index";
 
 //Zona de SWITCH
 export default (state, action) => {
   switch (action.type) {
-    //----------------------------------------------------------------
-    //ANADE AL ARRAY LA INFORMACION DE ARRAY DE INFORMACION PARA LA LISTA
-    case COMPANY_CREATE:
-      return {
-        ...state,
-        arraycompany: [...state.arraycompany, action.payload],
-      };
-
     //-----------------------------------------------------------------
     //REDUCER PARA PODER GUARDAR EL ID COMPANY PARA PODER UTILIZARLO PARA ENVIAR INFORMACION DE LOGO ADD
     case COMPANY_SAVE_COMPANY:
@@ -67,14 +57,6 @@ export default (state, action) => {
       return {
         ...state,
         idcompanyupdatearray: action.payload,
-      };
-
-    //****************************************************************
-    //REDUCER PARA PODER GUARDAR EL ID UPDATE PAR APODER MODFICAR O ELIMINAR UN COMPANY
-    case COMPANY_SAVE_ID_COMPANY_UPDATE:
-      return {
-        ...state,
-        idcompanyupdate: action.payload,
       };
 
     //****************************************************************

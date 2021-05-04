@@ -52,31 +52,6 @@ const ModalAddLogo = () => {
 
   //-----------------------------------------------------------------
   //ZONE - FUNCTION
-  //Funcion de Apretar CANCEL
-  const handleCancel = () => {
-    //Cierra el MODAL
-    setIsModalVisible(false);
-    //Oculta la lista de UPLOAD
-    setImgVisible(false);
-    //Vacia el STATE donde se guarda la informacion de la imagen
-    setImg({
-      file: {
-        status: "removed",
-      },
-    });
-    //
-    functionLoadLogo(false);
-    //
-    functionReadCompany();
-  };
-
-  //Funcion de OPEN MODAL
-  const openModalCompany = (e) => {
-    e.preventDefault();
-    //Abrimos el MODAL
-    setIsModalVisible(true);
-  };
-
   const onClickSendLogo = (e) => {
     e.preventDefault();
 
@@ -114,6 +89,24 @@ const ModalAddLogo = () => {
         }
       });
     }
+  };
+
+  //Funcion de Apretar CANCEL
+  const handleCancel = () => {
+    //Cierra el MODAL
+    setIsModalVisible(false);
+    //Oculta la lista de UPLOAD
+    setImgVisible(false);
+    //Vacia el STATE donde se guarda la informacion de la imagen
+    setImg({
+      file: {
+        status: "removed",
+      },
+    });
+    //
+    functionLoadLogo(false);
+    //
+    functionReadCompany();
   };
 
   //================================================================

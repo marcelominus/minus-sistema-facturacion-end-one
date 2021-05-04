@@ -1,4 +1,4 @@
-import { PETITION_LOGIN, PETITION_AUTHENTICATED, PETITION_AUTH } from "../../utils/index";
+import { PETITION_LOGIN, PETITION_AUTHENTICATED } from "../../utils/index";
 
 //Zona de SWITCH
 export default (state, action) => {
@@ -10,8 +10,6 @@ export default (state, action) => {
       localStorage.setItem("tokenbusiness", "");
       localStorage.setItem("tokendosage", "");
       localStorage.setItem("datauser", JSON.stringify([]));
-
-      // localStorage.setItem('datauser', "")
       return {
         ...state,
         authenticated: true,
@@ -22,11 +20,6 @@ export default (state, action) => {
         ...state,
         authenticated: true,
         informationUser: action.payload,
-      };
-    case PETITION_AUTH:
-      return {
-        ...state,
-        authenticated: true,
       };
     default:
       return state;

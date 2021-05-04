@@ -17,6 +17,7 @@ import imagenLogin from "../../resource/img/logo-login.png";
 //Importamos los componentes de REACT ANTD
 import { Row, Col, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -24,23 +25,21 @@ import {
   messageWarning,
   messageSuccess,
 } from "../../resource/js/messages";
+
 //****************************************************************
-//
+//Importamos los CONTEXT
 import logincontext from "../../hook/login/loginContext";
 
 //*******************************************************
-//
+//Importamos el Componente de LOADING
 import Loading from "../../components/tools/Loading";
-//
 
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import Movie from "./Movie";
 //================================================================
 //INICIO DE CLASE
 //================================================================
 const Login = (props) => {
   //-----------------------------------------------------------------
-  //STATE
+  //ZONE STATE
   const [state, setState] = useState(false); //Funcion para poder realizar el LOADING SPINNER
   const [dataform, setDataForm] = useState({
     //Datos de poder enviar la informacion de USER PASS
@@ -59,12 +58,13 @@ const Login = (props) => {
   const { user, pass } = dataform;
 
   //-----------------------------------------------------------------
-  //Importamos los USECONTEXT
+  //ZONE USE CONTEXT
   const { funcionPeticionLogin } = useContext(logincontext);
 
   //-------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
+    //Le da un tiempo de 2 sengundos para el EFECTO LOADING
     setTimeout(() => {
       if (state === false) {
         setState(true);
@@ -77,16 +77,17 @@ const Login = (props) => {
   const onClickLogin = (e) => {
     e.preventDefault();
 
+    //-----------------------------------------------------------------
     if (user.trim() === "" || pass.trim() === "") {
       messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
     } else {
       funcionPeticionLogin(user, pass).then((e) => {
         if (e === "empty") {
-          messageError("Error, Usuario no encontrado", 2);
+          messageError("Error, Usuario no encontrado", 3);
         } else if (e === "fail-server") {
-          message("Fallo Intenten nuvamente", 2);
+          message("Fallo, Intente mas Tarde", 3);
         } else {
-          messageSuccess("Correcto, Bienvenido al sistema", 2);
+          messageSuccess("Correcto, Bienvenido al sistema", 3);
           setTimeout(() => {
             props.history.push("/start");
           }, 2000);
@@ -136,7 +137,6 @@ const Login = (props) => {
                     className="input-style"
                     name="user"
                     onChange={onChangeData}
-                    // onChange={(e) => setDataForm({ ...dataform, user: e })}
                   />
                 </div>
                 <div className="input-style">
@@ -149,8 +149,6 @@ const Login = (props) => {
                     className="input-style"
                     name="pass"
                     onChange={onChangeData}
-
-                    // onChange={(e) => setDataForm({ ...dataform, pass: e })}
                   />
                 </div>
                 {/* --------------------------------------------------  */}

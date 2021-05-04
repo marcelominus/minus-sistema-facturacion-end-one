@@ -3,7 +3,7 @@ import React, { Fragment, useContext, useState, useEffect } from "react";
 //Importamos las librerias necesarias para poder utilizar ANTD
 import { Modal, Button, Row, Col, Divider } from "antd";
 //****************************************************************
-//
+//Importamos los datos CONTEXT
 import companyContext from "../../hook/company/companyContext";
 
 //================================================================
@@ -13,9 +13,11 @@ const ModalViewLogo = ({ directionimg }) => {
   //-----------------------------------------------------------------
   //ZONE USE-STATE
   const [isModalVisible, setIsModalVisible] = useState(false); //Estado para abrir MODAL
+
   //-----------------------------------------------------------------
   //ZONE USE-CONTEXT
   const { modallogoview, functionLoadLogoView } = useContext(companyContext);
+
   //-----------------------------------------------------------------
   //ZONE USE-EFFECT
   useEffect(() => {
@@ -24,18 +26,13 @@ const ModalViewLogo = ({ directionimg }) => {
     }
   }, [modallogoview]);
 
-  //Funcion de OPEN MODAL
-  const openModalCompany = (e) => {
-    e.preventDefault();
-    //Abrimos el MODAL
-    setIsModalVisible(true);
-  };
   //Funcion de Apretar CANCEL
   const handleCancel = () => {
     //Cierra el MODAL
     functionLoadLogoView(false);
     setIsModalVisible(false);
   };
+  
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================

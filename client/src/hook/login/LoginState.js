@@ -8,11 +8,7 @@ import loginContext from "./loginContext";
 import loginReducer from "./loginReducer";
 //***************************************************************** */
 //Importamos los TYPES
-import {
-  PETITION_LOGIN,
-  PETITION_AUTHENTICATED,
-  PETITION_AUTH,
-} from "../../utils/index";
+import { PETITION_LOGIN, PETITION_AUTHENTICATED } from "../../utils/index";
 //***************************************************************** */
 //Importamos las direcciones de LOGIN
 import {
@@ -33,7 +29,14 @@ const LoginState = (props) => {
   };
   const [state, dispatch] = useReducer(loginReducer, initialState);
 
-  //Funcion Peticion de LOGIN
+  //-----------------------------------------------------------------
+  //ZONE FUNCTION
+
+  //Funcion que envia los valores de USER Y PASS
+  /**Se crea las variables de LOCALSTORAGE variables persistentes
+   * Se recibe el TOKEN de AUTENTIFICACION  y se guarda
+   * y se pasa a la siguiente funcion autentifica
+   */
   const funcionPeticionLogin = async (value_1, value_2) => {
     try {
       const url = direccion_admin_login;
@@ -89,19 +92,6 @@ const LoginState = (props) => {
     }
   };
 
-  //-------------------------------------------------------
-  //
-  const funcionStartFast = async () => {
-    try {
-      dispatch({
-        type: PETITION_AUTH,
-      });
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  };
-
   //=====================================================
   //INICIO DE COMPONENTE
   //=====================================================
@@ -112,7 +102,6 @@ const LoginState = (props) => {
         informationUser: state.informationUser,
         funcionPeticionLogin,
         funcionAutentificarUsuario,
-        funcionStartFast,
       }}
     >
       {props.children}

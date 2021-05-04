@@ -1,10 +1,8 @@
 import React, { Fragment } from "react";
 import { Layout } from "antd";
 //****************************************************************
-//Importamos framer motion
+//Importamos framer motion y EFECTOS
 import { motion } from "framer-motion";
-//****************************************************************
-//IMPORTAMOS EFFECTOS
 import {
   pageTransitionStart,
   pageVariantsStart,
@@ -22,8 +20,6 @@ import FooterPage from "../../components/tools/FooterPage";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
-//*******************************************************
-//
 
 //================================================================
 //INICIO DE CLASE
@@ -51,7 +47,7 @@ const AdminCompany = () => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <h4>Anadir Nueva Empresa</h4>
+              <h4>Añadir Nueva Empresa</h4>
               {/* ------------------------- ********** ------------------------- */}
               <ModalAddCompany />
               <ModalAddLogo />

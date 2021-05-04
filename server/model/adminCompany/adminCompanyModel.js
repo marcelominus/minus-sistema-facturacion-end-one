@@ -47,9 +47,6 @@ const Company = db.define(
         ofcom : {
             type : Sequelize.STRING,
         },
-        codecom : {
-            type : Sequelize.STRING,
-        },
         directionimgcom : {
             type : Sequelize.STRING,
             defaultValue : constants.logoDefault
