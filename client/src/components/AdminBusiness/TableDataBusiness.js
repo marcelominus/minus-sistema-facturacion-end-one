@@ -51,9 +51,7 @@ const TableDataBusiness = () => {
   //ZONE USE EFFECT
   useEffect(() => {
     //Funcion para poder llamar la tabla
-    functionReadBusiness().then((e) => {
-      console.log(arraybusiness);
-    });
+    functionReadBusiness();
   }, []);
 
   //-------------------------------------------------------

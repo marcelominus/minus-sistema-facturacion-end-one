@@ -34,7 +34,7 @@ const SideBar = () => {
     let dataTokenCompany = localStorage.getItem("tokencompany");
     let dataTokenBusiness = localStorage.getItem("tokenbusiness");
     if (dataTokenCompany.trim() == "" || dataTokenBusiness.trim() == "") {
-      console.log("LENNY LAURA DATOS VACIOS");
+      console.log("LENNY LAURA DATOS VACIOS DESDE EL SIDEBAR");
     } else {
       setStep(true);
     }

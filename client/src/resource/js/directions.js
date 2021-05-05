@@ -28,7 +28,7 @@ export const direction_admin_business_delete = `${IP_SERVER}/admin-bus/business-
 //****************************************************************
 //DIRECTION TOOLS
 export const direction_admin_tool_read = `${IP_SERVER}/admin-tool/tool-all-read`;
-
+export const direction_admin_tool_read_all = `${IP_SERVER}/admin-tool/tool-all-read-selection`;
 //****************************************************************
 //DIRECTION USER
 export const direction_admin_user_create = `${IP_SERVER}/admin/admin-all-create`;

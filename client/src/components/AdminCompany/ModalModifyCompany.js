@@ -135,9 +135,11 @@ const ModalModifyCompany = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Modificar Información de Empresa"
         visible={isModalVisible}
         width={800}
+        closable={false}
+
         footer={[
           <Button key="send" type="primary" onClick={onClickCompany}>
             Enviar

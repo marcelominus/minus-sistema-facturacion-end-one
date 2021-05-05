@@ -15,7 +15,7 @@ const { SubMenu } = Menu;
 // =====================================================
 // INICIO DE CLASE  */}
 // =====================================================
-const HeaderPage = () => {
+const HeaderPage = ({title}) => {
   // =====================================================
   // INICIO DE COMPONENTE}
   // =====================================================
@@ -31,7 +31,7 @@ const HeaderPage = () => {
           className="container-padding"
         >
           <div style={{ fontSize: "1.5rem", color: "white" }}>
-            Inicio
+            {title}
           </div>
         </motion.div>
       </Header>

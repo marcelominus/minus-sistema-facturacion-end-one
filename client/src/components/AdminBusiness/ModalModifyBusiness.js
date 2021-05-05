@@ -168,7 +168,7 @@ const ModalModifyBusiness = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Modificar Sucursal"
         visible={isModalVisible}
         width={800}
         footer={[

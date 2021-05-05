@@ -29,8 +29,9 @@ const CardSelection = () => {
   const [selection, setSelection] = useState({
     identifiercom: "",
     identifierbus: "",
+    identifierall: "",
   });
-  const { identifiercom, identifierbus } = selection;
+  const { identifiercom, identifierbus, identifierall } = selection;
   const onChangeAddCompany = (e) => {
     setSelection({
       ...selection,
@@ -43,14 +44,24 @@ const CardSelection = () => {
       identifierbus: e,
     });
   };
+
+  const onChangeAddAll = (e) => {
+    setSelection({
+      ...selection,
+      identifierall: e,
+    });
+  };
+
   //-----------------------------------------------------------------
   //ZONE USE-CONTEXT
   const { arraybusiness, functionReadBusiness } = useContext(businessContext);
   const { arraycompany, functionReadCompany } = useContext(companyContext);
   const {
+    arrayallselection,
     functionTableSelection,
     functionSelectionInformationCompany,
     functionSelectionInformationBusiness,
+    functionReadAllSelection,
   } = useContext(toolsContext);
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
@@ -58,14 +69,17 @@ const CardSelection = () => {
     functionReadCompany().then((e) => {
       functionReadBusiness().then((e) => {});
     });
+    functionReadAllSelection();
   }, []);
 
   //-------------------------------------------------------
   //ZONE FUNCTION
   const onClickSelection = (e) => {
     e.preventDefault();
-    functionSelectionInformationCompany(identifiercom);
-    functionSelectionInformationBusiness(identifierbus);
+
+    const informationAll = identifierall.split("&");
+    functionSelectionInformationCompany(informationAll[0]);
+    functionSelectionInformationBusiness(informationAll[1]);
     functionTableSelection(true);
   };
   // =====================================================
@@ -113,6 +127,27 @@ const CardSelection = () => {
                     return (
                       <Option value={e.identifierbus} key={key}>
                         {e.namebus}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={12} style={{ background: "transparent" }}>
+                Selecciones la Empresa de Inicio
+              </Col>
+              <Col span={12} style={{ background: "blue" }}>
+                <Select
+                  defaultValue=""
+                  onChange={onChangeAddAll}
+                  style={{ width: "100%" }}
+                >
+                  <Option value="">--Seleccione una Opcion--</Option>
+                  {arrayallselection.map((e, key) => {
+                    return (
+                      <Option value={e.identifierall} key={key}>
+                        {e.namebus} ({e.namecom})
                       </Option>
                     );
                   })}

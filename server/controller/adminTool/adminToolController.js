@@ -59,3 +59,54 @@ exports.readToolAll = async(req, res) => {
         res.json({ response : 'fail-server'});
     }
 }
+
+//=================================================================
+//Lectura de la informacion de Login Usuario
+exports.readToolAllSelection = async(req, res) => {
+    // res.json({ uno : req.usuario});
+    const role = req.user.role;
+    const identifier = req.user.identifier;
+    //
+    let arrayInformation = {};
+    //
+    try {
+        const consultationUser = await LoginModel.findAll({
+            where : {
+                identifier : identifier,
+                role : role
+            },
+            raw : true
+        });
+        if( consultationUser == 0 ){
+            res.json({ response : 'empty'});
+        }else{
+            // LECTURA DE INFORMACION SOLO ALL => ADMIN, USER / (super admin)
+            const consultationCompany  = await CompanyModel.findAll({
+                raw : true
+            });
+            const consultationBusiness = await BusinessModel.findAll({
+                raw : true
+            })
+            let i = 0;
+            let arrayBusinessSelection = [...consultationBusiness];
+            consultationBusiness.map( e => {
+                consultationCompany.map( f => {
+                    if( f.identifiercom === e.identifiercom){
+                        arrayBusinessSelection[i].namecom = f.namecom;
+                        arrayBusinessSelection[i].identifierall = f.identifiercom + '&' + e.identifierbus;
+                        i++;
+                    }
+                })
+            })
+
+            if( consultationCompany.length === 0 ){
+                res.json({ response : 'empty'})
+            }else{
+                res.json({ response : 'success' , data : arrayBusinessSelection});
+            }
+            
+        }
+    } catch (error) {
+        res.json({ response : 'fail-server'});
+    }
+}

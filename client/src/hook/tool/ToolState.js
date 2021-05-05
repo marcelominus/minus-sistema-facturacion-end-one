@@ -11,9 +11,10 @@ import {
   TOOL_SELECTION_INFORMATION_BUSINESS,
   TOOL_SELECTION_READ,
   TOOL_SELECTION,
+  TOOL_SELECTION_READ_ALL
 } from "../../utils/index";
 //Importamos las direcciones de LOGIN
-import { direction_admin_tool_read } from "../../resource/js/directions";
+import { direction_admin_tool_read, direction_admin_tool_read_all } from "../../resource/js/directions";
 //Imortamos los componentes necesarios
 //Importamos la variable de FUNCION de TOKEN que permite INGREASAR HEAD AXIOS
 import tokenAuth from "../../config/token";
@@ -24,6 +25,7 @@ const ToolState = (props) => {
   const initialState = {
     tableselection: false,
     arrayselection: [],
+    arrayallselection : []
   };
   //-----------------------------------------------------------------
   //REDUCER
@@ -59,7 +61,6 @@ const ToolState = (props) => {
         identifierbus: valor_2,
       });
       const solutionPetitionSelection = petitionReadSelection.data;
-      console.log(solutionPetitionSelection.data);
       if (solutionPetitionSelection.response == "empty") {
         dispatch({
           type: TOOL_SELECTION_READ,
@@ -78,6 +79,33 @@ const ToolState = (props) => {
     }
   };
 
+  const functionReadAllSelection = async() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      const url = direction_admin_tool_read_all;
+      const petitionReadSelectionAll = await clienteAxios.post(url);
+      const solutionPetitionSelection = petitionReadSelectionAll.data;
+      if (solutionPetitionSelection.response == "empty") {
+        dispatch({
+          type: TOOL_SELECTION_READ_ALL,
+          payload: [],
+        });
+        return false;
+      } else {
+        dispatch({
+          type: TOOL_SELECTION_READ_ALL,
+          payload: solutionPetitionSelection.data,
+        });
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   //-----------------------------------------------------------------
   //
   const functionTableSelection = (valor) => {
@@ -95,10 +123,12 @@ const ToolState = (props) => {
       value={{
         arrayselection: state.arrayselection,
         tableselection: state.tableselection,
+        arrayallselection : state.arrayallselection,
         functionSelectionInformationCompany,
         functionSelectionInformationBusiness,
         functionReadSelection,
         functionTableSelection,
+        functionReadAllSelection
       }}
     >
       {props.children}

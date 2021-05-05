@@ -63,11 +63,7 @@ const ModalAddBusiness = () => {
   //ZONE USE -CONTEXT
   const { arraycompany, functionReadCompany } = useContext(companyContext);
   const { functionCreateBusiness, functionReadBusiness } = useContext(businessContext);
-  //-----------------------------------------------------------------
-  //ZONE USE - EFFECT
-  useEffect(() => {
-    
-  }, []);
+  
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickBusiness = (e) => {
@@ -147,9 +143,10 @@ const ModalAddBusiness = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Añadir Sucursal"
         visible={isModalVisible}
         width={800}
+        closable={false}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickBusiness}>
@@ -164,7 +161,7 @@ const ModalAddBusiness = () => {
         {/* ------------------------- ********** ------------------------- */}
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Selecciones la Empresa
+            Seleccione la Empresa
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Select

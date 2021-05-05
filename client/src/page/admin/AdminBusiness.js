@@ -40,7 +40,7 @@ const AdminBusiness = () => {
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
           {/* ------------------------- ********** ------------------------- */}
-          <HeaderPage />
+          <HeaderPage title={'Administrar Sucursales'}/>
           {/* ------------------------- ********** ------------------------- */}
           <Content style={{ margin: "0 16px" }}>
             <motion.div

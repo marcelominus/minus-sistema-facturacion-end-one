@@ -148,8 +148,7 @@ const ModalAddLogo = () => {
           </p>
           <p className="ant-upload-text">Click o Arrastre el Objeto Imagen</p>
           <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibit from
-            uploading company data or other band files
+            Ingrese la imagen de logo, Tamaño aconsejado 250x200
           </p>
         </Dragger>
       </Modal>

@@ -13,6 +13,6 @@ const auth = require('../../middleware/login/authToken');
 module.exports = () => {
      //ROUTAS DE LOGIN
     router.post('/tool-all-read', auth, adminToolController.readToolAll);
-   
+    router.post('/tool-all-read-selection', auth, adminToolController.readToolAllSelection);
     return router;
 }

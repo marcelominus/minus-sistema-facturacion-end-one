@@ -7,7 +7,7 @@ import React, {
 } from "react";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
+import { Table, Tag, Input, Button, Space, Modal } from "antd";
 import {
   SearchOutlined,
   EyeOutlined,
@@ -35,6 +35,7 @@ const TableDataCompany = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const [directionimg, setDirectionImg] = useState("");
+  const [modaldelete, setModalDelete] = useState(false);
   const searchInput = useRef(null);
   //-------------------------------------------------------
   //
@@ -54,7 +55,7 @@ const TableDataCompany = () => {
   useEffect(() => {
     //Funcion para poder llamar la tabla
     functionReadCompany().then((e) => {
-      console.log(arraycompany);
+      //console.log(arraycompany);
     });
   }, []);
 
@@ -213,23 +214,37 @@ const TableDataCompany = () => {
               functionLoadIdCompanyUpdate(resultFilterUpdate);
             }}
           />
-
-          <Button
-            type="primary"
-            icon={<DeleteOutlined />}
-            size={"default"}
-            ghost
-            onClick={() => {
-              functionDeleteCompany(text.identifiercom).then((e) => {
-                if (e === true) {
-                  messageSuccess("Correcto Elemento Borrado", 2);
-                  functionReadCompany();
-                } else {
-                  messageError("Error, Intente mas Tarde", 2);
+            <Modal
+              title="Aviso de Sistema"
+              visible={modaldelete}
+              closable={false}
+              onOk={ () => {
+                  functionDeleteCompany(text.identifiercom).then((e) => {
+                    if (e === true) {
+                      messageSuccess("Correcto Elemento Borrado", 2);
+                      functionReadCompany();
+                      setModalDelete(false)
+                    } else {
+                      messageError("Error, Intente mas Tarde", 2);
+                      setModalDelete(false)
+                    }
+                  })
                 }
-              });
-            }}
-          />
+              }
+              onCancel={() => setModalDelete(false)}
+              okText="Ok"
+              cancelText="Cancel"
+            >
+              <p>Se borrara la Informacion. Esta seguro de la orden realizada</p>
+            </Modal>
+            <Button
+              type="primary"
+              icon={<DeleteOutlined />}
+              size={"default"}
+              ghost
+              onClick = { () => setModalDelete(true)}
+            />
+  
         </Fragment>
       ),
     },
@@ -240,6 +255,9 @@ const TableDataCompany = () => {
   //================================================================
   return (
     <Fragment>
+      <h4>
+        Empresas Actuales
+      </h4>
       {/* ------------------------- ********** ------------------------- */}
       <Table
         columns={columns}

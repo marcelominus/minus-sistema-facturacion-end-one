@@ -36,7 +36,7 @@ const AdminCompany = () => {
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
           {/* ------------------------- ********** ------------------------- */}
-          <HeaderPage />
+          <HeaderPage title={'Administrar Empresa'}/>
           {/* ------------------------- ********** ------------------------- */}
           <Content style={{ margin: "0 16px" }}>
             <motion.div

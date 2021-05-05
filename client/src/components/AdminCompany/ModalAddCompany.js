@@ -154,6 +154,7 @@ const ModalAddCompany = () => {
         title="Añadir Empresa"
         visible={isModalVisible}
         width={800}
+        closable={false}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickCompany}>
