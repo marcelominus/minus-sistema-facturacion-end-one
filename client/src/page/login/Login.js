@@ -28,7 +28,8 @@ import {
 
 //****************************************************************
 //Importamos los CONTEXT
-import logincontext from "../../hook/login/loginContext";
+import loginContext from "../../hook/login/loginContext";
+import toolContext from "../../hook/tool/toolContext";
 
 //*******************************************************
 //Importamos el Componente de LOADING
@@ -59,8 +60,12 @@ const Login = (props) => {
 
   //-----------------------------------------------------------------
   //ZONE USE CONTEXT
-  const { funcionPeticionLogin } = useContext(logincontext);
-
+  const { funcionPeticionLogin } = useContext(loginContext);
+  const {
+    functionSelectionInformationCompany,
+    functionSelectionInformationBusiness,
+    functionSelectionInformationRole,
+  } = useContext(toolContext);
   //-------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
@@ -88,6 +93,34 @@ const Login = (props) => {
           message("Fallo, Intente mas Tarde", 3);
         } else {
           messageSuccess("Correcto, Bienvenido al sistema", 3);
+          let dataTokenRole = JSON.parse(localStorage.getItem("datauser"));
+          console.log(dataTokenRole);
+
+          switch (dataTokenRole[0].role) {
+            case "master":
+              functionSelectionInformationRole("master");
+              break;
+            case "admin-all":
+              functionSelectionInformationCompany(
+                dataTokenRole[0].identifiercom
+              );
+              functionSelectionInformationBusiness(
+                dataTokenRole[0].identifierbus
+              );
+              functionSelectionInformationRole("admin-all");
+              break;
+            case "user":
+              functionSelectionInformationCompany(
+                dataTokenRole[0].identifiercom
+              );
+              functionSelectionInformationBusiness(
+                dataTokenRole[0].identifierbus
+              );
+              functionSelectionInformationRole("user");
+              break;
+            default:
+              break;
+          }
           setTimeout(() => {
             props.history.push("/start");
           }, 2000);

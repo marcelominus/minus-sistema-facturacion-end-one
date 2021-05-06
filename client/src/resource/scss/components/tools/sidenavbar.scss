@@ -19,3 +19,20 @@
     padding-left: 0px !important;
   }
 }
+
+.area-user {
+  background-image: url("../../../img//back3.jpg");
+  /* Full height */
+  height: 110%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .image-avatar {
+    width: 50%;
+    border-radius: 50%;
+    padding: 0.5rem;
+  }
+}

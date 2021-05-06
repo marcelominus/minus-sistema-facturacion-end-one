@@ -1,16 +1,13 @@
 import {
   BUSINESS_CREATE,
   BUSINESS_READ,
-  BUSINESS_UPDATE,
   BUSINESS_MODAL_UPDATE,
   BUSINESS_ARRAY_UPDATE,
-  BUSINESS_DELETE
 } from "../../utils/index";
 
 //Zona de SWITCH
 export default (state, action) => {
   switch (action.type) {
-    //----------------------------------------------------------------
     //----------------------------------------------------------------
     //ANADE AL ARRAY LA INFORMACION DE ARRAY DE INFORMACION PARA LA LISTA
     case BUSINESS_CREATE:

@@ -11,7 +11,8 @@ import {
   TOOL_SELECTION_INFORMATION_BUSINESS,
   TOOL_SELECTION_READ,
   TOOL_SELECTION,
-  TOOL_SELECTION_READ_ALL
+  TOOL_SELECTION_READ_ALL,
+  TOOL_SELECTION_INFORMATION_ROLE
 } from "../../utils/index";
 //Importamos las direcciones de LOGIN
 import { direction_admin_tool_read, direction_admin_tool_read_all } from "../../resource/js/directions";
@@ -46,6 +47,12 @@ const ToolState = (props) => {
     });
   };
 
+  const functionSelectionInformationRole = (valor) => {
+    dispatch({
+      type : TOOL_SELECTION_INFORMATION_ROLE,
+      payload : valor
+    })
+  }
   //
   //******************************************************************************
   const functionReadSelection = async (valor_1, valor_2) => {
@@ -128,7 +135,8 @@ const ToolState = (props) => {
         functionSelectionInformationBusiness,
         functionReadSelection,
         functionTableSelection,
-        functionReadAllSelection
+        functionReadAllSelection,
+        functionSelectionInformationRole
       }}
     >
       {props.children}

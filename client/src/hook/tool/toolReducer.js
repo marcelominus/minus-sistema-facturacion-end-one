@@ -3,7 +3,8 @@ import {
   TOOL_SELECTION_INFORMATION_BUSINESS,
   TOOL_SELECTION_READ,
   TOOL_SELECTION,
-  TOOL_SELECTION_READ_ALL
+  TOOL_SELECTION_READ_ALL,
+  TOOL_SELECTION_INFORMATION_ROLE,
 } from "../../utils/index";
 //Zona de SWITCH
 export default (state, action) => {
@@ -11,12 +12,17 @@ export default (state, action) => {
     case TOOL_SELECTION_INFORMATION_COMPANY:
       localStorage.setItem("tokencompany", action.payload);
       return {
-        ...state
+        ...state,
       };
     case TOOL_SELECTION_INFORMATION_BUSINESS:
       localStorage.setItem("tokenbusiness", action.payload);
       return {
-        ...state
+        ...state,
+      };
+    case TOOL_SELECTION_INFORMATION_ROLE:
+      localStorage.setItem("role", action.payload);
+      return {
+        ...state,
       };
     case TOOL_SELECTION_READ:
       return {
@@ -31,8 +37,9 @@ export default (state, action) => {
     case TOOL_SELECTION_READ_ALL:
       return {
         ...state,
-        arrayallselection : action.payload
+        arrayallselection: action.payload,
       };
+
     default:
       return state;
   }

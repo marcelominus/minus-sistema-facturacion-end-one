@@ -36,7 +36,7 @@ const AdminStart = () => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
-          <HeaderPage />
+          <HeaderPage title={'Inicio'}/>
           <Content style={{ margin: "0 16px" }}>
             <motion.div
               initial="out"

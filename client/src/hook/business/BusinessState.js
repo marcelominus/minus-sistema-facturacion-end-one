@@ -9,10 +9,8 @@ import businessReducer from "./businessReducer";
 import {
   BUSINESS_CREATE,
   BUSINESS_READ,
-  BUSINESS_UPDATE,
   BUSINESS_MODAL_UPDATE,
   BUSINESS_ARRAY_UPDATE,
-  BUSINESS_DELETE,
 } from "../../utils/index";
 // Importamos las direcciones de LOGIN
 import {

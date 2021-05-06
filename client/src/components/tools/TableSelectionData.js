@@ -24,7 +24,7 @@ import toolContext from "../../hook/tool/toolContext";
 const TableSelectionData = () => {
   //-------------------------------------------------------
   //ZONE USE - STATE
-  const [information, setInformation] = useState([]);
+
   //-----------------------------------------------------------------
   //ZONE USE - CONTEXT
   const {
@@ -68,6 +68,7 @@ const TableSelectionData = () => {
   //================================================================
   return (
     <Fragment>
+      <h4>Empresa y Sucursal Activa</h4>
       <Table pagination={false} columns={columns} dataSource={arrayselection} />
     </Fragment>
   );

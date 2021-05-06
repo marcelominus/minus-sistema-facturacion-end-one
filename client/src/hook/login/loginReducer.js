@@ -10,6 +10,7 @@ export default (state, action) => {
       localStorage.setItem("tokenbusiness", "");
       localStorage.setItem("tokendosage", "");
       localStorage.setItem("datauser", JSON.stringify([]));
+      localStorage.setItem("role","")
       return {
         ...state,
         authenticated: true,

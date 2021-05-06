@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
+import "../../resource/scss/components/tools/sidenavbar.scss";
 import { Layout, Menu } from "antd";
 import {
   DesktopOutlined,
@@ -21,7 +22,8 @@ const { SubMenu } = Menu;
 const SideBar = () => {
   //-------------------------------------------------------
   //
-  const [step, setStep] = useState(false);
+  const [role, setRole] = useState(false);
+  const [avatar, setAvatar] = useState('')
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = () => {
     setCollapsed(!collapsed);
@@ -31,12 +33,28 @@ const SideBar = () => {
   useEffect(() => {
     //-----------------------------------------------------------------
     //VARIABLES de TOKEN
-    let dataTokenCompany = localStorage.getItem("tokencompany");
-    let dataTokenBusiness = localStorage.getItem("tokenbusiness");
-    if (dataTokenCompany.trim() == "" || dataTokenBusiness.trim() == "") {
-      console.log("LENNY LAURA DATOS VACIOS DESDE EL SIDEBAR");
-    } else {
-      setStep(true);
+    // let dataTokenCompany = localStorage.getItem("tokencompany");
+    // let dataTokenBusiness = localStorage.getItem("tokenbusiness");
+    let dataTokenUser = JSON.parse(localStorage.getItem("datauser"));
+    setAvatar(dataTokenUser[0].avatar)
+    let dataTokenRole = localStorage.getItem("role");
+    // if (dataTokenCompany.trim() == "" || dataTokenBusiness.trim() == "") {
+    //   console.log("LENNY LAURA DATOS VACIOS DESDE EL SIDEBAR");
+    // } else {
+    //   setStep(true);
+    // }
+    switch (dataTokenRole) {
+      case 'master':
+        setRole('master')
+        break;
+      case 'admin-all':
+        setRole('admin-all')
+        break;
+      case 'user':
+        setRole('user')
+        break;
+      default:
+        break;
     }
   }, []);
   // =====================================================
@@ -52,30 +70,51 @@ const SideBar = () => {
           mode="inline"
           collapsedWidth="20"
         >
+          <div className="area-user">
+            <img
+              src={avatar}
+              alt=""
+              className="image-avatar"
+            />
+          </div>
           <Menu.Item key="1" icon={<PieChartOutlined />}>
             <Link to="/start">Inicio</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<DesktopOutlined />}>
-            <Link to="/company"> Empresa</Link>
-          </Menu.Item>
-          <Menu.Item key="3" icon={<DesktopOutlined />}>
-            <Link to="/business"> Sucursal</Link>
-          </Menu.Item>
-          <Menu.Item key="4" icon={<DesktopOutlined />}>
-            <Link to="/user">Usuario</Link>
-          </Menu.Item>
-          <Menu.Item key="5" icon={<DesktopOutlined />}>
-            <Link to="/dosage">Dosificacion</Link>
-          </Menu.Item>
-          <Menu.Item key="6" icon={<DesktopOutlined />}>
-            <Link to='/product'>Productos</Link>
-          </Menu.Item>
+          { (role === 'master') ? 
+            <Menu.Item key="2" icon={<DesktopOutlined />}>
+              <Link to="/company"> Empresa</Link>
+            </Menu.Item>
+          : null}
+          { (role === 'master') ? 
+            <Menu.Item key="3" icon={<DesktopOutlined />}>
+              <Link to="/business"> Sucursal</Link>
+            </Menu.Item>
+          :null}
+          { (role === 'master' || role==='admin-all')? 
+            <Menu.Item key="4" icon={<DesktopOutlined />}>
+              <Link to="/user">Usuario</Link>
+            </Menu.Item>
+          :null}
+          { (role === 'master' || role==='admin-all')? 
+            <Menu.Item key="5" icon={<DesktopOutlined />}>
+              <Link to="/dosage">Dosificacion</Link>
+            </Menu.Item>
+          :null}
+          { (role === 'master' || role==='admin-all')? 
+            <Menu.Item key="6" icon={<DesktopOutlined />}>
+              <Link to="/product">Productos</Link>
+            </Menu.Item>
+          :null}
+          
           <Menu.Item key="7" icon={<DesktopOutlined />}>
-            <Link to='/bill'>Facturacion</Link>
+            <Link to="/bill">Facturacion</Link>
           </Menu.Item>
-          <Menu.Item key="8" icon={<DesktopOutlined />}>
-            <Link to="/selection">Seleccionar Area</Link>
-          </Menu.Item>
+          { (role === 'master')? 
+            <Menu.Item key="8" icon={<DesktopOutlined />}>
+              <Link to="/selection">Seleccionar Area</Link>
+            </Menu.Item>
+          :null}
+          
         </Menu>
       </Sider>
     </Fragment>
