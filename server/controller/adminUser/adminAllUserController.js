@@ -18,7 +18,7 @@ exports.createUserAll = async (req,res) => {
     const role = req.user.role;
     //VARIABLES DE ENTRADA
     const {identifiercom, identifierbus, name, surname, user, email, ci, password, rolenew} = req.body;
-    
+    console.log(req.body);
     //
     try {
         //Verifica la existencia del usuario que realiza la peticion
@@ -76,13 +76,21 @@ exports.createUserAll = async (req,res) => {
                 let identifiercomVar = '';
                 let identifierbusVar = '';
 
-                if(rolenew == 'admin-all'){
+                if(rolenew == 'master'){
                     avatar = constants.directionAvatarAdminAll;
+                    identifiercomVar = constants.identifiercomAdmin;
+                    identifierbusVar = constants.identifierbusAdmin;
+                }else if(rolenew == 'admin-all'){
+                    avatar = constants.directionAvatarAdmin;
+                    identifierbusVar = identifierbus;
+                    identifiercomVar = identifiercom;
                 }else{
                     avatar = constants.directionAvatarUser;
+                    identifierbusVar = identifierbus;
+                    identifiercomVar = identifiercom;
                 }
-                identifierbusVar = identifierbus;
-                identifiercomVar = identifiercom;
+
+               
                 //
                 const createUser = await LoginModel.create({
                     identifiercom : identifiercomVar,

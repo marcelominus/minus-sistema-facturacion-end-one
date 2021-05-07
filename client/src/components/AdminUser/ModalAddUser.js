@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select } from "antd";
@@ -24,6 +24,7 @@ const { TextArea } = Input;
 const ModalAddUser = () => {
   //-----------------------------------------------------------------
   //ZONE USE - STATE
+  const [role, setRole] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [dataform, setDataForm] = useState({
     name: "",
@@ -52,6 +53,25 @@ const ModalAddUser = () => {
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
   const { functionCreateUser, functionReadUser } = useContext(userContext);
+
+  //ZONE USE EFFECT
+  useEffect(() => {
+    let dataTokenRole = localStorage.getItem("role");
+
+    switch (dataTokenRole) {
+      case "master":
+        setRole("master");
+        break;
+      case "admin-all":
+        setRole("admin-all");
+        break;
+      case "user":
+        setRole("user");
+        break;
+      default:
+        break;
+    }
+  }, []);
 
   //-----------------------------------------------------------------
   //Funciones de usuario
@@ -244,6 +264,9 @@ const ModalAddUser = () => {
               value={rolenew}
             >
               <Option value="">--Seleccione una Opcion--</Option>
+              {role === "master" ? (
+                <Option value="master">Administrador General</Option>
+              ) : null}
               <Option value="admin-all">Administrador</Option>
               <Option value="user">Empleado</Option>
             </Select>

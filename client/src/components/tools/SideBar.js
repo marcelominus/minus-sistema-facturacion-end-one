@@ -33,16 +33,10 @@ const SideBar = () => {
   useEffect(() => {
     //-----------------------------------------------------------------
     //VARIABLES de TOKEN
-    // let dataTokenCompany = localStorage.getItem("tokencompany");
-    // let dataTokenBusiness = localStorage.getItem("tokenbusiness");
     let dataTokenUser = JSON.parse(localStorage.getItem("datauser"));
     setAvatar(dataTokenUser[0].avatar)
     let dataTokenRole = localStorage.getItem("role");
-    // if (dataTokenCompany.trim() == "" || dataTokenBusiness.trim() == "") {
-    //   console.log("LENNY LAURA DATOS VACIOS DESDE EL SIDEBAR");
-    // } else {
-    //   setStep(true);
-    // }
+    
     switch (dataTokenRole) {
       case 'master':
         setRole('master')

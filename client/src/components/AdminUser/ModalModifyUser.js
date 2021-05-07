@@ -23,6 +23,7 @@ const { TextArea } = Input;
 // =====================================================
 const ModalModifyUser = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [role, setRole] = useState("");
 
   const [dataform, setDataForm] = useState({
     name: "",
@@ -64,6 +65,7 @@ const ModalModifyUser = () => {
       setIsModalVisible(true);
     }
   }, [modalupdateuser]);
+
   useEffect(() => {
     setDataForm({
       ...dataform,
@@ -76,6 +78,25 @@ const ModalModifyUser = () => {
       rolenew: arrayupdateuser[0].role,
     });
   }, [arrayupdateuser[0].identifier]);
+
+  useEffect(() => {
+    let dataTokenRole = localStorage.getItem("role");
+
+    switch (dataTokenRole) {
+      case "master":
+        setRole("master");
+        break;
+      case "admin-all":
+        setRole("admin-all");
+        break;
+      case "user":
+        setRole("user");
+        break;
+      default:
+        break;
+    }
+  }, []);
+
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickUser = (e) => {
@@ -271,6 +292,9 @@ const ModalModifyUser = () => {
               value={rolenew}
             >
               <Option value="">--Seleccione una Opcion--</Option>
+              {role === "master" ? (
+                <Option value="master">Administrador General</Option>
+              ) : null}
               <Option value="admin-all">Administrador</Option>
               <Option value="user">Empleado</Option>
             </Select>

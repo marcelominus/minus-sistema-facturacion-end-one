@@ -10,9 +10,9 @@ const direccion_basica = `http://${IP_SERVER}:${PORT_SERVER}`;
 
 ///================================================LOGIN CONTROLLER
 /** DIRECCION DE  imagen de AVATAR DEFAULT*/
-module.exports.directionAvatarAdminAll     = `${direccion_basica}/state/img/avatar/admin-all.jpg`;
+module.exports.directionAvatarAdminAll     = `${direccion_basica}/state/img/avatar/master.jpg`;
 /** DIRECCION DE  imagen de AVATAR CAMBIADO */
-module.exports.directionAvatarAdmin        = `${direccion_basica}/state/img/avatar/admin.jpg`;
+module.exports.directionAvatarAdmin        = `${direccion_basica}/state/img/avatar/admin-all.jpg`;
 /** DIRECCION DE  imagen de AVATAR CAMBIADO */
 module.exports.directionAvatarUser         = `${direccion_basica}/state/img/avatar/user.jpg`;
 //================================================
