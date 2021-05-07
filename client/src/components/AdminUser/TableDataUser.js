@@ -62,6 +62,8 @@ const TableDataUser = () => {
       functionTableSelection(false);
     }
   }, [tableselection]);
+
+  
   //-------------------------------------------------------
   //ZONE DE FUNCTION
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
