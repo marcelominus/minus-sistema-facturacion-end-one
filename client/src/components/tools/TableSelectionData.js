@@ -1,20 +1,14 @@
-import React, { Fragment, useState, useEffect, useContext } from "react";
+import React, { Fragment, useEffect, useContext } from "react";
+//****************************************************************
+//
+import "../../resource/scss/components/tools/tableSelectionData.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
-import {
-  SearchOutlined,
-  EyeOutlined,
-  CloudUploadOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { Table } from "antd";
+
 //*******************************************************
 //Importamos las funciones de MESSAGES
-import {
-  messageError,
-  messageWarning,
-  messageSuccess,
-} from "../../resource/js/messages";
+
 //****************************************************************
 //
 import toolContext from "../../hook/tool/toolContext";
@@ -39,7 +33,7 @@ const TableSelectionData = () => {
   useEffect(() => {
     let dataTokenCompany = localStorage.getItem("tokencompany");
     let dataTokenBusiness = localStorage.getItem("tokenbusiness");
-    if (dataTokenCompany !== "" && dataTokenBusiness !== "") {
+    if (dataTokenCompany !== null && dataTokenBusiness !== null) {
       functionReadSelection(dataTokenCompany, dataTokenBusiness);
       functionTableSelection(false);
     }
@@ -69,7 +63,12 @@ const TableSelectionData = () => {
   return (
     <Fragment>
       <h4>Empresa y Sucursal Activa</h4>
-      <Table pagination={false} columns={columns} dataSource={arrayselection} />
+      <Table
+        pagination={false}
+        columns={columns}
+        dataSource={arrayselection}
+        className="table-selection-data"
+      />
     </Fragment>
   );
 };

@@ -9,18 +9,18 @@
 //ALERTA WARNING
 .message-warning {
   font-family: $tipografia-two-bold;
-  text-shadow: 0 0 0.25rem orange;
-  color: orange;
+  // text-shadow: 0 0 0.25rem orange;
+  color: black;
 }
 
 .message-error {
   font-family: $tipografia-two-bold;
-  text-shadow: 0 0 0.25rem red;
-  color: red;
+  // text-shadow: 0 0 0.25rem red;
+  color: black;
 }
 
 .message-success {
   font-family: $tipografia-two-bold;
-  text-shadow: 0 0 0.25rem green;
-  color: green;
+  // text-shadow: 0 0 0.25rem green;
+  color: black;
 }

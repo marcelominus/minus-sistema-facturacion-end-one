@@ -80,21 +80,15 @@ const TableDataDosage = () => {
   const columns = [
     {
       title: "Id",
-      dataIndex: "identifierbus",
-      key: "identifierbus",
-      width: "5%",
+      dataIndex: "iddosage",
+      key: "iddosage",
+      width: "2%",
     },
     {
-      title: "Empresa",
-      dataIndex: "legenddos",
-      key: "legenddos",
-      width: "10%",
-    },
-    {
-      title: "Nombre",
+      title: "Nombre Dosificacion",
       dataIndex: "identifierdos",
       key: "identifierdos",
-      width: "15%",
+      width: "10%",
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -164,6 +158,33 @@ const TableDataDosage = () => {
         ) : (
           text
         ),
+    },
+    {
+      title: "Fecha Final",
+      dataIndex: "dateenddos",
+      key: "dateenddos",
+      width: "10%",
+      style : { backgroundColor : 'red'}
+    },
+    {
+      title: "Dias Validos",
+      dataIndex: "dayremaindos",
+      key: "dayremaindos",
+      width: "10%",
+    },
+    {
+      title: "Estado",
+      key: "action",
+      width: "10%",
+      render : (text) => (
+        <Fragment>
+          {text.conditiondos === "active" ? (
+            <Tag color="green">Activo</Tag>
+          ) : (
+            <Tag color="red">Inactivo</Tag>
+          )}
+        </Fragment>
+      ),
     },
     {
       title: "Acciones",

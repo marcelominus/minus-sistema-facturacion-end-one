@@ -106,7 +106,7 @@ const ModalCopyOriginal = ({ props }) => {
           <Col span={12}>
             <BlobProvider
               document={
-                <Invoice type="ORIGNAL" arraybillprint={arraybillprint} />
+                <Invoice type="ORIGINAL" arraybillprint={arraybillprint} />
               }
               style={{
                 textDecoration: "none",

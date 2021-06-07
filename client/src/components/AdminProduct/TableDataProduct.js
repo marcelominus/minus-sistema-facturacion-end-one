@@ -88,14 +88,9 @@ const TableDataProduct = () => {
       key: "idproduct",
       width: "5%",
     },
+    
     {
-      title: "Empresa",
-      dataIndex: "longdescriptionpro",
-      key: "longdescriptionpro",
-      width: "10%",
-    },
-    {
-      title: "Nombre",
+      title: "Nombre Producto",
       dataIndex: "shortdescriptionpro",
       key: "shortdescriptionpro",
       width: "15%",
@@ -168,6 +163,12 @@ const TableDataProduct = () => {
         ) : (
           text
         ),
+    },
+    {
+      title: "Descripcion Producto",
+      dataIndex: "longdescriptionpro",
+      key: "longdescriptionpro",
+      width: "10%",
     },
     {
       title: "Acciones",

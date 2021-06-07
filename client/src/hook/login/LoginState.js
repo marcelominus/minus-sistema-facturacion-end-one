@@ -14,6 +14,7 @@ import { PETITION_LOGIN, PETITION_AUTHENTICATED } from "../../utils/index";
 import {
   direccion_admin_login,
   direccion_autenticado_user,
+  direction_admin_login_read_authenticate,
 } from "../../resource/js/directions";
 //***************************************************************** */
 //Importamos la variable de FUNCION de TOKEN que permite INGREASAR HEAD AXIOS
@@ -69,7 +70,6 @@ const LoginState = (props) => {
       //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
       tokenAuth(token);
     }
-
     //-----------------------------------------------------------------
     //Si existe el usuario se CARGA la INFORMACION DE USUARIO
     try {
@@ -92,6 +92,30 @@ const LoginState = (props) => {
     }
   };
 
+  const functionAuthenticate = async () => {
+    //-----------------------------------------------------------------
+    //Extraer el TOKEN del LOCAL STORE y ANADIRLO A LA CABEZERA
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    //-----------------------------------------------------------------
+    //Si existe el usuario se CARGA la INFORMACION DE USUARIO
+    try {
+      const url = direction_admin_login_read_authenticate;
+      const peticionAutentificacion = await clienteAxios.post(url);
+      const respuestaAutentificacion = peticionAutentificacion.data;
+      if (respuestaAutentificacion.response === "success") {
+        return true;
+      } else {
+        return respuestaAutentificacion.response;
+      }
+    } catch (error) {
+      //Forma de extraer un ERROR CATCH console.log(error.response.data.msg);
+      return false;
+    }
+  };
   //=====================================================
   //INICIO DE COMPONENTE
   //=====================================================
@@ -102,6 +126,7 @@ const LoginState = (props) => {
         informationUser: state.informationUser,
         funcionPeticionLogin,
         funcionAutentificarUsuario,
+        functionAuthenticate,
       }}
     >
       {props.children}

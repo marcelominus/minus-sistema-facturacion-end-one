@@ -30,14 +30,13 @@ const ModalStart = () => {
     functionConsultationCompanyInformation().then((e) => {
       if (e === false) {
         setMessageOne("Empresa");
-      } else {
-        functionConsultationBusinessInformation().then((e) => {
-          if (e === false) {
-            setMessageTwo("Sucursal");
-            setIsModalVisible(true);
-          }
-        });
-      }
+      } 
+      functionConsultationBusinessInformation().then((e) => {
+        if (e === false) {
+          setMessageTwo("Sucursal");
+          setIsModalVisible(true);
+        }
+      });
     });
   }, []);
   //-----------------------------------------------------------------

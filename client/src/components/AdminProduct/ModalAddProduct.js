@@ -131,7 +131,7 @@ const ModalAddMeasure = () => {
       shortdescriptionpro: "",
       longdescriptionpro: "",
       unitmeasurepro: "",
-      pricepro: "",
+      pricepro: "0",
     });
   };
 
@@ -142,7 +142,7 @@ const ModalAddMeasure = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Añadir Producto"
         visible={isModalVisible}
         width={800}
         footer={[
@@ -159,11 +159,11 @@ const ModalAddMeasure = () => {
         {/* ------------------------- ********** ------------------------- */}
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Titulo Producto
+            Nombre de Producto
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el nombre de Usuario"
+              placeholder="Ingrese la Nombre del Producto"
               prefix={<UserOutlined />}
               name="shortdescriptionpro"
               onChange={onChangeAddProduct}
@@ -177,7 +177,7 @@ const ModalAddMeasure = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el Apellido de Usuario"
+              placeholder="Ingrese la Descripcion del Producto"
               prefix={<UserOutlined />}
               name="longdescriptionpro"
               onChange={onChangeAddProduct}
@@ -188,7 +188,7 @@ const ModalAddMeasure = () => {
 
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Selecciones la Unidad
+            Seleccione la Unidad
           </Col>
           <Col span={10} style={{ background: "blue" }}>
             <Select
@@ -225,10 +225,9 @@ const ModalAddMeasure = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <InputNumber
-              placeholder="Ingrese la Direccion de la Sucursal"
+              placeholder="Ingrese la Precio del Producto"
               prefix={<UserOutlined />}
               style={{ width: "100%" }}
-              defaultValue={0}
               onChange={(e) => {
                 setDataForm({
                   ...dataform,

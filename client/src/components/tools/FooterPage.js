@@ -1,10 +1,8 @@
 import React, { Fragment } from "react";
-import { Layout, Menu, Breadcrumb, Modal, Button } from "antd";
+import { Layout } from "antd";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
-
+const { Footer} = Layout;
 //================================================================
 //INICIO DE CLASE
 //================================================================
@@ -15,7 +13,7 @@ const FooterPage = () => {
   return (
     <Fragment>
       <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2018 Created by Ant UED NEW
+        Minus Maya©2021 Created and Developed by Minus Maya
       </Footer>
     </Fragment>
   );

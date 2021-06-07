@@ -18,6 +18,10 @@ import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
 
+import CardStartUser from '../../components/AdminStart/CardStartUser';
+//****************************************************************
+//
+import Authenticate from '../../components/tools/Authenticate';
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -31,6 +35,7 @@ const AdminStart = () => {
   // =====================================================
   return (
     <Fragment>
+      <Authenticate />
       <Layout style={{ minHeight: "100vh" }}>
         {/* --------------------------------------------------  */}
         <SideBar />
@@ -47,6 +52,7 @@ const AdminStart = () => {
               className="container-padding"
             >
               <h1>Bienvenido al Sistema de Facturacion</h1>
+              <CardStartUser/>
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}

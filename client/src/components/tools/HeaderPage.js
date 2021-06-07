@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Layout, Menu, Breadcrumb, Modal, Button } from "antd";
+import { Layout, Menu} from "antd";
 //Importamos framer motion
 import { motion } from "framer-motion";
 import {
@@ -9,8 +9,7 @@ import {
 
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+const { Header} = Layout;
 
 // =====================================================
 // INICIO DE CLASE  */}

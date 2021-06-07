@@ -6,6 +6,9 @@ import React, {
   useRef,
 } from "react";
 //****************************************************************
+//
+import '../../resource/scss/components/business/tableBusiness.scss';
+//****************************************************************
 //Importamos la libreria de ANTD
 import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
 import {
@@ -185,14 +188,6 @@ const TableDataBusiness = () => {
               functionArrayUpdateBusiness(resultFilterUpdate);
               functionModalUpdate(true);
             }}
-            // onClick={() => {
-            //   functionUpdateModal(true);
-            //   const resultFilterUpdate = arraycompany.filter(
-            //     (e) => e.identifiercom == text.identifiercom
-            //   );
-            //   functionLoadIdCompanyUpdate(resultFilterUpdate);
-            //   functionIdCompanyUpdate(text.identifiercom);
-            // }}
           />
 
           <Button
@@ -221,6 +216,9 @@ const TableDataBusiness = () => {
   //================================================================
   return (
     <Fragment>
+      <h4>
+        Sucursales Actuales
+      </h4>
       {/* ------------------------- ********** ------------------------- */}
       <Table
         columns={columns}
@@ -229,6 +227,7 @@ const TableDataBusiness = () => {
         pagination={{ pageSize: 10, responsive: true }}
         scroll={{ x: 1200, y: "max-content" }}
         bordered
+        className='table-business'
       />
       <ModalModifyBusiness />
       {/* ------------------------- ********** ------------------------- */}

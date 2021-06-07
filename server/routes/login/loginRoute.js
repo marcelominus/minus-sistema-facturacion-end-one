@@ -12,6 +12,7 @@ module.exports = () => {
     //ROUTAS DE LOGIN
     router.post('/login', loginController.loginEntry);
     router.post('/login-read', auth, loginController.readLogin);
+    router.post('/login-authenticate', auth, loginController.readAuthenticate);
     // 
     return router;
 }

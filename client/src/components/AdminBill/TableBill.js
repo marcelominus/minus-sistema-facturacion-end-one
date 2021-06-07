@@ -13,6 +13,7 @@ import {
   EyeOutlined,
   CloudUploadOutlined,
   DeleteOutlined,
+  PrinterOutlined 
 } from "@ant-design/icons";
 //****************************************************************
 //Importamos el HIGT de LETTERS
@@ -58,24 +59,24 @@ const TableBill = ({ props }) => {
   //ZONE COLUMN
   const columns = [
     {
-      title: "Nombre de Producto",
+      title: "Id Facturacion",
       dataIndex: "identifierbill",
       key: "identifierbill",
     },
     {
-      title: "Unidad",
+      title: "Razon Social",
       dataIndex: "reasonbill",
       key: "reasonbill",
     },
     {
-      title: "Cantidad",
-      dataIndex: "conditionbill",
-      key: "conditionbill",
+      title: "Nit",
+      dataIndex: "nitbill",
+      key: "nitbill",
     },
     {
-      title: "Precio Unitario",
-      dataIndex: "controlcodebill",
-      key: "controlcodebill",
+      title: "Total Monto",
+      dataIndex: "totalbill",
+      key: "totalbill",
     },
     {
       title: "Estado",
@@ -123,7 +124,7 @@ const TableBill = ({ props }) => {
           />
           <Button
             type="primary"
-            icon={<CloudUploadOutlined />}
+            icon={<PrinterOutlined  />}
             size={"default"}
             ghost
             onClick={() => {

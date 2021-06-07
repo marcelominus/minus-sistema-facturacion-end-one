@@ -39,7 +39,7 @@ const AdminProduct = (props) => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
-          <HeaderPage />
+          <HeaderPage title={'Administrar Productos'}/>
           <Content style={{ margin: "0 16px" }}>
             <motion.div
               initial="out"

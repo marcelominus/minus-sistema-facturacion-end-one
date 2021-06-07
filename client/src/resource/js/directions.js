@@ -4,6 +4,9 @@ import { IP_SERVER } from "./constants";
 //Direccion de URL para el envio de informacion
 export const direccion_admin_login = `${IP_SERVER}/login`;
 export const direccion_autenticado_user = `${IP_SERVER}/login-read`;
+export const direction_admin_login_read_authenticate =  `${IP_SERVER}/login-authenticate`;
+
+
 //****************************************************************
 //DIRECTION START
 export const direction_admin_company_consultation = `${IP_SERVER}/admin-com/company-all-read`;
@@ -29,6 +32,7 @@ export const direction_admin_business_delete = `${IP_SERVER}/admin-bus/business-
 //DIRECTION TOOLS
 export const direction_admin_tool_read = `${IP_SERVER}/admin-tool/tool-all-read`;
 export const direction_admin_tool_read_all = `${IP_SERVER}/admin-tool/tool-all-read-selection`;
+
 //****************************************************************
 //DIRECTION USER
 export const direction_admin_user_create = `${IP_SERVER}/admin/admin-all-create`;
@@ -43,6 +47,8 @@ export const direction_admin_dosage_read = `${IP_SERVER}/admin-dos/dosage-all-re
 export const direction_admin_dosage_update = `${IP_SERVER}/admin-dos/dosage-all-update`;
 export const direction_admin_dosage_delete = `${IP_SERVER}/admin-dos/dosage-all-delete`;
 export const direction_admin_dosage_read_current = `${IP_SERVER}/admin-dos/dosage-all-read-current`;
+export const direction_admin_dosage_actually = `${IP_SERVER}/admin-dos/dosage-actually-data`;
+
 //DIRECTION DOSAGE
 export const direction_admin_measure_create = `${IP_SERVER}/admin-mea/measure-all-create`;
 export const direction_admin_measure_read = `${IP_SERVER}/admin-mea/measure-all-read`;

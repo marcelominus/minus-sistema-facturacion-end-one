@@ -2,24 +2,19 @@ import React, { Fragment, useState, useEffect, useContext } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select } from "antd";
-import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
   messageError,
-  messageWarning,
   messageSuccess,
 } from "../../resource/js/messages";
 //****************************************************************
 //Importamos los CONTEXT
-import companyContext from "../../hook/company/companyContext";
-import businessContext from "../../hook/business/businessContext";
 import toolsContext from "../../hook/tool/toolContext";
-import dosageContext from '../../hook/dosage/dosageContext';
+import dosageContext from "../../hook/dosage/dosageContext";
 //****************************************************************
 //Creamos las variables de SELECT
 const { Option } = Select;
-const { TextArea } = Input;
 
 //================================================================
 //INICIO DE CLASE
@@ -29,43 +24,35 @@ const ModalSelectionData = ({ props }) => {
   //ZONE USE - STATE
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selection, setSelection] = useState({
-    identifiercom: "",
-    identifierbus: "",
+    identifierall: "",
   });
-  const { identifiercom, identifierbus } = selection;
-  const onChangeAddCompany = (e) => {
+  const { identifierall } = selection;
+  
+  const onChangeAddAll = (e) => {
     setSelection({
       ...selection,
-      identifiercom: e,
-    });
-  };
-  const onChangeAddBusiness = (e) => {
-    setSelection({
-      ...selection,
-      identifierbus: e,
+      identifierall: e,
     });
   };
   //-----------------------------------------------------------------
   //ZONE USE-CONTEXT
-  const { arraybusiness, functionReadBusiness } = useContext(businessContext);
-  const { arraycompany, functionReadCompany } = useContext(companyContext);
+  
   const {
+    arrayallselection,
     functionTableSelection,
     functionSelectionInformationCompany,
     functionSelectionInformationBusiness,
+    functionReadAllSelection,
   } = useContext(toolsContext);
-  const {dosageselection, functionTableSelectionDosage} = useContext(dosageContext);
+  const { functionTableSelectionDosage } = useContext(dosageContext);
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
   useEffect(() => {
     let dataTokenCompany = localStorage.getItem("tokencompany");
     let dataTokenBusiness = localStorage.getItem("tokenbusiness");
-    if (dataTokenCompany.trim() === "" || dataTokenBusiness.trim() === "") {
-      functionReadCompany().then((e) => {
-        functionReadBusiness().then((e) => {
-          setIsModalVisible(true);
-        });
-      });
+    if (dataTokenCompany === null || dataTokenBusiness === null) {
+      functionReadAllSelection();
+      setIsModalVisible(true);
     }
   }, []);
 
@@ -75,9 +62,16 @@ const ModalSelectionData = ({ props }) => {
   //Funciones de usuario ONCLIK AL ENVIAR LA INFORMACION
   const onClickBusiness = (e) => {
     e.preventDefault();
-    functionSelectionInformationCompany(identifiercom);
-    functionSelectionInformationBusiness(identifierbus);
+
+    const informationAll = identifierall.split("&");
+    functionSelectionInformationCompany(informationAll[0]);
+    functionSelectionInformationBusiness(informationAll[1]);
+    functionTableSelection(true);
+    messageSuccess("Correcto espacion de Trabajo Modificado", 2);
+
+    //Cierra el Modal de Seleccion de Empresas y Sucursales
     setIsModalVisible(false);
+
     functionTableSelection(true);
     functionTableSelectionDosage(true);
   };
@@ -98,7 +92,7 @@ const ModalSelectionData = ({ props }) => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Seleccionar Area de Trabajo"
         visible={isModalVisible}
         width={800}
         footer={[
@@ -115,40 +109,19 @@ const ModalSelectionData = ({ props }) => {
         {/* ------------------------- ********** ------------------------- */}
         <Row>
           <Col span={12} style={{ background: "transparent" }}>
-            Selecciones la Empresa
+            Escoja una opcion
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Select
               defaultValue=""
-              onChange={onChangeAddCompany}
+              onChange={onChangeAddAll}
               style={{ width: "100%" }}
             >
               <Option value="">--Seleccione una Opcion--</Option>
-              {arraycompany.map((e, key) => {
+              {arrayallselection.map((e, key) => {
                 return (
-                  <Option value={e.identifiercom} key={key}>
-                    {e.namecom}
-                  </Option>
-                );
-              })}
-            </Select>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Selecciones la Sucursal
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Select
-              defaultValue=""
-              onChange={onChangeAddBusiness}
-              style={{ width: "100%" }}
-            >
-              <Option value="">--Seleccione una Opcion--</Option>
-              {arraybusiness.map((e, key) => {
-                return (
-                  <Option value={e.identifierbus} key={key}>
-                    {e.namebus}
+                  <Option value={e.identifierall} key={key}>
+                    {e.namebus} ({e.namecom})
                   </Option>
                 );
               })}

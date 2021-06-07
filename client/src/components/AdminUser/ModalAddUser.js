@@ -173,7 +173,7 @@ const ModalAddUser = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el nombre de Usuario"
+              placeholder="Ingrese el Nombre del Empleado"
               prefix={<UserOutlined />}
               name="name"
               onChange={onChangeAddUser}
@@ -187,7 +187,7 @@ const ModalAddUser = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese el Apellido de Usuario"
+              placeholder="Ingrese el Apellido del Empleado"
               prefix={<UserOutlined />}
               name="surname"
               onChange={onChangeAddUser}
@@ -202,7 +202,7 @@ const ModalAddUser = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese la Direccion de la Sucursal"
+              placeholder="Ingrese el Email del Empleado"
               prefix={<UserOutlined />}
               name="email"
               onChange={onChangeAddUser}
@@ -216,7 +216,7 @@ const ModalAddUser = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese la Direccion de la Sucursal"
+              placeholder="Ingrese el Carnet del Empleado"
               prefix={<UserOutlined />}
               name="ci"
               onChange={onChangeAddUser}
@@ -244,7 +244,7 @@ const ModalAddUser = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Lugar de la Sucursal"
+              placeholder="Ingrese el Password del Empleado"
               prefix={<UserOutlined />}
               name="password"
               onChange={onChangeAddUser}

@@ -43,6 +43,9 @@ const BillState = (props) => {
     drawertop: false,
     arrayproductselection: [
       {
+        idproduct : '',
+        identifierbus : '',
+        identifierpro : '',
         shortdescriptionpro: "",
         unitmeasurepro: "",
         amountpro: "1",

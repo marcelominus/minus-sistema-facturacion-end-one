@@ -56,7 +56,7 @@ const ModalAddProductUnique = () => {
   const {
     modalbillunique,
     arrayproductselection,
-    arrayproductbill,
+    functionArrayProductSelectionReset,
     functionModalBillUnique,
     functionArrayProductBill,
     functionOpenDrawerTop,
@@ -67,14 +67,16 @@ const ModalAddProductUnique = () => {
   //-----------------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
+    // functionArrayProductSelectionReset(),
     functionReadMeasure();
   }, []);
-
+  //
   useEffect(() => {
     if (modalbillunique === true) {
       setIsModalVisible(true);
     }
   }, [modalbillunique]);
+  //
   useEffect(() => {
     setDataForm({
       ...dataform,
@@ -110,6 +112,7 @@ const ModalAddProductUnique = () => {
       functionArrayProductBill(dataform);
       setIsModalVisible(false);
       functionModalBillUnique(false);
+      functionArrayProductSelectionReset();
       resetForm();
     }
   };
@@ -120,6 +123,7 @@ const ModalAddProductUnique = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
     functionModalBillUnique(false);
+    functionArrayProductSelectionReset();
     resetForm();
   };
 
@@ -145,7 +149,7 @@ const ModalAddProductUnique = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Añadir Producto"
         visible={isModalVisible}
         width={800}
         footer={[

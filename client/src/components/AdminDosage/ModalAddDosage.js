@@ -26,6 +26,7 @@ import {
 //*******************************************************
 //Importamos los CONTEXT
 import dosageContext from "../../hook/dosage/dosageContext";
+import toolContext from "../../hook/tool/toolContext";
 //****************************************************************
 //Creamos las variables de SELECT
 const { Option } = Select;
@@ -45,7 +46,7 @@ const ModalAddDosage = () => {
   const [dataform, setDataForm] = useState({
     datestartdos: `${moment().subtract(4, "h").format("MM/DD/YYYY")}`,
     dateenddos: "",
-    sfcdos: "10",
+    sfcdos: "1",
     numberauthorizationdos: "",
     numbernotestartdos: "0",
     dosagedos: "",
@@ -82,9 +83,7 @@ const ModalAddDosage = () => {
   const { functionCreateDosage, functionReadDosage } = useContext(
     dosageContext
   );
-  //-----------------------------------------------------------------
-  //ZONE USE - EFFECT
-  useEffect(() => {}, []);
+
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickDosage = (e) => {
@@ -144,9 +143,11 @@ const ModalAddDosage = () => {
   //Funcion para RESETEAR las entradas del FORMULARIO
   const resetForm = () => {
     setDataForm({
-      sfcdos: "",
+      datestartdos: `${moment().subtract(4, "h").format("MM/DD/YYYY")}`,
+      dateenddos: "",
+      sfcdos: "1",
       numberauthorizationdos: "",
-      numbernotestartdos: "",
+      numbernotestartdos: "0",
       dosagedos: "",
       legenddos: "",
       conditiondos: "",
@@ -182,10 +183,6 @@ const ModalAddDosage = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <DatePicker
-              defaultValue={moment(
-                `${moment().subtract(4, "h").format("l")}`,
-                dateFormat
-              )}
               format={dateFormat}
               onChange={(e) =>
                 setDataForm({
@@ -194,6 +191,7 @@ const ModalAddDosage = () => {
                 })
               }
               style={{ width: "100%" }}
+              value={datestartdos !== "" ? moment(datestartdos) : null}
             />
           </Col>
         </Row>
@@ -211,6 +209,7 @@ const ModalAddDosage = () => {
                   dateenddos: moment(e._d).format("MM/DD/YYYY"),
                 })
               }
+              value={dateenddos !== "" ? moment(dateenddos) : null}
             />
           </Col>
         </Row>
@@ -223,7 +222,6 @@ const ModalAddDosage = () => {
               placeholder="Ingrese el Apellido de Usuario"
               prefix={<UserOutlined />}
               style={{ width: "100%" }}
-              defaultValue={0}
               onChange={(e) => {
                 setDataForm({
                   ...dataform,
@@ -258,7 +256,6 @@ const ModalAddDosage = () => {
               placeholder="Ingrese la Direccion de la Sucursal"
               prefix={<UserOutlined />}
               style={{ width: "100%" }}
-              defaultValue={0}
               onChange={(e) => {
                 setDataForm({
                   ...dataform,

@@ -4,13 +4,13 @@ import { PETITION_LOGIN, PETITION_AUTHENTICATED } from "../../utils/index";
 export default (state, action) => {
   switch (action.type) {
     case PETITION_LOGIN:
+      //Creamos las variables de LOCALSTORAGE
       localStorage.setItem("login", "true");
       localStorage.setItem("token", action.payload);
-      localStorage.setItem("tokencompany", "");
-      localStorage.setItem("tokenbusiness", "");
-      localStorage.setItem("tokendosage", "");
+      // localStorage.setItem("tokencompany", "");
+      // localStorage.setItem("tokenbusiness", "");
       localStorage.setItem("datauser", JSON.stringify([]));
-      localStorage.setItem("role","")
+      localStorage.setItem("role", "");
       return {
         ...state,
         authenticated: true,

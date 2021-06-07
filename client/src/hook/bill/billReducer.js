@@ -63,6 +63,9 @@ export default (state, action) => {
         ...state,
         arrayproductselection: [
           {
+            idproduct : '',
+            identifierbus : '',
+            identifierpro : '',
             shortdescriptionpro: "",
             unitmeasurepro: "",
             amountpro: "1",

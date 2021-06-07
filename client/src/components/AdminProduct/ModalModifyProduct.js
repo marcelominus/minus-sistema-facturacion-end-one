@@ -30,7 +30,7 @@ const ModalModifyProduct = () => {
     shortdescriptionpro: "",
     longdescriptionpro: "",
     unitmeasurepro: "",
-    pricepro: "0",
+    pricepro: "",
   });
   const {
     shortdescriptionpro,
@@ -146,7 +146,7 @@ const ModalModifyProduct = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Modificar Producto"
         visible={isModalVisible}
         width={800}
         footer={[

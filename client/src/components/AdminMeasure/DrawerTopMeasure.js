@@ -133,7 +133,7 @@ const DrawerTopMeasure = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese la Direccion de la Sucursal"
+              placeholder="Ingrese la Unidad de Medida"
               prefix={<UserOutlined />}
               name="unitmeasure"
               onChange={onChangeAddMeasure}
@@ -147,7 +147,7 @@ const DrawerTopMeasure = () => {
           </Col>
           <Col span={12} style={{ background: "blue" }}>
             <Input
-              placeholder="Ingrese la Direccion de la Sucursal"
+              placeholder="Ingrese la Descripcion de la Medida"
               prefix={<UserOutlined />}
               name="descriptionmeasure"
               onChange={onChangeAddMeasure}

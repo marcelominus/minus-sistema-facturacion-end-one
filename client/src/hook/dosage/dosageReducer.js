@@ -7,6 +7,7 @@ import {
   DOSAGE_DELETE,
   DOSAGE_READ_CURRENT,
   DOSAGE_SELECTION,
+  DOSAGE_ACTUALLY,
 } from "../../utils/index";
 
 //Zona de SWITCH

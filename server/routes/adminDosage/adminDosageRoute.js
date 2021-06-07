@@ -17,7 +17,8 @@ module.exports = () => {
     //-----------------------------------------------------------------
     //DOSAGE UNIQUE
     router.post('/dosage-all-read-current', auth, adminDosageController.readDosageCurrent);
-
+    //DOSAGE ACTUALLY
+    router.post('/dosage-actually-data', auth, adminDosageController.actuallyDosage)
     //
     return router;
 }

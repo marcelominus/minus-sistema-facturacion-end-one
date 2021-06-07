@@ -1,5 +1,8 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
 //****************************************************************
+//
+import '../../resource/scss/components/dosage/tableDosageCurrect.scss';
+//****************************************************************
 //Importamos la libreria de ANTD
 import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
 import {
@@ -16,6 +19,9 @@ import {
   messageSuccess,
 } from "../../resource/js/messages";
 //****************************************************************
+//Importamos la libreria de MOMENT
+import moment from "moment";
+//****************************************************************
 //Importamos los Context
 import dosageContext from "../../hook/dosage/dosageContext";
 
@@ -23,6 +29,9 @@ import dosageContext from "../../hook/dosage/dosageContext";
 //INICIO DE CLASE
 //================================================================
 const TableCurrentDosage = () => {
+  //Creamos el formato de la variable TIME
+  const dateFormat = "MM/DD/YYYY";
+
   //-----------------------------------------------------------------
   //
   const {
@@ -30,10 +39,12 @@ const TableCurrentDosage = () => {
     dosageselection,
     functionTableSelectionDosage,
     functionReadDosageCurrent,
+    functionDosageActually,
   } = useContext(dosageContext);
   //-----------------------------------------------------------------
   //
   useEffect(() => {
+    functionDosageActually();
     functionReadDosageCurrent();
   }, []);
   //-----------------------------------------------------------------
@@ -41,22 +52,34 @@ const TableCurrentDosage = () => {
   useEffect(() => {
     let dataTokenBusiness = localStorage.getItem("tokenbusiness");
     if (dataTokenBusiness !== "") {
-      functionReadDosageCurrent();
-      functionTableSelectionDosage(false);
+      functionDosageActually().then((e) => {
+        functionReadDosageCurrent();
+        functionTableSelectionDosage(false);
+      });
     }
   }, [dosageselection]);
   //-------------------------------------------------------
   //
   const columns = [
     {
-      title: "Id",
-      dataIndex: "identifierdos",
-      key: "identifierdos",
+      title: "Fecha Actual",
+      key: "action",
+      render: (text) => (
+        <Fragment>
+          <Tag color="orange">
+            {moment().subtract(4, "h").format("MM/DD/YYYY")}
+          </Tag>
+        </Fragment>
+      ),
     },
     {
-      title: "Dosificacion",
-      dataIndex: "dosagedos",
-      key: "dosagedos",
+      title: "Fecha Final",
+      key: "action",
+      render: (text) => (
+        <Fragment>
+          <Tag color="purple">{text.dateenddos}</Tag>
+        </Fragment>
+      ),
     },
     {
       title: "Dias",
@@ -65,8 +88,16 @@ const TableCurrentDosage = () => {
     },
     {
       title: "Estado",
-      dataIndex: "conditiondos",
-      key: "conditiondos",
+      key: "action",
+      render: (text) => (
+        <Fragment>
+          {text.conditiondos === "active" ? (
+            <Tag color="green">Activo</Tag>
+          ) : (
+            <Tag color="red">Inactivo</Tag>
+          )}
+        </Fragment>
+      ),
     },
   ];
   //================================================================
@@ -74,10 +105,12 @@ const TableCurrentDosage = () => {
   //================================================================
   return (
     <Fragment>
+      <h4>Datos de Dosificacion</h4>
       <Table
         pagination={false}
         columns={columns}
         dataSource={arraydosagecurrent}
+        className='table-dosage-current'
       />
     </Fragment>
   );

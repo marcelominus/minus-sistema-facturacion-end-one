@@ -41,10 +41,9 @@ exports.loginEntry = async(req, res) => {
     }
 }
 
-//
+//------------------------------------------------------------------------------
 //Lectura de la informacion de Login Usuario
 exports.readLogin = async(req, res) => {
-
     //IDENTIFICA AL USUARIO CON SU ID Y SU ROL PARA LOS NOMBRES DE INICIO
     const identifier = req.user.identifier;
     const role = req.user.role;
@@ -68,39 +67,8 @@ exports.readLogin = async(req, res) => {
     }
 }
 
-//Lectura de la informacion de Login Usuario
-exports.readLoginSelect = async(req, res) => {
 
-    // res.json({ uno : req.usuario});
-    const role = req.user.role;
-    const identifier = req.user.identifier;
-    //
-    try {
-        const consultationUser = await LoginModel.findAll({
-            where : {
-                identifier : identifier,
-                role : role
-            },
-            raw : true
-        });
-        if( consultationUser == 0 ){
-            res.json({ response : 'empty'});
-        }else{
-            // LECTURA DE INFORMACION SOLO ALL => ADMIN, USER / (super admin)
-            const consultationData  = await LoginModel.findAll({
-                raw : true
-            });
-
-            
-            if( consultationBusiness.length === 0 ){
-                res.json({ response : 'empty'})
-            }else{
-                res.json({ response : 'success' , data : consultationBusiness});
-            }
-           
-            //LECTURA TOTAL DE SOLO USER => ADMIN / (admin)
-        }
-    } catch (error) {
-        res.json({ response : 'fail-server'});
-    }
+exports.readAuthenticate = async(req, res) => {
+   //Respuesta de CORRECTO
+    res.json({ response : 'success'})
 }

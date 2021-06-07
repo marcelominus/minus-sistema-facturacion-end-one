@@ -6,6 +6,9 @@ import React, {
   useRef,
 } from "react";
 //****************************************************************
+//Importamos la libraria de SCSS de Table
+import '../../resource/scss/components/company/tableCompany.scss';
+//****************************************************************
 //Importamos la libreria de ANTD
 import { Table, Tag, Input, Button, Space, Modal } from "antd";
 import {
@@ -267,6 +270,7 @@ const TableDataCompany = () => {
         scroll={{ x: 1200, y: "max-content" }}
         bordered
         locale={{ emptyText: "Sin Datos" }}
+        className='table-company'
       />
       {/* ------------------------- ********** ------------------------- */}
       <ModalViewLogo directionimg={directionimg} />

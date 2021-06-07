@@ -14,7 +14,8 @@ import {
   DOSAGE_ARRAY_UPDATE,
   DOSAGE_DELETE,
   DOSAGE_READ_CURRENT,
-  DOSAGE_SELECTION
+  DOSAGE_SELECTION,
+  DOSAGE_ACTUALLY,
 } from "../../utils/index";
 // Importamos las direcciones de LOGIN
 import {
@@ -22,7 +23,8 @@ import {
   direction_admin_dosage_read,
   direction_admin_dosage_update,
   direction_admin_dosage_delete,
-  direction_admin_dosage_read_current
+  direction_admin_dosage_read_current,
+  direction_admin_dosage_actually,
 } from "../../resource/js/directions";
 //Importamos la variable de FUNCION de TOKEN que permite INGREASAR HEAD AXIOS
 import tokenAuth from "../../config/token";
@@ -47,8 +49,8 @@ const DosageState = (props) => {
         conditiondos: "",
       },
     ],
-    arraydosagecurrent : [],
-    dosageselection : false
+    arraydosagecurrent: [],
+    dosageselection: false,
   };
   const [state, dispatch] = useReducer(dosageReducer, initialState);
 
@@ -88,9 +90,12 @@ const DosageState = (props) => {
       });
 
       const solutionPetitionCreate = petitionCreateDosage.data;
+      console.log(solutionPetitionCreate);
+
       if (solutionPetitionCreate.response == "success") {
         return solutionPetitionCreate.data;
       } else {
+        console.log(solutionPetitionCreate);
         return solutionPetitionCreate.response;
       }
     } catch (error) {
@@ -118,9 +123,10 @@ const DosageState = (props) => {
         });
         return false;
       } else {
+        let arrayInverted = solutionPetitionRead.data.reverse();
         dispatch({
           type: DOSAGE_READ,
-          payload: solutionPetitionRead.data,
+          payload: arrayInverted,
         });
         return true;
       }
@@ -189,7 +195,7 @@ const DosageState = (props) => {
       payload: valor,
     });
   };
-  
+
   //-----------------------------------------------------------------
   //FUNCION BORRAR COMPANY
   const functionDeleteDosage = async (valor) => {
@@ -245,7 +251,7 @@ const DosageState = (props) => {
       console.log(error);
     }
   };
-//-----------------------------------------------------------------
+  //-----------------------------------------------------------------
   //
   const functionTableSelectionDosage = (valor) => {
     dispatch({
@@ -253,7 +259,29 @@ const DosageState = (props) => {
       payload: valor,
     });
   };
-
+  //
+  const functionDosageActually = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      //Se ingresa el TOKEN y se introduce en el HEADER del CLIENTE AXIOS
+      tokenAuth(token);
+    }
+    try {
+      let dataTokenBusiness = localStorage.getItem("tokenbusiness");
+      const url = direction_admin_dosage_actually;
+      const petitionUpdateDosage = await clienteAxios.post(url, {
+        identifierbus: dataTokenBusiness,
+      });
+      const solutionPetitionUpdate = petitionUpdateDosage.data;
+      if (solutionPetitionUpdate.response == "success") {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -263,8 +291,8 @@ const DosageState = (props) => {
         arraydosage: state.arraydosage,
         modalupdatedosage: state.modalupdatedosage,
         arrayupdatedosage: state.arrayupdatedosage,
-        arraydosagecurrent : state.arraydosagecurrent,
-        dosageselection : state.dosageselection,
+        arraydosagecurrent: state.arraydosagecurrent,
+        dosageselection: state.dosageselection,
         functionCreateDosage,
         functionReadDosage,
         functionModalUpdate,
@@ -272,7 +300,8 @@ const DosageState = (props) => {
         functionUpdateDosage,
         functionDeleteDosage,
         functionReadDosageCurrent,
-        functionTableSelectionDosage
+        functionTableSelectionDosage,
+        functionDosageActually,
       }}
     >
       {props.children}

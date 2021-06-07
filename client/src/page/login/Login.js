@@ -94,8 +94,6 @@ const Login = (props) => {
         } else {
           messageSuccess("Correcto, Bienvenido al sistema", 3);
           let dataTokenRole = JSON.parse(localStorage.getItem("datauser"));
-          console.log(dataTokenRole);
-
           switch (dataTokenRole[0].role) {
             case "master":
               functionSelectionInformationRole("master");

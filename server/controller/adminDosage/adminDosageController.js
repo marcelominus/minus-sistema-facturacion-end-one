@@ -20,6 +20,7 @@ exports.createDosage = async (req,res) => {
     //VARIABLES DE ENTRADA
     const {identifierbus, datestartdos, dateenddos, sfcdos, numberauthorizationdos, numbernotestartdos, dosagedos, legenddos, conditiondos} = req.body;
     //
+
     try {
         //Verifica la existencia del usuario que realiza la peticion
         const consultationUser = await LoginModel.findAll({
@@ -248,6 +249,90 @@ exports.readDosageCurrent = async(req, res) => {
                 res.json({ response : 'success' , data : consultationDosage});
             }
             //LECTURA TOTAL DE SOLO USER => ADMIN / (admin)
+        }
+    } catch (error) {
+        res.json({ response : 'fail-server'});
+    }
+}
+
+//
+exports.actuallyDosage = async (req,res) => {
+    //VARIABLES DE ACCESO-VERIFICACION TOKEN
+    const identifier = req.user.identifier;
+    const role = req.user.role;
+
+    //VARIABLES DE ENTRADA
+    const { identifierbus } = req.body;
+    
+    try {
+        //Verifica la existencia del usuario que realiza la peticion
+        const consultationUser = await LoginModel.findAll({
+            where : {
+                identifier : identifier,
+                role : role
+            },
+            attributes : ['email'],
+            raw : true
+        });
+        if( consultationUser === 0 ){
+            res.json({ response : 'empty'});
+        }else{
+
+             // LECTURA DE INFORMACION SOLO ALL => ADMIN, USER / (super admin)
+             const consultationDosage  = await AdminDosageModel.findAll({
+                where : {
+                    identifierbus : identifierbus
+                },
+                raw : true,
+                order: [
+                    ['iddosage', 'DESC'],
+                ],
+                limit : 1
+            });
+
+            if( consultationDosage === 0 ){
+                res.json({ response : 'empty'})
+            }else{
+                
+                const a = moment().subtract(4, "h").format("MM/DD/YYYY");
+                const ab = moment(consultationDosage[0].dateenddos);
+                
+                let fechaOne = moment(a);
+                let fechaTwo = moment(ab);
+
+                const diffDays = fechaTwo.diff(fechaOne, 'days') + 1;
+
+                if(diffDays > 0 ){
+                    const updateDosage  = await AdminDosageModel.update({
+                        conditiondos : 'active',
+                        dayremaindos : diffDays
+                    }, {
+                        where : {
+                            identifierdos : consultationDosage[0].identifierdos
+                        }
+                    })
+                    if( updateDosage ){
+                        res.json({ response : 'success'})
+                    }else{
+                        res.json({ response : 'fail-update'})
+                    }
+                }else{
+                    const updateDosage  = await AdminDosageModel.update({
+                        conditiondos : 'desactive',
+                        dayremaindos : '0'
+                    }, {
+                        where : {
+                            identifierdos : consultationDosage[0].identifierdos
+                        } 
+                    })
+                    if( updateDosage ){
+                        res.json({ response : 'success'})
+                    }else{
+                        res.json({ response : 'fail-update'})
+                    }
+                }
+            }
+
         }
     } catch (error) {
         res.json({ response : 'fail-server'});

@@ -233,7 +233,7 @@ const Invoice = ({ type, arraybillprint }) => {
       backgroundColor: "white",
       fontSize: 10,
       textAlign: "center",
-      padding: 20,
+      padding: 10,
       width: "100%",
       height: "10%",
     },

@@ -44,7 +44,7 @@ const AdminBill = (props) => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
-          <HeaderPage />
+          <HeaderPage title={'Administrar Facturacion'}/>
           <Content style={{ margin: "0 16px" }}>
             <motion.div
               initial="out"
