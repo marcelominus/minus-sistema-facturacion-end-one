@@ -1,7 +1,15 @@
 @import "../../date";
 
-.table-company {
-  thead > tr > th {
-    background-color: #cfeaff;
+.container-table-company {
+  margin-top: 1rem;
+  .title-table-company {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .table-company {
+    margin-top: 0.5rem;
+    thead > tr > th {
+      background-color: #cfeaff;
+    }
   }
 }

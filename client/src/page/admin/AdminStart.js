@@ -17,6 +17,7 @@ import ModalStart from "../../components/AdminStart/ModalStart";
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
+import Title from '../../components/tools/Title';
 
 import CardStartUser from '../../components/AdminStart/CardStartUser';
 //****************************************************************
@@ -51,7 +52,7 @@ const AdminStart = () => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <h1>Bienvenido al Sistema de Facturacion</h1>
+              <Title title={'Panel de Facturación'}/>
               <CardStartUser/>
             </motion.div>
           </Content>

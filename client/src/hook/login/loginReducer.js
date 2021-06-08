@@ -1,4 +1,8 @@
-import { PETITION_LOGIN, PETITION_AUTHENTICATED } from "../../utils/index";
+import {
+  PETITION_LOGIN,
+  PETITION_AUTHENTICATED,
+  PETITION_EXIT_LOGIN,
+} from "../../utils/index";
 
 //Zona de SWITCH
 export default (state, action) => {
@@ -21,6 +25,16 @@ export default (state, action) => {
         ...state,
         authenticated: true,
         informationUser: action.payload,
+      };
+    case PETITION_EXIT_LOGIN:
+      localStorage.removeItem("login");
+      localStorage.removeItem("token");
+      localStorage.removeItem("tokencompany");
+      localStorage.removeItem("tokenbusiness");
+      localStorage.removeItem("datauser");
+      localStorage.removeItem("role");
+      return {
+        ...state,
       };
     default:
       return state;

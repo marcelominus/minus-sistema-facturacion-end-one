@@ -8,7 +8,11 @@ import loginContext from "./loginContext";
 import loginReducer from "./loginReducer";
 //***************************************************************** */
 //Importamos los TYPES
-import { PETITION_LOGIN, PETITION_AUTHENTICATED } from "../../utils/index";
+import {
+  PETITION_LOGIN,
+  PETITION_AUTHENTICATED,
+  PETITION_EXIT_LOGIN,
+} from "../../utils/index";
 //***************************************************************** */
 //Importamos las direcciones de LOGIN
 import {
@@ -116,6 +120,12 @@ const LoginState = (props) => {
       return false;
     }
   };
+
+  const functionExitLogin = () => {
+    dispatch({
+      type: PETITION_EXIT_LOGIN,
+    });
+  };
   //=====================================================
   //INICIO DE COMPONENTE
   //=====================================================
@@ -127,6 +137,7 @@ const LoginState = (props) => {
         funcionPeticionLogin,
         funcionAutentificarUsuario,
         functionAuthenticate,
+        functionExitLogin,
       }}
     >
       {props.children}

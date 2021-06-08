@@ -1,7 +1,12 @@
 import React, { Fragment } from "react";
-import { Layout, Menu} from "antd";
+import "../../resource/scss/components/tools/headerpage.scss";
+//****************************************************************
+//Importamos los componente sde ANTD
+import { Layout } from "antd";
 //Importamos framer motion
 import { motion } from "framer-motion";
+//****************************************************************
+//Importamos los Effectos
 import {
   pageTransitionStart,
   pageVariantsStart,
@@ -9,12 +14,12 @@ import {
 
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
-const { Header} = Layout;
+const { Header } = Layout;
 
 // =====================================================
 // INICIO DE CLASE  */}
 // =====================================================
-const HeaderPage = ({title}) => {
+const HeaderPage = ({ title }) => {
   // =====================================================
   // INICIO DE COMPONENTE}
   // =====================================================
@@ -29,8 +34,8 @@ const HeaderPage = ({title}) => {
           transition={pageTransitionStart}
           className="container-padding"
         >
-          <div style={{ fontSize: "1.5rem", color: "white" }}>
-            {title}
+          <div className="container-header">
+            <span className="title-header">{title}</span>
           </div>
         </motion.div>
       </Header>

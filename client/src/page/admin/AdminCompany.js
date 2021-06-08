@@ -12,6 +12,7 @@ import {
 import ModalAddCompany from "../../components/AdminCompany/ModalAddCompany";
 import ModalAddLogo from "../../components/AdminCompany/ModalAddLogo";
 import TableDataCompany from "../../components/AdminCompany/TableDataCompany";
+import Title from "../../components/tools/Title";
 //*******************************************************
 //Importamos los componentes
 import HeaderPage from "../../components/tools/HeaderPage";
@@ -36,7 +37,7 @@ const AdminCompany = () => {
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
           {/* ------------------------- ********** ------------------------- */}
-          <HeaderPage title={'Administrar Empresa'}/>
+          <HeaderPage title={"Administrar Empresa"} />
           {/* ------------------------- ********** ------------------------- */}
           <Content style={{ margin: "0 16px" }}>
             <motion.div
@@ -47,7 +48,7 @@ const AdminCompany = () => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <h4>Añadir Nueva Empresa</h4>
+              <Title title={"Administrar Empresas"} />
               {/* ------------------------- ********** ------------------------- */}
               <ModalAddCompany />
               <ModalAddLogo />

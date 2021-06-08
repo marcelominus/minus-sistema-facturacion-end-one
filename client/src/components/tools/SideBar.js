@@ -1,5 +1,7 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import "../../resource/scss/components/tools/sidenavbar.scss";
+//****************************************************************
+//Importamos Componentes de ANTD
 import { Layout, Menu, Modal } from "antd";
 import {
   DesktopOutlined,
@@ -7,10 +9,13 @@ import {
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 //*******************************************************
-//
+//Importamos Componentes de REACT ROUTER DOM
 import { Link, Redirect } from "react-router-dom";
 //****************************************************************
-//
+//Importamos el CONTEXT
+import loginContext from "../../hook/login/loginContext";
+//****************************************************************
+//Desglozamos el componente LAYOUT
 const { Sider } = Layout;
 
 // =====================================================
@@ -27,6 +32,9 @@ const SideBar = () => {
   const onCollapse = () => {
     setCollapsed(!collapsed);
   };
+  //-----------------------------------------------------------------
+  //ZONE DE USE CONTEXT
+  const { functionExitLogin } = useContext(loginContext);
   //-----------------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
@@ -64,6 +72,7 @@ const SideBar = () => {
       onOk: () => {
         // functionPetitionExit();
         setExit(true);
+        functionExitLogin();
       },
     });
   };

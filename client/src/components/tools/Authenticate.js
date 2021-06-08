@@ -1,18 +1,14 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
 //****************************************************************
-//
+//Importamos el LOGIN CONTEXT
 import loginContext from "../../hook/login/loginContext";
 //*******************************************************
-//
-import { Link, Redirect } from "react-router-dom";
+//Importamos el REACT ROUTER DOM
+import { Redirect } from "react-router-dom";
 //****************************************************************
-//
-import { Layout, Menu, Modal } from "antd";
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  ExclamationCircleOutlined,
-} from "@ant-design/icons";
+//Importamos los componentes de ANTD
+import { Modal } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 //================================================================
 //INICIO DE CLASE
 //================================================================

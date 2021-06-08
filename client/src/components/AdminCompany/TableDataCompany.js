@@ -7,7 +7,7 @@ import React, {
 } from "react";
 //****************************************************************
 //Importamos la libraria de SCSS de Table
-import '../../resource/scss/components/company/tableCompany.scss';
+import "../../resource/scss/components/company/tableCompany.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
 import { Table, Tag, Input, Button, Space, Modal } from "antd";
@@ -50,16 +50,13 @@ const TableDataCompany = () => {
     functionLoadLogo,
     functionUpdateModal,
     functionLoadIdCompanyUpdate,
-    functionIdCompanyUpdate,
     functionDeleteCompany,
   } = useContext(companyContext);
   //-------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
     //Funcion para poder llamar la tabla
-    functionReadCompany().then((e) => {
-      //console.log(arraycompany);
-    });
+    functionReadCompany();
   }, []);
 
   //-------------------------------------------------------
@@ -88,7 +85,7 @@ const TableDataCompany = () => {
       title: "Nombre",
       dataIndex: "namecom",
       key: "namecom",
-      width: "15%",
+      width: "25%",
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -159,19 +156,19 @@ const TableDataCompany = () => {
       title: "Nit",
       dataIndex: "nitcom",
       key: "nitcom",
-      width: "8%",
+      width: "20%",
     },
     {
       title: "Direccion",
       dataIndex: "directioncom",
       key: "directioncom",
-      width: "8%",
+      width: "20%",
     },
 
     {
       title: "Acciones Logo",
       key: "action",
-      width: "10%",
+      width: "15%",
       render: (text) => (
         <Fragment>
           <Button
@@ -201,7 +198,7 @@ const TableDataCompany = () => {
     {
       title: "Acciones Admin",
       key: "action",
-      width: "10%",
+      width: "15%",
       render: (text) => (
         <Fragment>
           <Button
@@ -217,37 +214,35 @@ const TableDataCompany = () => {
               functionLoadIdCompanyUpdate(resultFilterUpdate);
             }}
           />
-            <Modal
-              title="Aviso de Sistema"
-              visible={modaldelete}
-              closable={false}
-              onOk={ () => {
-                  functionDeleteCompany(text.identifiercom).then((e) => {
-                    if (e === true) {
-                      messageSuccess("Correcto Elemento Borrado", 2);
-                      functionReadCompany();
-                      setModalDelete(false)
-                    } else {
-                      messageError("Error, Intente mas Tarde", 2);
-                      setModalDelete(false)
-                    }
-                  })
+          <Modal
+            title="Aviso de Sistema"
+            visible={modaldelete}
+            closable={false}
+            onOk={() => {
+              functionDeleteCompany(text.identifiercom).then((e) => {
+                if (e === true) {
+                  messageSuccess("Correcto Elemento Borrado", 2);
+                  functionReadCompany();
+                  setModalDelete(false);
+                } else {
+                  messageError("Error, Intente mas Tarde", 2);
+                  setModalDelete(false);
                 }
-              }
-              onCancel={() => setModalDelete(false)}
-              okText="Ok"
-              cancelText="Cancel"
-            >
-              <p>Se borrara la Informacion. Esta seguro de la orden realizada</p>
-            </Modal>
-            <Button
-              type="primary"
-              icon={<DeleteOutlined />}
-              size={"default"}
-              ghost
-              onClick = { () => setModalDelete(true)}
-            />
-  
+              });
+            }}
+            onCancel={() => setModalDelete(false)}
+            okText="Ok"
+            cancelText="Cancel"
+          >
+            <p>Se borrara la Informacion. Esta seguro de la orden realizada</p>
+          </Modal>
+          <Button
+            type="primary"
+            icon={<DeleteOutlined />}
+            size={"default"}
+            ghost
+            onClick={() => setModalDelete(true)}
+          />
         </Fragment>
       ),
     },
@@ -258,24 +253,23 @@ const TableDataCompany = () => {
   //================================================================
   return (
     <Fragment>
-      <h4>
-        Empresas Actuales
-      </h4>
-      {/* ------------------------- ********** ------------------------- */}
-      <Table
-        columns={columns}
-        dataSource={arraycompany}
-        sorter={true}
-        pagination={{ pageSize: 10, responsive: true }}
-        scroll={{ x: 1200, y: "max-content" }}
-        bordered
-        locale={{ emptyText: "Sin Datos" }}
-        className='table-company'
-      />
-      {/* ------------------------- ********** ------------------------- */}
-      <ModalViewLogo directionimg={directionimg} />
-      {/* ------------------------- ********** ------------------------- */}
-      <ModalModifyCompany />
+      <div className="container-table-company">
+        <span className="title-table-company">Empresas Actuales</span>
+        {/* ------------------------- ********** ------------------------- */}
+        <Table
+          columns={columns}
+          dataSource={arraycompany}
+          sorter={true}
+          pagination={{ pageSize: 10, responsive: true }}
+          scroll={{ x: 1200, y: "max-content" }}
+          bordered
+          className="table-company"
+        />
+        {/* ------------------------- ********** ------------------------- */}
+        <ModalViewLogo directionimg={directionimg} />
+        {/* ------------------------- ********** ------------------------- */}
+        <ModalModifyCompany />
+      </div>
     </Fragment>
   );
 };

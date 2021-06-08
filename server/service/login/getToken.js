@@ -16,7 +16,7 @@ const getToken = (value_1, value_2) => {
     }
     //Firmamos el TOKEN
     const tokenGeting = jwt.sign(payload, CODE_SECRET, {
-        expiresIn : '10s'
+        expiresIn : '24h'
     });
 
     if(!tokenGeting){

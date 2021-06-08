@@ -151,7 +151,7 @@ const ModalAddCompany = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Nueva Empresa"
         visible={isModalVisible}
         width={800}
         closable={false}
@@ -302,8 +302,9 @@ const ModalAddCompany = () => {
         type="primary"
         onClick={openModalCompany}
         icon={<PlusCircleOutlined />}
+        ghost
       >
-        Registrar Empresa
+        Nueva Empresa
       </Button>
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>

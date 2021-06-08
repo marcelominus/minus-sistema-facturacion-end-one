@@ -51,17 +51,18 @@ const ModalStart = () => {
   return (
     <Fragment>
       <Modal
-        title="Mensaje Importante"
+        title="Mensaje de Advertencia"
         visible={isModalVisible}
         footer={[
           <Button key="submit" type="primary" onClick={handleCancel}>
             Entendido
           </Button>,
         ]}
+        closable={false}
       >
         <p>
           <WarningOutlined /> No se encuentra registrado ninguna{" "}
-          {messageone !== "" ? <Tag color="purple">{messageone}</Tag> : null}
+          {messageone !== "" ? <Tag color="volcano">{messageone}</Tag> : null}
           {messagetwo !== "" ? <Tag color="purple">{messagetwo}</Tag> : null}
         </p>
       </Modal>
