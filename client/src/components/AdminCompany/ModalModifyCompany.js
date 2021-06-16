@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import "../../resource/scss/default.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, message } from "antd";
@@ -136,140 +137,141 @@ const ModalModifyCompany = () => {
       <Modal
         title="Modificar Información de Empresa"
         visible={isModalVisible}
-        width={800}
+        width={500}
         closable={false}
-
         footer={[
           <Button key="send" type="primary" onClick={onClickCompany}>
             Enviar
           </Button>,
-          <Button key="cancel" type="primary" onClick={handleCancel}>
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar
           </Button>,
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Nombre Empresa
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
-              placeholder="default size"
-              prefix={<UserOutlined />}
-              name="namecom"
-              onChange={onChangeAddCompany}
-              value={namecom}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            NIT Empresa
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Nombre Empresa</div>
           </Col>
           <Col span={12}>
             <Input
               placeholder="default size"
-              prefix={<UserOutlined />}
+              name="namecom"
+              onChange={onChangeAddCompany}
+              value={namecom}
+              className="input-unique"
+            />
+          </Col>
+        </Row>
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">NIT Empresa</div>
+          </Col>
+          <Col span={12}>
+            <Input
+              placeholder="default size"
               name="nitcom"
               onChange={onChangeAddCompany}
               value={nitcom}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12}>Telefono Empresa</Col>
-          <Col span={12} style={{ background: "blue" }}>
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Telefono Empresa</div>
+          </Col>
+          <Col span={12}>
             <Input
               placeholder="default size"
-              prefix={<UserOutlined />}
               name="telephonecom"
               onChange={onChangeAddCompany}
               value={telephonecom}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Email Empresarial
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Email Empresarial</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="default size"
-              prefix={<UserOutlined />}
               name="emailcom"
               onChange={onChangeAddCompany}
               value={emailcom}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Moneda
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Moneda</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="default size"
-              prefix={<UserOutlined />}
               name="coincom"
               onChange={onChangeAddCompany}
               value={coincom}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Ciudad Compañia
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Ciudad Compañia</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="default size"
-              prefix={<UserOutlined />}
               name="citycom"
               onChange={onChangeAddCompany}
               value={citycom}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Lugar Empresa
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Lugar Empresa</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="default size"
-              prefix={<UserOutlined />}
               name="placecom"
               onChange={onChangeAddCompany}
               value={placecom}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Direccion Empresa
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Direccion Empresa</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="default size"
-              prefix={<UserOutlined />}
               name="directioncom"
               onChange={onChangeAddCompany}
               value={directioncom}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Perteneciente Empresa
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Perteneciente Empresa</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="default size"
-              prefix={<UserOutlined />}
               name="ofcom"
               onChange={onChangeAddCompany}
               value={ofcom}
+              className="input-unique"
             />
           </Col>
         </Row>

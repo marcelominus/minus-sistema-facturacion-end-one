@@ -32,19 +32,19 @@ const ModalViewLogo = ({ directionimg }) => {
     functionLoadLogoView(false);
     setIsModalVisible(false);
   };
-  
+
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
   return (
     <Fragment>
       <Modal
-        title="Ver Logo Empresa"
+        title="Ver Logo de la Empresa"
         visible={isModalVisible}
         width={500}
         closable={false}
         footer={[
-          <Button key="cancel" type="primary" onClick={handleCancel}>
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar
           </Button>,
         ]}

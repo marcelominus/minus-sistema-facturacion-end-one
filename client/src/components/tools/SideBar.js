@@ -4,8 +4,6 @@ import "../../resource/scss/components/tools/sidenavbar.scss";
 //Importamos Componentes de ANTD
 import { Layout, Menu, Modal } from "antd";
 import {
-  DesktopOutlined,
-  PieChartOutlined,
   ExclamationCircleOutlined,
   ShopOutlined,
   GroupOutlined,
@@ -46,7 +44,7 @@ const SideBar = () => {
   //-----------------------------------------------------------------
   //ZONE DE USE CONTEXT
   const { functionExitLogin } = useContext(loginContext);
-  const { functionSelectorSidebar } = useContext(toolContext);
+  const { varselect, functionSelectorSidebar } = useContext(toolContext);
   //-----------------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
@@ -73,8 +71,7 @@ const SideBar = () => {
   }, []);
   //-----------------------------------------------------------------
   //ZONE FUNCTION
-  const onClickExit = (e) => {
-    e.preventDefault();
+  const onClickExit = () => {
     Modal.confirm({
       title: "Confirmar",
       icon: <ExclamationCircleOutlined />,
@@ -82,9 +79,12 @@ const SideBar = () => {
       okText: "Salir",
       cancelText: "Cancel",
       onOk: () => {
-        // functionPetitionExit();
         setExit(true);
         functionExitLogin();
+        functionSelectorSidebar(1);
+      },
+      onCancel: () => {
+        functionSelectorSidebar(varselect);
       },
     });
   };
@@ -97,7 +97,7 @@ const SideBar = () => {
         <div className="logo" />
         <Menu
           theme="dark"
-          defaultSelectedKeys={[localStorage.getItem("select")]}
+          defaultSelectedKeys={[`${varselect}`]}
           mode="inline"
           collapsedWidth="20"
         >
@@ -107,7 +107,7 @@ const SideBar = () => {
           <Menu.Item
             key="1"
             icon={<HomeOutlined />}
-            onClick={() => functionSelectorSidebar("1")}
+            onClick={() => functionSelectorSidebar(1)}
           >
             <Link to="/start">Inicio</Link>
           </Menu.Item>
@@ -115,7 +115,7 @@ const SideBar = () => {
             <Menu.Item
               key="2"
               icon={<GroupOutlined />}
-              onClick={() => functionSelectorSidebar("2")}
+              onClick={() => functionSelectorSidebar(2)}
             >
               <Link to="/company"> Empresa</Link>
             </Menu.Item>
@@ -124,7 +124,7 @@ const SideBar = () => {
             <Menu.Item
               key="3"
               icon={<ShopOutlined />}
-              onClick={() => functionSelectorSidebar("3")}
+              onClick={() => functionSelectorSidebar(3)}
             >
               <Link to="/business"> Sucursal</Link>
             </Menu.Item>
@@ -133,7 +133,7 @@ const SideBar = () => {
             <Menu.Item
               key="4"
               icon={<UserOutlined />}
-              onClick={() => functionSelectorSidebar("4")}
+              onClick={() => functionSelectorSidebar(4)}
             >
               <Link to="/user">Usuario</Link>
             </Menu.Item>
@@ -142,7 +142,7 @@ const SideBar = () => {
             <Menu.Item
               key="5"
               icon={<ScheduleOutlined />}
-              onClick={() => functionSelectorSidebar("5")}
+              onClick={() => functionSelectorSidebar(5)}
             >
               <Link to="/dosage">Dosificacion</Link>
             </Menu.Item>
@@ -151,7 +151,7 @@ const SideBar = () => {
             <Menu.Item
               key="6"
               icon={<ShoppingOutlined />}
-              onClick={() => functionSelectorSidebar("6")}
+              onClick={() => functionSelectorSidebar(6)}
             >
               <Link to="/product">Productos</Link>
             </Menu.Item>
@@ -159,7 +159,7 @@ const SideBar = () => {
           <Menu.Item
             key="7"
             icon={<FileDoneOutlined />}
-            onClick={() => functionSelectorSidebar("7")}
+            onClick={() => functionSelectorSidebar(7)}
           >
             <Link to="/bill">Facturacion</Link>
           </Menu.Item>
@@ -167,17 +167,12 @@ const SideBar = () => {
             <Menu.Item
               key="8"
               icon={<ApartmentOutlined />}
-              onClick={() => functionSelectorSidebar("8")}
+              onClick={() => functionSelectorSidebar(8)}
             >
               <Link to="/selection">Seleccionar Area</Link>
             </Menu.Item>
           ) : null}
-          <Menu.Item
-            key="9"
-            icon={<CloseSquareOutlined />}
-            className="item"
-            onClick={() => functionSelectorSidebar("9")}
-          >
+          <Menu.Item key="9" icon={<CloseSquareOutlined />} className="item">
             <a onClick={onClickExit}>Cerrar Sesion</a>
           </Menu.Item>
           {exit ? <Redirect to={"/"} /> : null}

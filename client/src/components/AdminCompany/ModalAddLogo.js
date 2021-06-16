@@ -116,7 +116,7 @@ const ModalAddLogo = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Añadir Logo Empresa"
         visible={isModalVisible}
         width={800}
         closable={false}
@@ -124,7 +124,7 @@ const ModalAddLogo = () => {
           <Button key="send" type="primary" onClick={onClickSendLogo}>
             Enviar
           </Button>,
-          <Button key="cancel" type="primary" onClick={handleCancel}>
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar (IMG Default)
           </Button>,
         ]}

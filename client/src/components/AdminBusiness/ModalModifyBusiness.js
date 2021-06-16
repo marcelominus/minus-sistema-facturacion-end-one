@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import "../../resource/scss/default.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select } from "antd";
@@ -170,24 +171,25 @@ const ModalModifyBusiness = () => {
       <Modal
         title="Modificar Sucursal"
         visible={isModalVisible}
-        width={800}
+        closable={false}
+        width={600}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickBusiness}>
             Enviar
           </Button>,
           //BUTTON DE CANCELAR Y CERRAR MODAL
-          <Button key="cancel" type="primary" onClick={handleCancel}>
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar
           </Button>,
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Selecciones la Empresa
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Selecciones la Empresa</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Select
               defaultValue=""
               style={{ width: "100%" }}
@@ -205,87 +207,95 @@ const ModalModifyBusiness = () => {
             </Select>
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Nombre Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Nombre Sucursal</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el nombre de Sucursal"
               prefix={<UserOutlined />}
               name="namebus"
               onChange={onChangeAddBusiness}
               value={namebus}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Perteneciente Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Perteneciente Sucursal</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el Nombre de Propietario Sucursal"
               prefix={<UserOutlined />}
               name="ofbus"
               onChange={onChangeAddBusiness}
               value={ofbus}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Ciudad Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Ciudad Sucursal</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese la Ciudad de la Sucursal"
               prefix={<UserOutlined />}
               name="citybus"
               onChange={onChangeAddBusiness}
               value={citybus}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Lugar Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Lugar Sucursal</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Lugar de la Sucursal"
               prefix={<UserOutlined />}
               name="placebus"
               onChange={onChangeAddBusiness}
               value={placebus}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Direccion de Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Direccion de Sucursal</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese la Direccion de la Sucursal"
               prefix={<UserOutlined />}
               name="directionbus"
               onChange={onChangeAddBusiness}
               value={directionbus}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Actividad Economica de Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">
+              Actividad Economica de Sucursal
+            </div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <TextArea
               rows={4}
               placeholder="Ingrese la Actividad Economica de la Sucursal"
               name="economicactivitybus"
               onChange={onChangeAddBusiness}
               value={economicactivitybus}
+              className="input-unique"
             />
           </Col>
         </Row>

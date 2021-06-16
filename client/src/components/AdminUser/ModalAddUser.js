@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import "../../resource/scss/default.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select } from "antd";
@@ -152,116 +153,118 @@ const ModalAddUser = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Añadir Usuario"
+        closable={false}
         visible={isModalVisible}
-        width={800}
+        width={500}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickBusiness}>
             Enviar
           </Button>,
           //BUTTON DE CANCELAR Y CERRAR MODAL
-          <Button key="cancel" type="primary" onClick={handleCancel}>
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar
           </Button>,
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Nombre de Empleado
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Nombre de Empleado</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el Nombre del Empleado"
-              prefix={<UserOutlined />}
               name="name"
               onChange={onChangeAddUser}
               value={name}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Apeliido de Empleado
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Apeliido de Empleado</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el Apellido del Empleado"
-              prefix={<UserOutlined />}
               name="surname"
               onChange={onChangeAddUser}
               value={surname}
+              className="input-unique"
             />
           </Col>
         </Row>
 
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Email de Empleado
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Email de Empleado</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el Email del Empleado"
-              prefix={<UserOutlined />}
               name="email"
               onChange={onChangeAddUser}
               value={email}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Carnet de Empleado
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Carnet de Empleado</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el Carnet del Empleado"
-              prefix={<UserOutlined />}
               name="ci"
               onChange={onChangeAddUser}
               value={ci}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            USER de Empleado
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">USER de Empleado</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
-              placeholder="Ingrese la Ciudad de la Sucursal"
-              prefix={<UserOutlined />}
+              placeholder="Ingrese el USER del Empleado"
               name="user"
               onChange={onChangeAddUser}
               value={user}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            PASSWORD de Empleado
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">PASSWORD de Empleado</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
-              placeholder="Ingrese el Password del Empleado"
-              prefix={<UserOutlined />}
+              placeholder="Ingrese el PASSWORD del Empleado"
               name="password"
               onChange={onChangeAddUser}
               value={password}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Seleccione rol de Usuario
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Seleccione rol de Usuario</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Select
               defaultValue=""
               style={{ width: "100%" }}
               onChange={onChangeAddRol}
               value={rolenew}
+              className="input-unique"
             >
               <Option value="">--Seleccione una Opcion--</Option>
               {role === "master" ? (
@@ -279,6 +282,7 @@ const ModalAddUser = () => {
         type="primary"
         onClick={openModalUser}
         icon={<PlusCircleOutlined />}
+        ghost
       >
         Registrar Usuario
       </Button>

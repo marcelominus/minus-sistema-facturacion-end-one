@@ -147,7 +147,7 @@ const ModalAddBusiness = () => {
       <Modal
         title="Añadir Sucursal"
         visible={isModalVisible}
-        width={700}
+        width={600}
         closable={false}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
@@ -185,7 +185,9 @@ const ModalAddBusiness = () => {
         </Row>
         <Row className="input-form">
           <Col span={12}>
-            <div className="title-formulario">Seleccione la Empresa</div>
+            <div className="title-formulario">
+              Ingrese el Nombre de Sucursal
+            </div>
           </Col>
           <Col span={12}>
             <Input
@@ -198,7 +200,7 @@ const ModalAddBusiness = () => {
         </Row>
         <Row className="input-form">
           <Col span={12}>
-            <div className="title-formulario">Perteneciente Sucursal</div>
+            <div className="title-formulario">Responsable Sucursal</div>
           </Col>
           <Col span={12}>
             <Input

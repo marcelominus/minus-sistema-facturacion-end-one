@@ -10,12 +10,13 @@ import React, {
 import "../../resource/scss/components/company/tableCompany.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Tag, Input, Button, Space, Modal } from "antd";
+import { Table, Tooltip, Input, Button, Space, Modal } from "antd";
 import {
   SearchOutlined,
   EyeOutlined,
   CloudUploadOutlined,
   DeleteOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 //****************************************************************
 //Importamos el HIGT de LETTERS
@@ -82,7 +83,7 @@ const TableDataCompany = () => {
       width: "5%",
     },
     {
-      title: "Nombre",
+      title: "Nombre de Empresa",
       dataIndex: "namecom",
       key: "namecom",
       width: "25%",
@@ -171,27 +172,31 @@ const TableDataCompany = () => {
       width: "15%",
       render: (text) => (
         <Fragment>
-          <Button
-            type="primary"
-            icon={<EyeOutlined />}
-            size={"default"}
-            ghost
-            onClick={() => {
-              setDirectionImg(text.directionimgcom);
-              functionLoadLogoView(true);
-            }}
-          />
+          <Tooltip placement="left" title={"Ver Logo"}>
+            <Button
+              type="primary"
+              icon={<EyeOutlined />}
+              size={"default"}
+              ghost
+              onClick={() => {
+                setDirectionImg(text.directionimgcom);
+                functionLoadLogoView(true);
+              }}
+            />
+          </Tooltip>
 
-          <Button
-            type="primary"
-            icon={<CloudUploadOutlined />}
-            size={"default"}
-            ghost
-            onClick={() => {
-              functionLoadLogo(true);
-              functionLoadIdCompany(text.identifiercom);
-            }}
-          />
+          <Tooltip placement="left" title={"Modificar Logo"}>
+            <Button
+              type="primary"
+              icon={<CloudUploadOutlined />}
+              size={"default"}
+              ghost
+              onClick={() => {
+                functionLoadLogo(true);
+                functionLoadIdCompany(text.identifiercom);
+              }}
+            />
+          </Tooltip>
         </Fragment>
       ),
     },
@@ -201,48 +206,50 @@ const TableDataCompany = () => {
       width: "15%",
       render: (text) => (
         <Fragment>
-          <Button
-            type="primary"
-            icon={<CloudUploadOutlined />}
-            size={"default"}
-            ghost
-            onClick={() => {
-              const resultFilterUpdate = arraycompany.filter(
-                (e) => e.identifiercom == text.identifiercom
-              );
-              functionUpdateModal(true);
-              functionLoadIdCompanyUpdate(resultFilterUpdate);
-            }}
-          />
-          <Modal
-            title="Aviso de Sistema"
-            visible={modaldelete}
-            closable={false}
-            onOk={() => {
-              functionDeleteCompany(text.identifiercom).then((e) => {
-                if (e === true) {
-                  messageSuccess("Correcto Elemento Borrado", 2);
-                  functionReadCompany();
-                  setModalDelete(false);
-                } else {
-                  messageError("Error, Intente mas Tarde", 2);
-                  setModalDelete(false);
-                }
-              });
-            }}
-            onCancel={() => setModalDelete(false)}
-            okText="Ok"
-            cancelText="Cancel"
-          >
-            <p>Se borrara la Informacion. Esta seguro de la orden realizada</p>
-          </Modal>
-          <Button
-            type="primary"
-            icon={<DeleteOutlined />}
-            size={"default"}
-            ghost
-            onClick={() => setModalDelete(true)}
-          />
+          <Tooltip placement="left" title={"Modificar Elemento"}>
+            <Button
+              type="primary"
+              icon={<CloudUploadOutlined />}
+              size={"default"}
+              ghost
+              onClick={() => {
+                const resultFilterUpdate = arraycompany.filter(
+                  (e) => e.identifiercom == text.identifiercom
+                );
+                functionUpdateModal(true);
+                functionLoadIdCompanyUpdate(resultFilterUpdate);
+              }}
+            />
+          </Tooltip>
+          <Tooltip placement="left" title={"Borrar Elemento"}>
+            <Button
+              type="primary"
+              icon={<DeleteOutlined />}
+              size={"default"}
+              ghost
+              onClick={() =>
+                Modal.confirm({
+                  title: "Confirmar",
+                  icon: <ExclamationCircleOutlined />,
+                  content: "Desea Borrar el Elemento",
+                  cancelText: "Cancelar",
+                  okText: "Confirmar",
+                  onOk: () => {
+                    functionDeleteCompany(text.identifiercom).then((e) => {
+                      if (e === true) {
+                        messageSuccess("Correcto Elemento Borrado", 2);
+                        functionReadCompany();
+                        setModalDelete(false);
+                      } else {
+                        messageError("Error, Intente mas Tarde", 2);
+                        setModalDelete(false);
+                      }
+                    });
+                  },
+                })
+              }
+            />
+          </Tooltip>
         </Fragment>
       ),
     },
@@ -261,7 +268,7 @@ const TableDataCompany = () => {
           dataSource={arraycompany}
           sorter={true}
           pagination={{ pageSize: 10, responsive: true }}
-          scroll={{ x: 1200, y: "max-content" }}
+          scroll={{ x: 1000, y: "max-content" }}
           bordered
           className="table-company"
         />

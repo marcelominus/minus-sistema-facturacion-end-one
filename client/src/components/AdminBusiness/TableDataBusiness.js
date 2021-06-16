@@ -10,10 +10,10 @@ import React, {
 import "../../resource/scss/components/business/tableBusiness.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
+import { Table, Modal, Input, Button, Space, Tooltip } from "antd";
 import {
   SearchOutlined,
-  EyeOutlined,
+  ExclamationCircleOutlined,
   CloudUploadOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
@@ -83,7 +83,7 @@ const TableDataBusiness = () => {
       title: "Empresa",
       dataIndex: "namecom",
       key: "namecom",
-      width: "10%",
+      width: "20%",
     },
     {
       title: "Nombre",
@@ -160,14 +160,14 @@ const TableDataBusiness = () => {
       title: "Encargado",
       dataIndex: "ofbus",
       key: "ofbus",
-      width: "8%",
+      width: "20%",
     },
 
     {
       title: "Direccion",
       dataIndex: "directionbus",
       key: "directionbus",
-      width: "8%",
+      width: "30%",
     },
 
     {
@@ -176,36 +176,48 @@ const TableDataBusiness = () => {
       width: "10%",
       render: (text) => (
         <Fragment>
-          <Button
-            type="primary"
-            icon={<CloudUploadOutlined />}
-            size={"default"}
-            ghost
-            onClick={() => {
-              const resultFilterUpdate = arraybusiness.filter(
-                (e) => e.identifierbus == text.identifierbus
-              );
-              functionArrayUpdateBusiness(resultFilterUpdate);
-              functionModalUpdate(true);
-            }}
-          />
-
-          <Button
-            type="primary"
-            icon={<DeleteOutlined />}
-            size={"default"}
-            ghost
-            onClick={() => {
-              functionDeleteBusiness(text.identifierbus).then((e) => {
-                if (e === true) {
-                  messageSuccess("Correcto Elemento Borrado", 2);
-                  functionReadBusiness();
-                } else {
-                  messageError("Error, Intente mas Tarde", 2);
-                }
-              });
-            }}
-          />
+          <Tooltip placement="left" title={"Modificar Elemento"}>
+            <Button
+              type="primary"
+              icon={<CloudUploadOutlined />}
+              size={"default"}
+              ghost
+              onClick={() => {
+                const resultFilterUpdate = arraybusiness.filter(
+                  (e) => e.identifierbus == text.identifierbus
+                );
+                functionArrayUpdateBusiness(resultFilterUpdate);
+                functionModalUpdate(true);
+              }}
+            />
+          </Tooltip>
+          <Tooltip placement="left" title={"Eliminar Elemento"}>
+            <Button
+              type="primary"
+              icon={<DeleteOutlined />}
+              size={"default"}
+              ghost
+              onClick={() => {
+                Modal.confirm({
+                  title: "Confirmar",
+                  icon: <ExclamationCircleOutlined />,
+                  content: "Desea Borrar el Elemento",
+                  cancelText: "Cancelar",
+                  okText: "Confirmar",
+                  onOk: () => {
+                    functionDeleteBusiness(text.identifierbus).then((e) => {
+                      if (e === true) {
+                        messageSuccess("Correcto Elemento Borrado", 2);
+                        functionReadBusiness();
+                      } else {
+                        messageError("Error, Intente mas Tarde", 2);
+                      }
+                    });
+                  },
+                });
+              }}
+            />
+          </Tooltip>
         </Fragment>
       ),
     },
@@ -224,7 +236,7 @@ const TableDataBusiness = () => {
           dataSource={arraybusiness}
           sorter={true}
           pagination={{ pageSize: 10, responsive: true }}
-          scroll={{ x: 1200, y: "max-content" }}
+          scroll={{ x: 1000, y: "max-content" }}
           bordered
           className="table-business"
         />

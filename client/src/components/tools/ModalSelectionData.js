@@ -1,13 +1,11 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
+import "../../resource/scss/default.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select } from "antd";
 //*******************************************************
 //Importamos las funciones de MESSAGES
-import {
-  messageError,
-  messageSuccess,
-} from "../../resource/js/messages";
+import { messageError, messageSuccess } from "../../resource/js/messages";
 //****************************************************************
 //Importamos los CONTEXT
 import toolsContext from "../../hook/tool/toolContext";
@@ -27,7 +25,7 @@ const ModalSelectionData = ({ props }) => {
     identifierall: "",
   });
   const { identifierall } = selection;
-  
+
   const onChangeAddAll = (e) => {
     setSelection({
       ...selection,
@@ -36,7 +34,7 @@ const ModalSelectionData = ({ props }) => {
   };
   //-----------------------------------------------------------------
   //ZONE USE-CONTEXT
-  
+
   const {
     arrayallselection,
     functionTableSelection,
@@ -94,24 +92,24 @@ const ModalSelectionData = ({ props }) => {
       <Modal
         title="Seleccionar Area de Trabajo"
         visible={isModalVisible}
-        width={800}
+        width={450}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickBusiness}>
             Enviar
           </Button>,
           //BUTTON DE CANCELAR Y CERRAR MODAL
-          <Button key="cancel" type="primary" onClick={handleCancel}>
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar
           </Button>,
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Escoja una opcion
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Seleccione Area</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Select
               defaultValue=""
               onChange={onChangeAddAll}

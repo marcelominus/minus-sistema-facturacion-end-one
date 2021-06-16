@@ -41,9 +41,9 @@ export default (state, action) => {
         arrayallselection: action.payload,
       };
     case TOOL_SELECTOR_SIDEBAR:
-      localStorage.setItem("select", action.payload);
       return {
         ...state,
+        varselect : action.payload,
       };
 
     default:

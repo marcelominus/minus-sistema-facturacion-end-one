@@ -30,6 +30,7 @@ const ToolState = (props) => {
     tableselection: false,
     arrayselection: [],
     arrayallselection: [],
+    varselect : 1,
   };
   //-----------------------------------------------------------------
   //REDUCER
@@ -143,6 +144,7 @@ const ToolState = (props) => {
         arrayselection: state.arrayselection,
         tableselection: state.tableselection,
         arrayallselection: state.arrayallselection,
+        varselect : state.varselect,
         functionSelectionInformationCompany,
         functionSelectionInformationBusiness,
         functionReadSelection,

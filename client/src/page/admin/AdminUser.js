@@ -18,8 +18,11 @@ import TableSelectionData from "../../components/tools/TableSelectionData";
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
+
 import ModalAddUser from "../../components/AdminUser/ModalAddUser";
+import ModalModifyUser from "../../components/AdminUser/ModalModifyUser";
 import TableDataUser from "../../components/AdminUser/TableDataUser";
+import Title from "../../components/tools/Title";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -41,7 +44,7 @@ const AdminUser = (props) => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
-          <HeaderPage title={"Administrar Usuarios"} />
+          <HeaderPage title={"Usuarios"} />
           <Content style={{ margin: "0 16px" }}>
             <motion.div
               initial="out"
@@ -52,9 +55,11 @@ const AdminUser = (props) => {
               className="container-padding"
             >
               <ModalSelectionDate props={props} />
+              <Title title={'Administrar Usuarios'}/>
               <TableSelectionData />
               <ModalAddUser />
               <TableDataUser />
+              <ModalModifyUser />
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}

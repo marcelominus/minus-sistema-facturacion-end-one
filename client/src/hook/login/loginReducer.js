@@ -13,7 +13,6 @@ export default (state, action) => {
       localStorage.setItem("token", action.payload);
       localStorage.setItem("datauser", JSON.stringify([]));
       localStorage.setItem("role", "");
-      localStorage.setItem("select","1"); //SELECT SIDEBAR DEFAULT
       return {
         ...state,
         authenticated: true,
