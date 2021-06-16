@@ -5,6 +5,7 @@ import {
   TOOL_SELECTION,
   TOOL_SELECTION_READ_ALL,
   TOOL_SELECTION_INFORMATION_ROLE,
+  TOOL_SELECTOR_SIDEBAR,
 } from "../../utils/index";
 //Zona de SWITCH
 export default (state, action) => {
@@ -38,6 +39,11 @@ export default (state, action) => {
       return {
         ...state,
         arrayallselection: action.payload,
+      };
+    case TOOL_SELECTOR_SIDEBAR:
+      localStorage.setItem("select", action.payload);
+      return {
+        ...state,
       };
 
     default:

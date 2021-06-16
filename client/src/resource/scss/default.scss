@@ -1,26 +1,30 @@
 @import "./date";
-
-.container-padding {
-  // padding-top: 1rem;
-  // padding-left: 1.5rem;
-  // padding-right: 1.5rem;
-}
 //---------------------------------------------------
 //ALERTA WARNING
 .message-warning {
   font-family: $tipografia-two-bold;
-  // text-shadow: 0 0 0.25rem orange;
   color: black;
 }
 
 .message-error {
   font-family: $tipografia-two-bold;
-  // text-shadow: 0 0 0.25rem red;
   color: black;
 }
 
 .message-success {
   font-family: $tipografia-two-bold;
-  // text-shadow: 0 0 0.25rem green;
   color: black;
+}
+//TITULOS DE FORMULARIOs
+.title-formulario {
+  font-family: $tipografia-two;
+  font-size: $title-form;
+  margin-top: 0.2rem;
+  font-weight: 700;
+}
+.input-form {
+  margin-bottom: 0.3rem;
+  .input-unique {
+    font-family: $tipografia-one;
+  }
 }

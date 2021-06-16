@@ -11,10 +11,9 @@ export default (state, action) => {
       //Creamos las variables de LOCALSTORAGE
       localStorage.setItem("login", "true");
       localStorage.setItem("token", action.payload);
-      // localStorage.setItem("tokencompany", "");
-      // localStorage.setItem("tokenbusiness", "");
       localStorage.setItem("datauser", JSON.stringify([]));
       localStorage.setItem("role", "");
+      localStorage.setItem("select","1"); //SELECT SIDEBAR DEFAULT
       return {
         ...state,
         authenticated: true,

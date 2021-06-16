@@ -19,6 +19,7 @@ import TableDataBusiness from '../../components/AdminBusiness/TableDataBusiness'
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
+import Title from '../../components/tools/Title';
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -40,7 +41,7 @@ const AdminBusiness = () => {
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
           {/* ------------------------- ********** ------------------------- */}
-          <HeaderPage title={'Administrar Sucursales'}/>
+          <HeaderPage title={'Sucursales'}/>
           {/* ------------------------- ********** ------------------------- */}
           <Content style={{ margin: "0 16px" }}>
             <motion.div
@@ -51,7 +52,7 @@ const AdminBusiness = () => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <h4>Anadir Nueva Sucursal</h4>
+              <Title title={'Administrar Sucursales'}/>
               {/* ------------------------- ********** ------------------------- */}
               <ModalAddBusiness />
               <TableDataBusiness />

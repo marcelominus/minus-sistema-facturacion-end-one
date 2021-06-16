@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useContext, useEffect } from "react";
+import React, { Fragment, useState, useContext } from "react";
+import "../../resource/scss/default.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select } from "antd";
@@ -62,8 +63,9 @@ const ModalAddBusiness = () => {
   //-----------------------------------------------------------------
   //ZONE USE -CONTEXT
   const { arraycompany } = useContext(companyContext);
-  const { functionCreateBusiness, functionReadBusiness } = useContext(businessContext);
-  
+  const { functionCreateBusiness, functionReadBusiness } =
+    useContext(businessContext);
+
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickBusiness = (e) => {
@@ -145,7 +147,7 @@ const ModalAddBusiness = () => {
       <Modal
         title="Añadir Sucursal"
         visible={isModalVisible}
-        width={800}
+        width={700}
         closable={false}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
@@ -153,17 +155,17 @@ const ModalAddBusiness = () => {
             Enviar
           </Button>,
           //BUTTON DE CANCELAR Y CERRAR MODAL
-          <Button key="cancel" type="primary" onClick={handleCancel}>
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar
           </Button>,
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
         <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Seleccione la Empresa
+          <Col span={12}>
+            <div className="title-formulario">Seleccione la Empresa</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Select
               defaultValue=""
               style={{ width: "100%" }}
@@ -181,81 +183,78 @@ const ModalAddBusiness = () => {
             </Select>
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Nombre Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Seleccione la Empresa</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el nombre de Sucursal"
-              prefix={<UserOutlined />}
               name="namebus"
               onChange={onChangeAddBusiness}
               value={namebus}
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Perteneciente Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Perteneciente Sucursal</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el Nombre de Propietario Sucursal"
-              prefix={<UserOutlined />}
               name="ofbus"
               onChange={onChangeAddBusiness}
               value={ofbus}
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Ciudad Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Ciudad Sucursal</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese la Ciudad de la Sucursal"
-              prefix={<UserOutlined />}
               name="citybus"
               onChange={onChangeAddBusiness}
               value={citybus}
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Lugar Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Lugar Sucursal</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Lugar de la Sucursal"
-              prefix={<UserOutlined />}
               name="placebus"
               onChange={onChangeAddBusiness}
               value={placebus}
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Direccion de Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Direccion de Sucursal</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese la Direccion de la Sucursal"
-              prefix={<UserOutlined />}
               name="directionbus"
               onChange={onChangeAddBusiness}
               value={directionbus}
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Actividad Economica de Sucursal
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">
+              Actividad Economica de Sucursal
+            </div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <TextArea
               rows={4}
               placeholder="Ingrese la Actividad Economica de la Sucursal"
@@ -272,6 +271,7 @@ const ModalAddBusiness = () => {
         type="primary"
         onClick={openModalBusiness}
         icon={<PlusCircleOutlined />}
+        ghost
       >
         Registrar Sucursal
       </Button>

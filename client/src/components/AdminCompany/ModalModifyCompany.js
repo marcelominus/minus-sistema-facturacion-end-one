@@ -89,7 +89,6 @@ const ModalModifyCompany = () => {
   //Funcion de ONCLICK de ENVIO DE INFORMACION
   const onClickCompany = (e) => {
     e.preventDefault();
-
     //----------------------------------------------------------------
     functionUpdateCompany(
       namecom,

@@ -13,6 +13,7 @@ import {
   TOOL_SELECTION,
   TOOL_SELECTION_READ_ALL,
   TOOL_SELECTION_INFORMATION_ROLE,
+  TOOL_SELECTOR_SIDEBAR,
 } from "../../utils/index";
 //Importamos las direcciones de LOGIN
 import {
@@ -125,6 +126,13 @@ const ToolState = (props) => {
       payload: valor,
     });
   };
+  //Funcion para pasar valores al local storage
+  const functionSelectorSidebar = (value) => {
+    dispatch({
+      type: TOOL_SELECTOR_SIDEBAR,
+      payload: value,
+    });
+  };
 
   //================================================================
   //INICIO DE COMPONENTE
@@ -141,6 +149,7 @@ const ToolState = (props) => {
         functionTableSelection,
         functionReadAllSelection,
         functionSelectionInformationRole,
+        functionSelectorSidebar,
       }}
     >
       {props.children}

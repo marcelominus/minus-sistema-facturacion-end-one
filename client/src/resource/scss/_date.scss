@@ -7,65 +7,45 @@
 }
 @font-face {
   font-family: "exo2bold";
-  /* Antes de descargar el archivo, le decimos al buscador
-  que intente buscar en local la fuente con nombre
-  Cabin, Cabin Regular o Cabin-Regular */
   src: url(../font/Exo_2/static/Exo2-Bold.ttf) format("truetype");
 }
 @font-face {
   font-family: "roboto";
-  /* Antes de descargar el archivo, le decimos al buscador
-  que intente buscar en local la fuente con nombre
-  Cabin, Cabin Regular o Cabin-Regular */
   src: url(../font/Roboto/Roboto-Medium.ttf) format("truetype");
 }
 @font-face {
   font-family: "montserrat";
-  /* Antes de descargar el archivo, le decimos al buscador
-  que intente buscar en local la fuente con nombre
-  Cabin, Cabin Regular o Cabin-Regular */
   src: url(../font/Montserrat/Montserrat-Medium.ttf) format("truetype");
 }
 @font-face {
   font-family: "ubuntu";
-  /* Antes de descargar el archivo, le decimos al buscador
-  que intente buscar en local la fuente con nombre
-  Cabin, Cabin Regular o Cabin-Regular */
   src: url(../font/Ubuntu/Ubuntu-Light.ttf) format("truetype");
 }
 @font-face {
   font-family: "ubuntubold";
-  /* Antes de descargar el archivo, le decimos al buscador
-  que intente buscar en local la fuente con nombre
-  Cabin, Cabin Regular o Cabin-Regular */
   src: url(../font/Ubuntu/Ubuntu-Medium.ttf) format("truetype");
 }
 @font-face {
   font-family: "quicksand";
-  /* Antes de descargar el archivo, le decimos al buscador
-  que intente buscar en local la fuente con nombre
-  Cabin, Cabin Regular o Cabin-Regular */
   src: url(../font/Quicksand/static/Quicksand-Regular.ttf) format("truetype");
 }
 @font-face {
   font-family: "quicksandbold";
-  /* Antes de descargar el archivo, le decimos al buscador
-  que intente buscar en local la fuente con nombre
-  Cabin, Cabin Regular o Cabin-Regular */
   src: url(../font/Quicksand/static/Quicksand-SemiBold.ttf) format("truetype");
 }
-//Tipografias de USUARIO
-//Roboto titulos de usuario
-$tipografia-uno: "roboto";
-$tipografia-dos: "exo2";
-$tipografia-tres: "montserrat";
-$tipografia-cuatro: "exo2bold";
+
 //---------------------------------------------------
-//
+//TIPOGRAFIA PRINCIPAL
 $tipografia-one: "ubuntu";
 $tipografia-two: "quicksand";
 $tipografia-one-bold: "ubuntubold";
 $tipografia-two-bold: "quicksandbold";
+
+//Tipografias SECUNDARIA
+$tipografia-uno: "roboto";
+$tipografia-dos: "exo2";
+$tipografia-tres: "montserrat";
+$tipografia-cuatro: "exo2bold";
 
 //Color#40A9FF
 $primary-color: #7f3ffd;
@@ -80,3 +60,8 @@ $color-cuatro: #40a9ff;
 
 $color-blanco: #fff;
 $color-negro: #000;
+
+//Tamanio de TIPOGRAFIA
+$title: 1.1rem;
+$subtitle: 1rem;
+$title-form: 0.9rem;

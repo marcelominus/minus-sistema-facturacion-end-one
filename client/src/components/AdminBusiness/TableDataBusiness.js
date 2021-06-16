@@ -7,7 +7,7 @@ import React, {
 } from "react";
 //****************************************************************
 //
-import '../../resource/scss/components/business/tableBusiness.scss';
+import "../../resource/scss/components/business/tableBusiness.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
 import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
@@ -216,21 +216,21 @@ const TableDataBusiness = () => {
   //================================================================
   return (
     <Fragment>
-      <h4>
-        Sucursales Actuales
-      </h4>
-      {/* ------------------------- ********** ------------------------- */}
-      <Table
-        columns={columns}
-        dataSource={arraybusiness}
-        sorter={true}
-        pagination={{ pageSize: 10, responsive: true }}
-        scroll={{ x: 1200, y: "max-content" }}
-        bordered
-        className='table-business'
-      />
-      <ModalModifyBusiness />
-      {/* ------------------------- ********** ------------------------- */}
+      <div className="container-table-business">
+        <span className="title-table-business">Sucursales Actuales</span>
+        {/* ------------------------- ********** ------------------------- */}
+        <Table
+          columns={columns}
+          dataSource={arraybusiness}
+          sorter={true}
+          pagination={{ pageSize: 10, responsive: true }}
+          scroll={{ x: 1200, y: "max-content" }}
+          bordered
+          className="table-business"
+        />
+        <ModalModifyBusiness />
+        {/* ------------------------- ********** ------------------------- */}
+      </div>
     </Fragment>
   );
 };
