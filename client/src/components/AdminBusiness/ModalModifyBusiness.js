@@ -174,13 +174,13 @@ const ModalModifyBusiness = () => {
         closable={false}
         width={600}
         footer={[
-          //BUTTON DE ENVIAR INFORMACION
-          <Button key="send" type="primary" onClick={onClickBusiness}>
-            Enviar
-          </Button>,
           //BUTTON DE CANCELAR Y CERRAR MODAL
           <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar
+          </Button>,
+          //BUTTON DE ENVIAR INFORMACION
+          <Button key="send" type="primary" onClick={onClickBusiness}>
+            Enviar
           </Button>,
         ]}
       >
@@ -214,7 +214,6 @@ const ModalModifyBusiness = () => {
           <Col span={12}>
             <Input
               placeholder="Ingrese el nombre de Sucursal"
-              prefix={<UserOutlined />}
               name="namebus"
               onChange={onChangeAddBusiness}
               value={namebus}
@@ -229,7 +228,6 @@ const ModalModifyBusiness = () => {
           <Col span={12}>
             <Input
               placeholder="Ingrese el Nombre de Propietario Sucursal"
-              prefix={<UserOutlined />}
               name="ofbus"
               onChange={onChangeAddBusiness}
               value={ofbus}
@@ -244,7 +242,6 @@ const ModalModifyBusiness = () => {
           <Col span={12}>
             <Input
               placeholder="Ingrese la Ciudad de la Sucursal"
-              prefix={<UserOutlined />}
               name="citybus"
               onChange={onChangeAddBusiness}
               value={citybus}
@@ -259,7 +256,6 @@ const ModalModifyBusiness = () => {
           <Col span={12}>
             <Input
               placeholder="Lugar de la Sucursal"
-              prefix={<UserOutlined />}
               name="placebus"
               onChange={onChangeAddBusiness}
               value={placebus}
@@ -274,7 +270,6 @@ const ModalModifyBusiness = () => {
           <Col span={12}>
             <Input
               placeholder="Ingrese la Direccion de la Sucursal"
-              prefix={<UserOutlined />}
               name="directionbus"
               onChange={onChangeAddBusiness}
               value={directionbus}

@@ -5,12 +5,12 @@ import React, {
   useEffect,
   useRef,
 } from "react";
+import "../../resource/scss/components/dosage/tabledosage.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
+import { Table, Tag, Input, Button, Space } from "antd";
 import {
   SearchOutlined,
-  EyeOutlined,
   CloudUploadOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
@@ -82,13 +82,13 @@ const TableDataDosage = () => {
       title: "Id",
       dataIndex: "iddosage",
       key: "iddosage",
-      width: "2%",
+      width: "5%",
     },
     {
-      title: "Nombre Dosificacion",
-      dataIndex: "identifierdos",
-      key: "identifierdos",
-      width: "10%",
+      title: "Numero Dosificacion",
+      dataIndex: "dosagedos",
+      key: "dosagedos",
+      width: "30%",
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -160,11 +160,18 @@ const TableDataDosage = () => {
         ),
     },
     {
+      title: "Fecha Inicial",
+      dataIndex: "datestartdos",
+      key: "datestartdos",
+      width: "15%",
+      style: { backgroundColor: "red" },
+    },
+    {
       title: "Fecha Final",
       dataIndex: "dateenddos",
       key: "dateenddos",
-      width: "10%",
-      style : { backgroundColor : 'red'}
+      width: "15%",
+      style: { backgroundColor: "red" },
     },
     {
       title: "Dias Validos",
@@ -176,7 +183,7 @@ const TableDataDosage = () => {
       title: "Estado",
       key: "action",
       width: "10%",
-      render : (text) => (
+      render: (text) => (
         <Fragment>
           {text.conditiondos === "active" ? (
             <Tag color="green">Activo</Tag>
@@ -189,7 +196,7 @@ const TableDataDosage = () => {
     {
       title: "Acciones",
       key: "action",
-      width: "10%",
+      width: "15%",
       render: (text) => (
         <Fragment>
           <Button
@@ -201,7 +208,6 @@ const TableDataDosage = () => {
               const resultFilterUpdate = arraydosage.filter(
                 (e) => e.identifierdos == text.identifierdos
               );
-              console.log(resultFilterUpdate);
               functionArrayUpdateDosage(resultFilterUpdate);
               functionModalUpdate(true);
             }}
@@ -232,17 +238,19 @@ const TableDataDosage = () => {
   // =====================================================
   return (
     <Fragment>
-      {/* ------------------------- ********** ------------------------- */}
-      <Table
-        columns={columns}
-        dataSource={arraydosage}
-        sorter={true}
-        pagination={{ pageSize: 10, responsive: true }}
-        scroll={{ x: 1200, y: "max-content" }}
-        bordered
-      />
-      <ModalModifyDosage />
-
+      <div className="container-table-dosage">
+        <span className="title-table-dosage">Dosificacion Registradas</span>
+        <Table
+          columns={columns}
+          dataSource={arraydosage.reverse()}
+          sorter={true}
+          pagination={{ pageSize: 10, responsive: true }}
+          scroll={{ x: 1000, y: "max-content" }}
+          bordered
+          className="table-dosage"
+        />
+        <ModalModifyDosage />
+      </div>
       {/* ------------------------- ********** ------------------------- */}
     </Fragment>
   );

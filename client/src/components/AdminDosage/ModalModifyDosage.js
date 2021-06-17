@@ -5,6 +5,7 @@ import React, {
   useContext,
   useRef,
 } from "react";
+import "../../resource/scss/default.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import {
@@ -90,7 +91,6 @@ const ModalModifyDosage = () => {
   const {
     modalupdatedosage,
     arrayupdatedosage,
-    functionCreateDosage,
     functionReadDosage,
     functionModalUpdate,
     functionUpdateDosage,
@@ -149,10 +149,7 @@ const ModalModifyDosage = () => {
           messageError("Error, Intente mas Tarde", 2);
         } else {
           //Mensaje de CORRECTO
-          messageSuccess(
-            `Perfecto, Dosificacion Modificada Correctamente ${elem}`,
-            2
-          );
+          messageSuccess(`Perfecto, Dosificacion Modificada Correctamente`, 2);
           //Cierrar el MODAL de ADD COMPANY
           setIsModalVisible(false);
           functionModalUpdate(false);
@@ -188,27 +185,28 @@ const ModalModifyDosage = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Modificar Dosificación"
         visible={isModalVisible}
-        width={800}
+        width={700}
+        closable={false}
         footer={[
+          //BUTTON DE CANCELAR Y CERRAR MODAL
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
+            Cancelar
+          </Button>,
           //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickDosage}>
             Enviar
-          </Button>,
-          //BUTTON DE CANCELAR Y CERRAR MODAL
-          <Button key="cancel" type="primary" onClick={handleCancel}>
-            Cancelar
           </Button>,
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
         {/* const {identifierbus, datestartdos, dateenddos, sfcdos, numberauthorizationdos, numbernotestartdos, dosagedos, legenddos, conditiondos} = req.body; */}
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Fecha de Inicio
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Fecha de Inicio</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <DatePicker
               format={dateFormat}
               onChange={(e) =>
@@ -219,14 +217,15 @@ const ModalModifyDosage = () => {
               }
               value={moment(datestartdos)}
               style={{ width: "100%" }}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Fecha de Final
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Fecha de Final</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <DatePicker
               format={dateFormat}
               style={{ width: "100%" }}
@@ -238,17 +237,17 @@ const ModalModifyDosage = () => {
               }
               value={moment(dateenddos)}
               ref={nombreRef}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            SFC
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">SFC</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <InputNumber
               placeholder="Ingrese el Apellido de Usuario"
-              prefix={<UserOutlined />}
               style={{ width: "100%" }}
               defaultValue={parseInt(sfcdos)}
               onChange={(e) => {
@@ -257,32 +256,34 @@ const ModalModifyDosage = () => {
                   sfcdos: e,
                 });
               }}
+              className="input-unique"
             />
           </Col>
         </Row>
 
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Numero de Autorizacion de Dosificacion
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">
+              Numero de Autorizacion de Dosificacion
+            </div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese la Direccion de la Sucursal"
-              prefix={<UserOutlined />}
               name="numberauthorizationdos"
               onChange={onChangeAddUser}
               value={numberauthorizationdos}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Numero de Inicio de Nota
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Numero de Inicio de Nota</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <InputNumber
               placeholder="Ingrese la Direccion de la Sucursal"
-              prefix={<UserOutlined />}
               style={{ width: "100%" }}
               defaultValue={parseInt(numbernotestartdos)}
               onChange={(e) => {
@@ -291,47 +292,51 @@ const ModalModifyDosage = () => {
                   numbernotestartdos: e,
                 });
               }}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Llave de Dosificacion
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Llave de Dosificacion</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <TextArea
               rows={2}
               placeholder="Ingrese la Actividad Economica de la Sucursal"
               name="dosagedos"
               onChange={onChangeAddUser}
               value={dosagedos}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Legenda 453
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Legenda 453</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <TextArea
               rows={3}
               placeholder="Ingrese la Actividad Economica de la Sucursal"
               name="legenddos"
               onChange={onChangeAddUser}
               value={legenddos}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Estado
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Estado</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Select
               defaultValue=""
               style={{ width: "100%" }}
               onChange={onChangeAddState}
               value={conditiondos}
+              className="input-unique"
             >
               <Option value="">--Seleccione una Opcion--</Option>
               <Option value="enable">Habilitado</Option>

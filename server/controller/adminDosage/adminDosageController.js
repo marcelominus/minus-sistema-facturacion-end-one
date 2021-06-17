@@ -52,7 +52,7 @@ exports.createDosage = async (req,res) => {
                 //
                 const a = moment(`${datestartdos}`,'M/D/YYYY');
                 const b = moment(`${dateenddos}`,'M/D/YYYY');
-                const diffDays = b.diff(a, 'days');
+                const diffDays = b.diff(a, 'days') + 1;
                 //
                 const createDosage = AdminDosageModel.create({
                     identifierdos : identifierEnd,
@@ -144,6 +144,20 @@ exports.updateDosage = async(req, res)=> {
         if( consultationUser === 0 ){
             res.json({ response : 'empty'});
         }else{
+            //
+            const a = moment(`${datestartdos}`,'M/D/YYYY');
+            const b = moment(`${dateenddos}`,'M/D/YYYY');
+            const diffDays = b.diff(a, 'days') + 1;
+            let day = 0;
+            let condition = '';
+            if( diffDays > 0){
+                day  = diffDays;
+                condition = conditiondos;
+            }else{
+                day = 0;
+                condition = 'disable';
+            }
+            //
             //Verificamos que no se repita datos al inscribir un usuario
             const updateDosage  = await AdminDosageModel.update({
                 datestartdos : datestartdos,
@@ -153,7 +167,8 @@ exports.updateDosage = async(req, res)=> {
                 numbernotestartdos : numbernotestartdos,
                 dosagedos : dosagedos,
                 legenddos : legenddos,
-                conditiondos : conditiondos
+                conditiondos : condition,
+                dayremaindos : day,
             }, {
                 where : {
                     identifierbus : identifierbus,

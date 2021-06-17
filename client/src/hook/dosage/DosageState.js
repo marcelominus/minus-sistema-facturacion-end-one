@@ -123,10 +123,10 @@ const DosageState = (props) => {
         });
         return false;
       } else {
-        let arrayInverted = solutionPetitionRead.data.reverse();
+        // let arrayInverted = solutionPetitionRead.data;
         dispatch({
           type: DOSAGE_READ,
-          payload: arrayInverted,
+          payload: solutionPetitionRead.data,
         });
         return true;
       }

@@ -140,11 +140,11 @@ const ModalModifyCompany = () => {
         width={500}
         closable={false}
         footer={[
-          <Button key="send" type="primary" onClick={onClickCompany}>
-            Enviar
-          </Button>,
           <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar
+          </Button>,
+          <Button key="send" type="primary" onClick={onClickCompany}>
+            Enviar
           </Button>,
         ]}
       >

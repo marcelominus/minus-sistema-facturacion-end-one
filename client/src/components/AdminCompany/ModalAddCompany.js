@@ -156,13 +156,13 @@ const ModalAddCompany = () => {
         width={500}
         closable={false}
         footer={[
-          //BUTTON DE ENVIAR INFORMACION
-          <Button key="send" type="primary" onClick={onClickCompany}>
-            Enviar
-          </Button>,
           //BUTTON DE CANCELAR Y CERRAR MODAL
           <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar
+          </Button>,
+          //BUTTON DE ENVIAR INFORMACION
+          <Button key="send" type="primary" onClick={onClickCompany}>
+            Enviar
           </Button>,
         ]}
       >

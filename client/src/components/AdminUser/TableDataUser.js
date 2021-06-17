@@ -9,7 +9,11 @@ import "../../resource/scss/components/user/tableuser.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
 import { Table, Modal, Input, Button, Space, Tooltip, Tag } from "antd";
-import { CloudUploadOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  CloudUploadOutlined,
+  DeleteOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
 //*******************************************************
 //Importamos los Context
 import userContext from "../../hook/user/userContext";
@@ -34,7 +38,6 @@ const TableDataUser = () => {
     functionModalUpdate,
     functionArrayUpdateUser,
     functionDeleteUser,
-    ExclamationCircleOutlined,
   } = useContext(userContext);
   const { tableselection, functionTableSelection } = useContext(toolContext);
   //-------------------------------------------------------
