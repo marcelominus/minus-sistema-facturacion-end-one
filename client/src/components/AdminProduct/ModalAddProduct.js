@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import "../../resource/scss/default.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import {
@@ -41,12 +42,8 @@ const ModalAddMeasure = () => {
     unitmeasurepro: "",
     pricepro: "0",
   });
-  const {
-    shortdescriptionpro,
-    longdescriptionpro,
-    unitmeasurepro,
-    pricepro,
-  } = dataform;
+  const { shortdescriptionpro, longdescriptionpro, unitmeasurepro, pricepro } =
+    dataform;
   //Carga la informacion de COMPANY
   const onChangeAddProduct = (e) => {
     setDataForm({
@@ -63,12 +60,10 @@ const ModalAddMeasure = () => {
   };
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
-  const { functionCreateProduct, functionReadProduct } = useContext(
-    productContext
-  );
-  const { arraymeasure, functionModal, functionReadMeasure } = useContext(
-    measureContext
-  );
+  const { functionCreateProduct, functionReadProduct } =
+    useContext(productContext);
+  const { arraymeasure, functionModal, functionReadMeasure } =
+    useContext(measureContext);
   //-----------------------------------------------------------------
   //
   useEffect(() => {
@@ -144,53 +139,54 @@ const ModalAddMeasure = () => {
       <Modal
         title="Añadir Producto"
         visible={isModalVisible}
-        width={800}
+        width={450}
+        closable={false}
         footer={[
+          //BUTTON DE CANCELAR Y CERRAR MODAL
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
+            Cancelar
+          </Button>,
           //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickProduct}>
             Enviar
           </Button>,
-          //BUTTON DE CANCELAR Y CERRAR MODAL
-          <Button key="cancel" type="primary" onClick={handleCancel}>
-            Cancelar
-          </Button>,
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Nombre de Producto
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Nombre de Producto</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese la Nombre del Producto"
-              prefix={<UserOutlined />}
               name="shortdescriptionpro"
               onChange={onChangeAddProduct}
               value={shortdescriptionpro}
+              className="input-unique"
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Descripcion Producto
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Descripcion Producto</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
+          <Col span={12}>
+            <TextArea
+              rows={3}
               placeholder="Ingrese la Descripcion del Producto"
-              prefix={<UserOutlined />}
               name="longdescriptionpro"
               onChange={onChangeAddProduct}
               value={longdescriptionpro}
+              className="input-unique"
             />
           </Col>
         </Row>
-
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Seleccione la Unidad
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Seleccione la Unidad</div>
           </Col>
-          <Col span={10} style={{ background: "blue" }}>
+          <Col span={10}>
             <Select
               defaultValue=""
               onChange={onChangeAddMeasure}
@@ -214,16 +210,15 @@ const ModalAddMeasure = () => {
                 functionModal(true);
               }}
               icon={<PlusCircleOutlined />}
-            >
-              A
-            </Button>
+              block
+            />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Precio del Producto
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Precio del Producto</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <InputNumber
               placeholder="Ingrese la Precio del Producto"
               prefix={<UserOutlined />}
@@ -235,6 +230,7 @@ const ModalAddMeasure = () => {
                 });
               }}
               value={pricepro}
+              className="input-unique"
             />
           </Col>
         </Row>
@@ -246,6 +242,7 @@ const ModalAddMeasure = () => {
         type="primary"
         onClick={openModalProduct}
         icon={<PlusCircleOutlined />}
+        ghost
       >
         Registrar Producto
       </Button>

@@ -5,12 +5,13 @@ import React, {
   useEffect,
   useRef,
 } from "react";
+import "../../resource/scss/components/measure/tablemeasure.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
+import { Table, Modal, Input, Button, Space, Row, Col } from "antd";
 import {
   SearchOutlined,
-  EyeOutlined,
+  ExclamationCircleOutlined,
   CloudUploadOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
@@ -85,17 +86,12 @@ const TableDataMeasure = () => {
       key: "idmeasure",
       width: "5%",
     },
-    {
-      title: "Empresa",
-      dataIndex: "descriptionmeasure",
-      key: "unitmeasure",
-      width: "10%",
-    },
+
     {
       title: "Nombre",
       dataIndex: "descriptionmeasure",
       key: "unitmeasure",
-      width: "15%",
+      width: "40%",
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -165,9 +161,15 @@ const TableDataMeasure = () => {
         ),
     },
     {
+      title: "Descripcion",
+      dataIndex: "descriptionmeasure",
+      key: "unitmeasure",
+      width: "40%",
+    },
+    {
       title: "Acciones",
       key: "action",
-      width: "10%",
+      width: "15%",
       render: (text) => (
         <Fragment>
           <Button
@@ -191,13 +193,22 @@ const TableDataMeasure = () => {
             size={"default"}
             ghost
             onClick={() => {
-              functionDeleteMeasure(text.idmeasure).then((e) => {
-                if (e === true) {
-                  messageSuccess("Correcto Elemento Borrado", 2);
-                  functionReadMeasure();
-                } else {
-                  messageError("Error, Intente mas Tarde", 2);
-                }
+              Modal.confirm({
+                title: "Confirmar",
+                icon: <ExclamationCircleOutlined />,
+                content: "Desea Borrar el Elemento",
+                cancelText: "Cancelar",
+                okText: "Confirmar",
+                onOk: () => {
+                  functionDeleteMeasure(text.idmeasure).then((e) => {
+                    if (e === true) {
+                      messageSuccess("Correcto Elemento Borrado", 2);
+                      functionReadMeasure();
+                    } else {
+                      messageError("Error, Intente mas Tarde", 2);
+                    }
+                  });
+                },
               });
             }}
           />
@@ -210,14 +221,18 @@ const TableDataMeasure = () => {
   //================================================================
   return (
     <Fragment>
-      <Table
-        columns={columns}
-        dataSource={arraymeasure}
-        sorter={true}
-        pagination={{ pageSize: 10, responsive: true }}
-        scroll={{ x: 1200, y: "max-content" }}
-        bordered
-      />
+      <div className="container-table-measure">
+        <span className="title-table-measure">Medidas Actuales</span>
+        <Table
+          columns={columns}
+          dataSource={arraymeasure}
+          sorter={true}
+          pagination={{ pageSize: 10, responsive: true }}
+          scroll={{ x: 1200, y: "max-content" }}
+          bordered
+          className="table-measure"
+        />
+      </div>
     </Fragment>
   );
 };

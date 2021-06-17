@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import "../../resource/scss/default.scss";
+//*******************************************************
+//Importamos componentes de ANTD DESIGN
 import { Drawer, Button, Radio, Space, Row, Col, Input, Select } from "antd";
 import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
-//****************************************************************
-//Importamos la libreria de MOMENT
-import moment from "moment";
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -45,14 +45,17 @@ const DrawerTopMeasure = () => {
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
   //   const { functionCreateUser, functionReadUser } = useContext(userContext);
-  const {modalmeasure, functionCreateMeasure, functionReadMeasure, functionModal } = useContext(
-    measureContext
-  );
+  const {
+    modalmeasure,
+    functionCreateMeasure,
+    functionReadMeasure,
+    functionModal,
+  } = useContext(measureContext);
 
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
   useEffect(() => {
-    if(modalmeasure === true){
+    if (modalmeasure === true) {
       setIsDrawerVisible(true);
     }
   }, [modalmeasure]);
@@ -119,45 +122,49 @@ const DrawerTopMeasure = () => {
         Open
       </Button> */}
       <Drawer
-        title="Basic Drawer"
+        title="Añadir Unidad de Medida"
         placement={"top"}
         closable={false}
         onClose={handleCancel}
         visible={isDrawerVisible}
         key={"top"}
-        height={500}
+        height={600}
       >
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Unidad de Medida
+        <Row className="input-form">
+          <Col span={5}>
+            <div className="title-formulario">Unidad de Medida</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={5}>
             <Input
               placeholder="Ingrese la Unidad de Medida"
-              prefix={<UserOutlined />}
               name="unitmeasure"
               onChange={onChangeAddMeasure}
               value={unitmeasure}
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-           Descripcion de Medida
+        <Row className="input-form">
+          <Col span={5}>
+            <div className="title-formulario">Descripcion de Medida</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
+          <Col span={5}>
+            <TextArea
+              rows={3}
               placeholder="Ingrese la Descripcion de la Medida"
-              prefix={<UserOutlined />}
               name="descriptionmeasure"
               onChange={onChangeAddMeasure}
               value={descriptionmeasure}
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12}>
-            <Button type="primary" onClick={onClickMeasure}>
+        <Row className="input-form">
+          <Col span={10}>
+            <Button
+              type="primary"
+              onClick={onClickMeasure}
+              block
+              icon={<PlusCircleOutlined />}
+            >
               Registrar
             </Button>
           </Col>

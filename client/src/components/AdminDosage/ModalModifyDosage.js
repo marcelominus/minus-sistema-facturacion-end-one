@@ -339,7 +339,7 @@ const ModalModifyDosage = () => {
               className="input-unique"
             >
               <Option value="">--Seleccione una Opcion--</Option>
-              <Option value="enable">Habilitado</Option>
+              <Option value="active">Habilitado</Option>
               <Option value="disable">DesHabilitado</Option>
             </Select>
           </Col>

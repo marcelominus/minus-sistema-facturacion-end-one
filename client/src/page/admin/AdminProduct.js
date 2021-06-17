@@ -16,10 +16,10 @@ import FooterPage from "../../components/tools/FooterPage";
 import ModalSelectionDate from "../../components/tools/ModalSelectionData";
 import ReturnData from "../../components/tools/ReturnData";
 import TableSelectionData from "../../components/tools/TableSelectionData";
-import ModalAddMeasure from "../../components/AdminMeasure/ModalAddMeasure"; // **** ---- ****
 import DrawerTopMeasure from "../../components/AdminMeasure/DrawerTopMeasure";
 import ModalAddProduct from "../../components/AdminProduct/ModalAddProduct";
 import TableDataProduct from "../../components/AdminProduct/TableDataProduct";
+import Title from "../../components/tools/Title";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -39,7 +39,7 @@ const AdminProduct = (props) => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
-          <HeaderPage title={'Administrar Productos'}/>
+          <HeaderPage title={'Productos'}/>
           <Content style={{ margin: "0 16px" }}>
             <motion.div
               initial="out"
@@ -50,8 +50,8 @@ const AdminProduct = (props) => {
               className="container-padding"
             >
               <ModalSelectionDate props={props} />
+              <Title title={'Administrar Productos'}/> 
               <TableSelectionData />
-              {/* <ModalAddMeasure /> */}
               <DrawerTopMeasure />
               <ModalAddProduct />
               <TableDataProduct />

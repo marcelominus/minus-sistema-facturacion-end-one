@@ -41,21 +41,23 @@ const TableSelectionData = () => {
   //-------------------------------------------------------
   //
   const columns = [
-    
     {
       title: "Nombre de Empresa",
       dataIndex: "namecom",
       key: "namecom",
+      width: "33.33%",
     },
     {
       title: "Nombre Sucursal",
       dataIndex: "namebus",
       key: "namebus",
+      width: "33.33%",
     },
     {
       title: "Nit de Empresa",
       dataIndex: "nitcom",
       key: "nitcom",
+      width: "33.33%",
     },
   ];
   //================================================================

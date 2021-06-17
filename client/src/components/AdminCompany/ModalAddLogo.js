@@ -121,11 +121,11 @@ const ModalAddLogo = () => {
         width={800}
         closable={false}
         footer={[
-          <Button key="send" type="primary" onClick={onClickSendLogo}>
-            Enviar
-          </Button>,
           <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar (IMG Default)
+          </Button>,
+          <Button key="send" type="primary" onClick={onClickSendLogo}>
+            Enviar
           </Button>,
         ]}
         // onCancel={handleCancel}

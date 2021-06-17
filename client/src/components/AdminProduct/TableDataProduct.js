@@ -5,12 +5,12 @@ import React, {
   useEffect,
   useRef,
 } from "react";
+import "../../resource/scss/components/product/tableproduct.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
+import { Table, Input, Button, Space } from "antd";
 import {
   SearchOutlined,
-  EyeOutlined,
   CloudUploadOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
@@ -56,7 +56,7 @@ const TableDataProduct = () => {
     //Funcion para poder llamar la tabla
     functionReadProduct();
   }, []);
-  
+
   useEffect(() => {
     let dataTokenCompany = localStorage.getItem("tokencompany");
     let dataTokenBusiness = localStorage.getItem("tokenbusiness");
@@ -88,12 +88,12 @@ const TableDataProduct = () => {
       key: "idproduct",
       width: "5%",
     },
-    
+
     {
       title: "Nombre Producto",
       dataIndex: "shortdescriptionpro",
       key: "shortdescriptionpro",
-      width: "15%",
+      width: "40%",
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -168,12 +168,12 @@ const TableDataProduct = () => {
       title: "Descripcion Producto",
       dataIndex: "longdescriptionpro",
       key: "longdescriptionpro",
-      width: "10%",
+      width: "40%",
     },
     {
       title: "Acciones",
       key: "action",
-      width: "10%",
+      width: "15%",
       render: (text) => (
         <Fragment>
           <Button
@@ -217,15 +217,19 @@ const TableDataProduct = () => {
   //================================================================
   return (
     <Fragment>
-      <Table
-        columns={columns}
-        dataSource={arrayproduct}
-        sorter={true}
-        pagination={{ pageSize: 10, responsive: true }}
-        scroll={{ x: 1200, y: "max-content" }}
-        bordered
-      />
-      <ModalModifyProduct />
+      <div className="container-table-product">
+        <span className="title-table-product">Productos Actuales</span>
+        <Table
+          columns={columns}
+          dataSource={arrayproduct}
+          sorter={true}
+          pagination={{ pageSize: 10, responsive: true }}
+          scroll={{ x: 1000, y: "max-content" }}
+          bordered
+          className="table-product"
+        />
+        <ModalModifyProduct />
+      </div>
     </Fragment>
   );
 };

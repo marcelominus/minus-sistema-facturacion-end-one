@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import "../../resource/scss/default.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select } from "antd";
@@ -129,43 +130,43 @@ const ModalModifyMeasure = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Modificar Unidad de Medida"
         visible={isModalVisible}
-        width={800}
+        width={450}
+        closable={false}
         footer={[
+          //BUTTON DE CANCELAR Y CERRAR MODAL
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
+            Cancelar
+          </Button>,
           //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickMeasure}>
             Enviar
           </Button>,
-          //BUTTON DE CANCELAR Y CERRAR MODAL
-          <Button key="cancel" type="primary" onClick={handleCancel}>
-            Cancelar
-          </Button>,
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Numero de Autorizacion de Dosificacion
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Unidad de Medida</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese la Direccion de la Sucursal"
-              prefix={<UserOutlined />}
               name="unitmeasure"
               onChange={onChangeAddMeasure}
               value={unitmeasure}
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Numero de Autorizacion de Dosificacion
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Descripcion de Medida</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <Input
+          <Col span={12}>
+            <TextArea
+              rows={3}
               placeholder="Ingrese la Direccion de la Sucursal"
-              prefix={<UserOutlined />}
               name="descriptionmeasure"
               onChange={onChangeAddMeasure}
               value={descriptionmeasure}

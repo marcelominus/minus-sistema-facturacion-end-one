@@ -129,7 +129,7 @@ exports.updateDosage = async(req, res)=> {
 
     //VARIABLES DE ENTRADA
     const {identifierbus, identifierdos, datestartdos, dateenddos, sfcdos, numberauthorizationdos, numbernotestartdos, dosagedos, legenddos, conditiondos} = req.body;
-    
+    console.log(req.body)
     //
     try {
         //Verifica la existencia del usuario que realiza la peticion

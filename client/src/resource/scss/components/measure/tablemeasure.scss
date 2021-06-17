@@ -1,0 +1,15 @@
+@import "../../date";
+
+.container-table-measure {
+  margin-top: 1rem;
+  .title-table-measure {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .table-measure {
+    margin-top: 0.5rem;
+    thead > tr > th {
+      background-color: #fff1c7;
+    }
+  }
+}

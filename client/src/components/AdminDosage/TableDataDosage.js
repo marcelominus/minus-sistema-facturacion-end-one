@@ -8,11 +8,12 @@ import React, {
 import "../../resource/scss/components/dosage/tabledosage.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Tag, Input, Button, Space } from "antd";
+import { Table, Tag, Input, Button, Space, Modal } from "antd";
 import {
   SearchOutlined,
   CloudUploadOutlined,
   DeleteOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 //****************************************************************
 //Importamos el HIGT de LETTERS
@@ -219,13 +220,22 @@ const TableDataDosage = () => {
             size={"default"}
             ghost
             onClick={() => {
-              functionDeleteDosage(text.identifierdos).then((e) => {
-                if (e === true) {
-                  messageSuccess("Correcto Elemento Borrado", 2);
-                  functionReadDosage();
-                } else {
-                  messageError("Error, Intente mas Tarde", 2);
-                }
+              Modal.confirm({
+                title: "Confirmar",
+                icon: <ExclamationCircleOutlined />,
+                content: "Desea Borrar el Elemento",
+                cancelText: "Cancelar",
+                okText: "Confirmar",
+                onOk: () => {
+                  functionDeleteDosage(text.identifierdos).then((e) => {
+                    if (e === true) {
+                      messageSuccess("Correcto Elemento Borrado", 2);
+                      functionReadDosage();
+                    } else {
+                      messageError("Error, Intente mas Tarde", 2);
+                    }
+                  });
+                },
               });
             }}
           />
