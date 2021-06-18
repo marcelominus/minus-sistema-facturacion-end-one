@@ -1,0 +1,24 @@
+@import "../../date";
+
+.container-form-add-bill {
+  .title-form-add-bill {
+    font-size: $title;
+    font-family: $tipografia-one-bold;
+    background: $secundary-color-light;
+    padding: 0.5rem;
+    margin: 0.2rem 0 0.5rem 0;
+  }
+  .button-new-product {
+    margin: 0.2rem;
+  }
+
+  .button-save {
+    border-color: $primary-color !important;
+    color: $primary-color !important;
+    margin: 0.2rem;
+  }
+  .button-save:hover {
+    border-color: $secundary-color !important;
+    color: $secundary-color !important;
+  }
+}

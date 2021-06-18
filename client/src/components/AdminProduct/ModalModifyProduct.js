@@ -141,6 +141,7 @@ const ModalModifyProduct = () => {
             Enviar
           </Button>,
         ]}
+        zIndex={2}
       >
         {/* ------------------------- ********** ------------------------- */}
         <Row className="input-form">

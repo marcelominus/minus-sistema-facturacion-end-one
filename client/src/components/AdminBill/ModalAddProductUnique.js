@@ -1,4 +1,6 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import "../../resource/scss/default.scss";
+import "../../resource/scss/components/bill/modaladdproductunique.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, InputNumber, Select } from "antd";
@@ -61,9 +63,8 @@ const ModalAddProductUnique = () => {
     functionArrayProductBill,
     functionOpenDrawerTop,
   } = useContext(billContext);
-  const { arraymeasure, functionModal, functionReadMeasure } = useContext(
-    measureContext
-  );
+  const { arraymeasure, functionModal, functionReadMeasure } =
+    useContext(measureContext);
   //-----------------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
@@ -88,9 +89,7 @@ const ModalAddProductUnique = () => {
   }, [arrayproductselection[0].identifierpro]);
   //-----------------------------------------------------------------
   //Funciones de usuario
-  const onClickBill = (e) => {
-    e.preventDefault();
-
+  const onClickBill = () => {
     if (
       shortdescription.toLowerCase().trim() == "" ||
       amount === "" ||
@@ -149,119 +148,121 @@ const ModalAddProductUnique = () => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Producto"
+        title="Añadir Producto Facturacion"
         visible={isModalVisible}
-        width={800}
+        width={500}
+        closable={false}
         footer={[
-          //BUTTON DE ENVIAR INFORMACION
-          <Button key="send" type="primary" onClick={onClickBill}>
-            Ok
-          </Button>,
           //BUTTON DE CANCELAR Y CERRAR MODAL
-          <Button key="cancel" type="primary" onClick={handleCancel}>
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
             Cancelar
           </Button>,
+          //BUTTON DE ENVIAR INFORMACION
+          <Button key="send" type="primary" onClick={onClickBill}>
+            Enviar
+          </Button>,
         ]}
+        zIndex={2}
       >
         {/* ------------------------- ********** ------------------------- */}
-
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Nombre de Producto
-          </Col>
-          <Col span={10} style={{ background: "blue" }}>
-            <Input
-              placeholder="Ingrese el nombre de Sucursal"
-              prefix={<UserOutlined />}
-              name="shortdescription"
-              onChange={onChangeAddProductUnique}
-              value={shortdescription}
-            />
-          </Col>
-          <Col span={2}>
-            <Button
-              type="primary"
-              onClick={onClickOpenDrawer}
-              icon={<PlusCircleOutlined />}
-              block
-            >
-              B
-            </Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Selecciones la Unidad
-          </Col>
-          <Col span={10} style={{ background: "blue" }}>
-            <Select
-              defaultValue=""
-              onChange={onChangeAddMeasure}
-              style={{ width: "100%" }}
-              value={unitmeasure}
-            >
-              <Option value="">--Seleccione una Opcion--</Option>
-              {arraymeasure.map((e, key) => {
-                return (
-                  <Option value={e.unitmeasure} key={key}>
-                    {e.unitmeasure}
-                  </Option>
-                );
-              })}
-            </Select>
-          </Col>
-          <Col span={2}>
-            <Button
-              type="primary"
-              onClick={() => {
-                functionModal(true);
-              }}
-              icon={<PlusCircleOutlined />}
-            >
-              A
-            </Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Cantidad del Producto
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <InputNumber
-              placeholder="Ingrese la Direccion de la Sucursal"
-              prefix={<UserOutlined />}
-              style={{ width: "100%" }}
-              defaultValue={1}
-              onChange={(e) => {
-                setDataForm({
-                  ...dataform,
-                  amount: e,
-                });
-              }}
-              value={amount}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Precio del Producto
-          </Col>
-          <Col span={12} style={{ background: "blue" }}>
-            <InputNumber
-              placeholder="Ingrese la Direccion de la Sucursal"
-              prefix={<UserOutlined />}
-              style={{ width: "100%" }}
-              defaultValue={0}
-              onChange={(e) => {
-                setDataForm({
-                  ...dataform,
-                  price: e,
-                });
-              }}
-              value={price}
-            />
-          </Col>
-        </Row>
+        <div className="container-modal-product-unique">
+          <Row className="input-form">
+            <Col span={12}>
+              <div className="title-formulario">Nombre de Producto</div>
+            </Col>
+            <Col span={10}>
+              <Input
+                placeholder="Ingrese el nombre de Sucursal"
+                name="shortdescription"
+                onChange={onChangeAddProductUnique}
+                value={shortdescription}
+              />
+            </Col>
+            <Col span={2}>
+              <Button
+                type="primary"
+                onClick={onClickOpenDrawer}
+                icon={<PlusCircleOutlined />}
+                block
+                className="button-open-drawer-product"
+              />
+            </Col>
+          </Row>
+          <Row className="input-form">
+            <Col span={12}>
+              <div className="title-formulario">Selecciones la Unidad</div>
+            </Col>
+            <Col span={10}>
+              <Select
+                defaultValue=""
+                onChange={onChangeAddMeasure}
+                style={{ width: "100%" }}
+                value={unitmeasure}
+              >
+                <Option value="">--Seleccione una Opcion--</Option>
+                {arraymeasure.map((e, key) => {
+                  return (
+                    <Option value={e.unitmeasure} key={key}>
+                      {e.unitmeasure}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </Col>
+            <Col span={2}>
+              <Button
+                type="primary"
+                onClick={() => {
+                  functionModal(true);
+                }}
+                icon={<PlusCircleOutlined />}
+                block
+                className="button-open-drawer-measure"
+              />
+            </Col>
+          </Row>
+          <Row className="input-form">
+            <Col span={12}>
+              <div className="title-formulario">Cantidad del Producto</div>
+            </Col>
+            <Col span={12}>
+              <InputNumber
+                placeholder="Ingrese la Cantidad del Producto"
+                prefix={<UserOutlined />}
+                style={{ width: "100%" }}
+                defaultValue={1}
+                onChange={(e) => {
+                  setDataForm({
+                    ...dataform,
+                    amount: e,
+                  });
+                }}
+                value={amount}
+              />
+            </Col>
+          </Row>
+          <Row className="input-form">
+            <Col span={12}>
+              <div className="title-formulario">Precio del Producto</div>
+            </Col>
+            <Col span={12}>
+              <InputNumber
+                placeholder="Ingrese el Precio del Producto"
+                prefix={<UserOutlined />}
+                style={{ width: "100%" }}
+                defaultValue={0}
+                onChange={(e) => {
+                  setDataForm({
+                    ...dataform,
+                    price: e,
+                  });
+                }}
+                value={price}
+                step="0.01"
+              />
+            </Col>
+          </Row>
+        </div>
         {/* ------------------------- ********** ------------------------- */}
       </Modal>
       {/* ------------------------- ********** ------------------------- */}

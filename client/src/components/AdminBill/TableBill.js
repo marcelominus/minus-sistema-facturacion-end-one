@@ -5,19 +5,11 @@ import React, {
   useEffect,
   useRef,
 } from "react";
+import "../../resource/scss/components/bill/tablebill.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
-import {
-  SearchOutlined,
-  EyeOutlined,
-  CloudUploadOutlined,
-  DeleteOutlined,
-  PrinterOutlined 
-} from "@ant-design/icons";
-//****************************************************************
-//Importamos el HIGT de LETTERS
-import Highlighter from "react-highlight-words";
+import { Table, Tag, Button } from "antd";
+import { CloudUploadOutlined, PrinterOutlined } from "@ant-design/icons";
 //****************************************************************
 //Importamos el CONTEXT
 import billContext from "../../hook/bill/billContext";
@@ -59,29 +51,33 @@ const TableBill = ({ props }) => {
   //ZONE COLUMN
   const columns = [
     {
-      title: "Id Facturacion",
-      dataIndex: "identifierbill",
-      key: "identifierbill",
+      title: "Id",
+      dataIndex: "idbill",
+      key: "idbill",
+      width: "5%",
     },
     {
       title: "Razon Social",
       dataIndex: "reasonbill",
       key: "reasonbill",
+      width: "30%",
     },
     {
       title: "Nit",
       dataIndex: "nitbill",
       key: "nitbill",
+      width: "20%",
     },
     {
       title: "Total Monto",
       dataIndex: "totalbill",
       key: "totalbill",
+      width: "20%",
     },
     {
       title: "Estado",
       key: "action",
-      width: "20%",
+      width: "10%",
       render: (text) => (
         <Fragment>
           {text.conditionbill === "pagado" ? (
@@ -95,7 +91,7 @@ const TableBill = ({ props }) => {
     {
       title: "Acciones",
       key: "action",
-      width: "20%",
+      width: "15%",
       render: (text) => (
         <Fragment>
           <Button
@@ -124,7 +120,7 @@ const TableBill = ({ props }) => {
           />
           <Button
             type="primary"
-            icon={<PrinterOutlined  />}
+            icon={<PrinterOutlined />}
             size={"default"}
             ghost
             onClick={() => {
@@ -147,12 +143,16 @@ const TableBill = ({ props }) => {
   //================================================================
   return (
     <Fragment>
-      <Table
-        pagination={false}
-        columns={columns}
-        dataSource={arraybill}
-        pagination={{ pageSize: 5, responsive: true }}
-      />
+      <div className="container-table-bill">
+        <span className="title-table-bill">Facturas Actuales</span>
+        <Table
+          pagination={false}
+          columns={columns}
+          dataSource={arraybill}
+          pagination={{ pageSize: 5, responsive: true }}
+          className="table-bill"
+        />
+      </div>
     </Fragment>
   );
 };

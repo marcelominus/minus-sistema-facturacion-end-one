@@ -10,9 +10,6 @@ import {
   pageVariantsStart,
 } from "../../resource/js/effects";
 //*******************************************************
-//
-
-//*******************************************************
 //Importamos los componentes
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
@@ -25,13 +22,10 @@ import ButtonAddBill from "../../components/AdminBill/ButtonAddBill";
 import TableCurrentDosage from "../../components/AdminDosage/TableCurrentDosage";
 import TableBill from "../../components/AdminBill/TableBill";
 import ModalCopyOriginal from "../../components/AdminBill/ModalCopyOriginal";
-
+import Title from '../../components/tools/Title';
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
-//*******************************************************
-//
-
 // =====================================================
 // INICIO DE CLASE  */}
 // =====================================================
@@ -44,7 +38,7 @@ const AdminBill = (props) => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
-          <HeaderPage title={'Administrar Facturacion'}/>
+          <HeaderPage title={'Facturacion'}/>
           <Content style={{ margin: "0 16px" }}>
             <motion.div
               initial="out"
@@ -56,6 +50,7 @@ const AdminBill = (props) => {
             >
               {/* ------------------------- ********** ------------------------- */}
               <ModalSelectionDate props={props} />
+              <Title title={'Administracion de Facturas'}/>
               {/* ------------------------- ********** ------------------------- */}
               <Row>
                 <Col span={12} style={{ background: "transparent" }}>
@@ -66,7 +61,7 @@ const AdminBill = (props) => {
                 </Col>
               </Row>
               {/* ------------------------- ********** ------------------------- */}
-              <ButtonAddBill props={props} />
+              <ButtonAddBill props={props}/>
               {/* ------------------------- ********** ------------------------- */}
               <TableBill />
               {/* ------------------------- ********** ------------------------- */}

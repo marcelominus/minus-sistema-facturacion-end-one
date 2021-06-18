@@ -94,7 +94,7 @@ const TableDataProduct = () => {
       title: "Nombre Producto",
       dataIndex: "shortdescriptionpro",
       key: "shortdescriptionpro",
-      width: "40%",
+      width: "30%",
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -172,6 +172,12 @@ const TableDataProduct = () => {
       width: "40%",
     },
     {
+      title: "Precio Producto",
+      dataIndex: "pricepro",
+      key: "pricepro",
+      width: "10%",
+    },
+    {
       title: "Acciones",
       key: "action",
       width: "15%",
@@ -231,7 +237,7 @@ const TableDataProduct = () => {
         <span className="title-table-product">Productos Actuales</span>
         <Table
           columns={columns}
-          dataSource={arrayproduct}
+          dataSource={arrayproduct.reverse()}
           sorter={true}
           pagination={{ pageSize: 10, responsive: true }}
           scroll={{ x: 1000, y: "max-content" }}

@@ -1,23 +1,10 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
 //****************************************************************
 //
-import '../../resource/scss/components/dosage/tableDosageCurrect.scss';
+import "../../resource/scss/components/dosage/tableDosageCurrect.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
-import {
-  SearchOutlined,
-  EyeOutlined,
-  CloudUploadOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
-//*******************************************************
-//Importamos las funciones de MESSAGES
-import {
-  messageError,
-  messageWarning,
-  messageSuccess,
-} from "../../resource/js/messages";
+import { Table, Tag } from "antd";
 //****************************************************************
 //Importamos la libreria de MOMENT
 import moment from "moment";
@@ -62,8 +49,15 @@ const TableCurrentDosage = () => {
   //
   const columns = [
     {
+      title: "Nro Autorizacion",
+      dataIndex: "numberauthorizationdos",
+      key: "numberauthorizationdos",
+      with: "20%",
+    },
+    {
       title: "Fecha Actual",
       key: "action",
+      with: "20%",
       render: (text) => (
         <Fragment>
           <Tag color="orange">
@@ -75,6 +69,7 @@ const TableCurrentDosage = () => {
     {
       title: "Fecha Final",
       key: "action",
+      with: "20%",
       render: (text) => (
         <Fragment>
           <Tag color="purple">{text.dateenddos}</Tag>
@@ -85,10 +80,13 @@ const TableCurrentDosage = () => {
       title: "Dias",
       dataIndex: "dayremaindos",
       key: "dayremaindos",
+      with: "20%",
     },
+
     {
       title: "Estado",
       key: "action",
+      with: "20%",
       render: (text) => (
         <Fragment>
           {text.conditiondos === "active" ? (
@@ -110,7 +108,7 @@ const TableCurrentDosage = () => {
         pagination={false}
         columns={columns}
         dataSource={arraydosagecurrent}
-        className='table-dosage-current'
+        className="table-dosage-current"
       />
     </Fragment>
   );

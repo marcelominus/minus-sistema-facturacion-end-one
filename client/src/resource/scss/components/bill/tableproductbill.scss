@@ -1,0 +1,15 @@
+@import "../../date";
+
+.container-table-product-bill {
+  margin-top: 1rem;
+  .title-table-product-bill {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .table-product-bill {
+    margin-top: 0.5rem;
+    thead > tr > th {
+      background-color: #fff1c7;
+    }
+  }
+}

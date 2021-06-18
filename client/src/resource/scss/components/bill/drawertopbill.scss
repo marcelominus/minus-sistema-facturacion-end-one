@@ -1,0 +1,20 @@
+@import "../../date";
+
+.container-drawer-product {
+  .input-product-bill {
+    margin: 0.5rem 0 0.5rem 0;
+  }
+  .container-table-bill {
+    margin-top: 1rem;
+    .title-table-bill {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .table-bill {
+      margin-top: 0.5rem;
+      thead > tr > th {
+        background-color: #fff1c7;
+      }
+    }
+  }
+}

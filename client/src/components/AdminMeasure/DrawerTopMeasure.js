@@ -129,6 +129,7 @@ const DrawerTopMeasure = () => {
         visible={isDrawerVisible}
         key={"top"}
         height={600}
+        zIndex={3}
       >
         <Row className="input-form">
           <Col span={5}>

@@ -1,0 +1,13 @@
+@import "../../date";
+
+.container-modal-product-unique {
+  .button-open-drawer-product {
+    background: $primary-color !important;
+    border-color: $primary-color !important;
+  }
+  .button-open-drawer-measure {
+    background: $secundary-color !important;
+    border-color: $secundary-color !important;
+    color: $color-negro !important;
+  }
+}

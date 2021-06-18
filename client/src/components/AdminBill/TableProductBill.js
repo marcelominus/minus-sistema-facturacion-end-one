@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useRef,
 } from "react";
+import "../../resource/scss/components/bill/tableproductbill.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
 import { Table, Tag, Input, Button, Space, Row, Col } from "antd";
@@ -35,7 +36,7 @@ const TableProductBill = () => {
     totalproduct,
     arrayproductbill,
     functionTotalProductBill,
-    functionSetArrayProductBill
+    functionSetArrayProductBill,
   } = useContext(billContext);
 
   //-----------------------------------------------------------------
@@ -103,21 +104,27 @@ const TableProductBill = () => {
 
   return (
     <Fragment>
-      <Table
-        pagination={false}
-        columns={columns}
-        dataSource={arrayproductbill}
-      />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          background: "#00474f",
-          padding: "1rem",
-        }}
-      >
-        <h4 style={{ color: "#fff" }}>TOTAL (Bolivianos) = </h4>
-        <h3 style={{ color: "#fff" }}>{totalproduct} Bs.</h3>
+      <div className="container-table-product-bill">
+        <span className="title-table-product-bill">
+          Productos Actuales Para Factura
+        </span>
+        <Table
+          pagination={false}
+          columns={columns}
+          dataSource={arrayproductbill}
+          className="table-product-bill"
+        />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            background: "#00474f",
+            padding: "1rem",
+          }}
+        >
+          <h4 style={{ color: "#fff" }}>TOTAL (Bolivianos) = </h4>
+          <h3 style={{ color: "#fff" }}>{totalproduct} Bs.</h3>
+        </div>
       </div>
     </Fragment>
   );

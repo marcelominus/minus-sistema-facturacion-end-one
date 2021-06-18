@@ -33,6 +33,7 @@ const ButtonAddBill = ({ props }) => {
             type="primary"
             onClick={openPageNewBill}
             icon={<PlusCircleOutlined />}
+            ghost
           >
             Nueva Factura
           </Button>

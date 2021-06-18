@@ -5,23 +5,11 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import {
-  Drawer,
-  Button,
-  Radio,
-  Space,
-  Row,
-  Col,
-  Input,
-  Select,
-  Table,
-  Tag,
-} from "antd";
-import {
-  UserOutlined,
-  PlusCircleOutlined,
-  CloudUploadOutlined,
-} from "@ant-design/icons";
+import "../../resource/scss/components/bill/drawertopbill.scss";
+//*******************************************************
+//
+import { Drawer, Button, Row, Col, Input, Select, Table } from "antd";
+import { CloudUploadOutlined } from "@ant-design/icons";
 //****************************************************************
 //Importamos la libreria de MOMENT
 import moment from "moment";
@@ -39,13 +27,6 @@ import {
 import billContext from "../../hook/bill/billContext";
 import productContext from "../../hook/product/productContext";
 
-//****************************************************************
-//
-
-//****************************************************************
-//Creamos las variables de SELECT
-const { Option } = Select;
-const { TextArea } = Input;
 //================================================================
 //INICIO DE CLASE
 //================================================================
@@ -64,11 +45,8 @@ const DrawerTopBill = () => {
 
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
-  const {
-    drawertop,
-    functionOpenDrawerTop,
-    functionArrayProductSelection,
-  } = useContext(billContext);
+  const { drawertop, functionOpenDrawerTop, functionArrayProductSelection } =
+    useContext(billContext);
   const { arrayproduct, functionReadProduct } = useContext(productContext);
 
   //-----------------------------------------------------------------
@@ -94,7 +72,11 @@ const DrawerTopBill = () => {
   };
 
   const onClickInput = () => {
-    console.log(arrayproduct);
+    let greaterTen2 = arrayproduct.filter((number) =>
+      number.shortdescriptionpro.includes("bo")
+    );
+    //results = mi_array.filter(function (mi_array) { return mi_array[pos].toUpperCase().startsWith(valor.toUpperCase()); })
+    console.log(greaterTen2);
   };
 
   const columns = [
@@ -152,27 +134,46 @@ const DrawerTopBill = () => {
       Open
     </Button> */}
       <Drawer
-        title="Basic Drawer"
+        title="Seleccione el Producto"
         placement={"top"}
         closable={false}
         onClose={handleCancel}
         visible={isDrawerVisible}
         key={"top"}
-        height={500}
+        height={600}
       >
-        <Row>
-          <Col span={12}>
-            <Input placeholder="Basic usage" />
-            <Button type="primary" onClick={onClickInput} ref={nombreRef}>
-              INGRESAR
-            </Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <Table dataSource={arrayproduct} columns={columns} />;
-          </Col>
-        </Row>
+        <div className="container-drawer-product">
+          <Row>
+            <Col span={8}>
+              <h4>Buscar Producto</h4>
+              <Input
+                placeholder="Ingrese el Nombre del Producto"
+                className="input-product-bill"
+              />
+              <Button
+                type="primary"
+                onClick={onClickInput}
+                ref={nombreRef}
+                block
+              >
+                INGRESAR
+              </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <div className="container-table-bill">
+                <span className="title-table-bill">Productos Actuales</span>
+                <Table
+                  dataSource={arrayproduct}
+                  columns={columns}
+                  className="table-bill"
+                />
+                ;
+              </div>
+            </Col>
+          </Row>
+        </div>
       </Drawer>
     </Fragment>
   );

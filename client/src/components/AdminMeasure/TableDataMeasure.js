@@ -8,7 +8,7 @@ import React, {
 import "../../resource/scss/components/measure/tablemeasure.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Modal, Input, Button, Space, Row, Col } from "antd";
+import { Table, Modal, Input, Button, Space } from "antd";
 import {
   SearchOutlined,
   ExclamationCircleOutlined,
@@ -89,7 +89,7 @@ const TableDataMeasure = () => {
 
     {
       title: "Nombre",
-      dataIndex: "descriptionmeasure",
+      dataIndex: "unitmeasure",
       key: "unitmeasure",
       width: "40%",
       filterDropdown: ({

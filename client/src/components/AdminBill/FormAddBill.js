@@ -1,6 +1,8 @@
 //****************************************************************
 //Importamos librerias de REACT
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import "../../resource/scss/default.scss";
+import "../../resource/scss/components/bill/formaddbill.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select, DatePicker } from "antd";
@@ -104,7 +106,7 @@ const FormAddBill = ({ props }) => {
       conditionbill.toLowerCase().trim() == "" ||
       arrayproductbill.length === 0
     ) {
-      messageWarning("Entradas Vacias, Revise nuevamente los datos", 2);
+      messageWarning("Sin Productos, Ingrese Nuevos Productos", 2);
     } else {
       functionCreateBill(
         nitbill,
@@ -123,19 +125,8 @@ const FormAddBill = ({ props }) => {
         } else {
           //Mensaje de CORRECTO
           messageSuccess(`Perfecto, Factura Guardada Correctamente `, 2);
-
           functionArrayBillPrint(elem);
           functionModalBillSelection(true);
-          //Cierrar el MODAL de ADD COMPANY
-          // setIsModalVisible(false);
-          // // //
-          // functionReadDosage();
-          // // //RESETEAMOS LAS ENTRADAS DEL FORM MODAL
-          // resetForm();
-          // setTimeout(() => {
-          //   window.open(`http://localhost:4001/state/pdf/${elem}`, "Data");
-          //   props.history.push("/bill");
-          // }, 2000);
         }
       });
     }
@@ -156,104 +147,108 @@ const FormAddBill = ({ props }) => {
   //================================================================
   return (
     <Fragment>
-      <h4>Nueva Factura</h4>
-      <Row>
-        <Col span={6} style={{ background: "transparent" }}>
-          NIT
-        </Col>
-        <Col span={6} style={{ background: "blue" }}>
-          <Input
-            placeholder="Ingrese el nombre de Empresa"
-            prefix={<UserOutlined />}
-            name="nitbill"
-            onChange={onChangeAddBill}
-            //   value={namecom}
-          />
-        </Col>
-        <Col span={6} style={{ background: "transparent" }}>
-          Fecha de Transaccion
-        </Col>
-        <Col span={6} style={{ background: "blue" }}>
-          <DatePicker
-            defaultValue={moment(
-              `${moment().subtract(4, "h").format("l")}`,
-              dateFormat
-            )}
-            format={dateFormat}
-            onChange={(e) =>
-              setDataForm({
-                ...dataform,
-                datepresentbill: moment(e._d).format("MM/DD/YYYY"),
-              })
-            }
-            style={{ width: "100%" }}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col span={6} style={{ background: "transparent" }}>
-          Razon social
-        </Col>
-        <Col span={6} style={{ background: "blue" }}>
-          <Input
-            placeholder="Ingrese el codigo de NIT"
-            prefix={<UserOutlined />}
-            name="reasonbill"
-            onChange={onChangeAddBill}
-            //   value={nitcom}
-          />
-        </Col>
-        <Col span={6} style={{ background: "transparent" }}>
-          Tipo de Pago
-        </Col>
-        <Col span={6} style={{ background: "blue" }}>
-          <Select
-            defaultValue=""
-            style={{ width: "100%" }}
-            onChange={onChangeAddType}
-            // value={conditiondos}
+      <div className="container-form-add-bill">
+        <div className="title-form-add-bill">Nueva Factura</div>
+        <Row className="input-form">
+          <Col span={6}>
+            <div className="title-formulario">NIT</div>
+          </Col>
+          <Col span={6}>
+            <Input
+              placeholder="Ingrese el Nit de la empresa"
+              name="nitbill"
+              onChange={onChangeAddBill}
+              //   value={namecom}
+            />
+          </Col>
+          <Col span={6}>
+            <div className="title-formulario">Fecha de Transaccion</div>
+          </Col>
+          <Col span={6}>
+            <DatePicker
+              defaultValue={moment(
+                `${moment().subtract(4, "h").format("l")}`,
+                dateFormat
+              )}
+              format={dateFormat}
+              onChange={(e) =>
+                setDataForm({
+                  ...dataform,
+                  datepresentbill: moment(e._d).format("MM/DD/YYYY"),
+                })
+              }
+              style={{ width: "100%" }}
+            />
+          </Col>
+        </Row>
+        <Row className="input-form">
+          <Col span={6}>
+            <div className="title-formulario">Razon social</div>
+          </Col>
+          <Col span={6}>
+            <Input
+              placeholder="Ingrese la Razon Social"
+              name="reasonbill"
+              onChange={onChangeAddBill}
+              //   value={nitcom}
+            />
+          </Col>
+          <Col span={6}>
+            <div className="title-formulario">Tipo de Pago</div>
+          </Col>
+          <Col span={6}>
+            <Select
+              defaultValue=""
+              style={{ width: "100%" }}
+              onChange={onChangeAddType}
+              // value={conditiondos}
+            >
+              <Option value="">--Seleccione una Opcion--</Option>
+              <Option value="efectivo">Efectivo</Option>
+              <Option value="cuentas por pagar">Cuentas por Pagar</Option>
+            </Select>
+          </Col>
+        </Row>
+        <Row className="input-form">
+          <Col span={6}>
+            <div className="title-formulario">Condicion de pago</div>
+          </Col>
+          <Col span={6}>
+            <Select
+              defaultValue=""
+              style={{ width: "100%" }}
+              onChange={onChangeAddCondition}
+              // value={conditiondos}
+            >
+              <Option value="">--Seleccione una Opcion--</Option>
+              <Option value="pagado">Pagado</Option>
+              <Option value="adeudo">Adeudo</Option>
+            </Select>
+          </Col>
+        </Row>
+        <br />
+        <Row className="input-form">
+          <Button
+            type="primary"
+            icon={<PlusCircleOutlined />}
+            onClick={onClickAddProductUnique}
+            ghost
+            className="button-new-product"
           >
-            <Option value="">--Seleccione una Opcion--</Option>
-            <Option value="efectivo">Efectivo</Option>
-            <Option value="cuentas por pagar">Cuentas por Pagar</Option>
-          </Select>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={6} style={{ background: "transparent" }}>
-          Condicion de pago
-        </Col>
-        <Col span={6} style={{ background: "blue" }}>
-          <Select
-            defaultValue=""
-            style={{ width: "100%" }}
-            onChange={onChangeAddCondition}
-            // value={conditiondos}
-          >
-            <Option value="">--Seleccione una Opcion--</Option>
-            <Option value="pagado">Pagado</Option>
-            <Option value="adeudo">Adeudo</Option>
-          </Select>
-        </Col>
-      </Row>
-      <br />
-      <Row>
-        <Button
-          type="primary"
-          icon={<PlusCircleOutlined />}
-          onClick={onClickAddProductUnique}
-        >
-          Nuevo Producto
-        </Button>
+            Nuevo Producto
+          </Button>
 
-        <Button
-          type="primary"
-          icon={<PlusCircleOutlined />}
-          onClick={onClickSaveBill}
-        >
-          Guardar
-        </Button>
-      </Row>
+          <Button
+            type="primary"
+            icon={<PlusCircleOutlined />}
+            onClick={onClickSaveBill}
+            ghost
+            className="button-save"
+          >
+            Guardar
+          </Button>
+        </Row>
+      </div>
     </Fragment>
   );
 };
