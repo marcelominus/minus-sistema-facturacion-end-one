@@ -85,7 +85,7 @@ const ModalAddMeasure = () => {
         shortdescriptionpro,
         longdescriptionpro,
         unitmeasurepro,
-        pricepro
+        parseFloat(pricepro).toFixed(2)
       ).then((elem) => {
         if (elem === "duplicate") {
           //Mensage de WARNING

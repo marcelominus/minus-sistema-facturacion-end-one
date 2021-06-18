@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import "../../resource/scss/default.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, Input, Select, InputNumber } from "antd";
@@ -32,12 +33,8 @@ const ModalModifyProduct = () => {
     unitmeasurepro: "",
     pricepro: "",
   });
-  const {
-    shortdescriptionpro,
-    longdescriptionpro,
-    unitmeasurepro,
-    pricepro,
-  } = dataform;
+  const { shortdescriptionpro, longdescriptionpro, unitmeasurepro, pricepro } =
+    dataform;
   //Carga la informacion de COMPANY
   //Carga la informacion de COMPANY
   const onChangeAddProduct = (e) => {
@@ -63,9 +60,8 @@ const ModalModifyProduct = () => {
     functionModalUpdate,
     functionUpdateProduct,
   } = useContext(productContext);
-  const { arraymeasure, functionModal, functionReadMeasure } = useContext(
-    measureContext
-  );
+  const { arraymeasure, functionModal, functionReadMeasure } =
+    useContext(measureContext);
   //-----------------------------------------------------------------
   //ZONE USE - EFFECT
   useEffect(() => {
@@ -102,16 +98,13 @@ const ModalModifyProduct = () => {
       ).then((elem) => {
         if (elem === "duplicate") {
           //Mensage de WARNING
-          messageWarning("Entradas REPETIDAS, Revise nuevamente los datos", 2);
+          messageWarning("Entradas Repetidas, Revise nuevamente los datos", 2);
         } else if (elem === "fail-create") {
           //Mensaje de ERROR
           messageError("Error, Intente mas Tarde", 2);
         } else {
           //Mensaje de CORRECTO
-          messageSuccess(
-            `Perfecto, Dosificacion Modificada Correctamente ${elem}`,
-            2
-          );
+          messageSuccess(`Perfecto, Producto Modificado Correctamente`, 2);
           //Cierrar el MODAL de ADD COMPANY
           setIsModalVisible(false);
           functionModalUpdate(false);
@@ -130,71 +123,57 @@ const ModalModifyProduct = () => {
     functionModalUpdate(false);
   };
 
-  //Funcion ABRIR el MODAL de ADD COMPANY
-  const openDrawerUser = (e) => {
-    e.preventDefault();
-    setIsModalVisible(true);
-  };
-  //Funcion para RESETEAR las entradas del FORMULARIO
-  const resetForm = () => {
-    setDataForm({
-      unitmeasure: "",
-      descriptionmeasure: "",
-    });
-  };
   return (
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
         title="Modificar Producto"
         visible={isModalVisible}
-        width={800}
+        width={450}
+        closable={false}
         footer={[
+          //BUTTON DE CANCELAR Y CERRAR MODAL
+          <Button key="cancel" type="primary" onClick={handleCancel} ghost>
+            Cancelar
+          </Button>,
           //BUTTON DE ENVIAR INFORMACION
           <Button key="send" type="primary" onClick={onClickProduct}>
             Enviar
           </Button>,
-          //BUTTON DE CANCELAR Y CERRAR MODAL
-          <Button key="cancel" type="primary" onClick={handleCancel}>
-            Cancelar
-          </Button>,
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Titulo Producto
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Nombre del Producto</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el nombre de Usuario"
-              prefix={<UserOutlined />}
               name="shortdescriptionpro"
               onChange={onChangeAddProduct}
               value={shortdescriptionpro}
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Descripcion Producto
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Descripcion Producto</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <Input
               placeholder="Ingrese el Apellido de Usuario"
-              prefix={<UserOutlined />}
               name="longdescriptionpro"
               onChange={onChangeAddProduct}
               value={longdescriptionpro}
             />
           </Col>
         </Row>
-
-        <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Selecciones la Unidad
+        <Row className="input-form">
+          <Col span={12}>
+            <div className="title-formulario">Selecciones la Unidad</div>
           </Col>
-          <Col span={10} style={{ background: "blue" }}>
+          <Col span={10}>
             <Select
               defaultValue=""
               onChange={onChangeAddMeasure}
@@ -218,28 +197,27 @@ const ModalModifyProduct = () => {
                 functionModal(true);
               }}
               icon={<PlusCircleOutlined />}
-            >
-              A
-            </Button>
+              block
+            />
           </Col>
         </Row>
         <Row>
-          <Col span={12} style={{ background: "transparent" }}>
-            Precio del Producto
+          <Col span={12}>
+            <div className="title-formulario">Precio del Producto</div>
           </Col>
-          <Col span={12} style={{ background: "blue" }}>
+          <Col span={12}>
             <InputNumber
               placeholder="Ingrese la Direccion de la Sucursal"
               prefix={<UserOutlined />}
               style={{ width: "100%" }}
-              defaultValue={0}
               onChange={(e) => {
                 setDataForm({
                   ...dataform,
                   pricepro: e,
                 });
               }}
-              value={pricepro}
+              step="0.01"
+              value={parseFloat(pricepro)}
             />
           </Col>
         </Row>

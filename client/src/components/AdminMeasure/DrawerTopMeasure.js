@@ -79,7 +79,7 @@ const DrawerTopMeasure = () => {
           messageError("Error, Intente mas Tarde", 2);
         } else {
           //Mensaje de CORRECTO
-          messageSuccess(`Perfecto, Usuario Creado Correctamente`, 2);
+          messageSuccess(`Perfecto, Medida Creada Correctamente`, 2);
           //Cierrar el MODAL de ADD COMPANY
           //   setIsModalVisible(false);
           // //

@@ -8,11 +8,12 @@ import React, {
 import "../../resource/scss/components/product/tableproduct.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
-import { Table, Input, Button, Space } from "antd";
+import { Table, Input, Button, Space, Modal } from "antd";
 import {
   SearchOutlined,
   CloudUploadOutlined,
   DeleteOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 //****************************************************************
 //Importamos el HIGT de LETTERS
@@ -197,13 +198,22 @@ const TableDataProduct = () => {
             size={"default"}
             ghost
             onClick={() => {
-              functionDeleteProduct(text.identifierpro).then((e) => {
-                if (e === true) {
-                  messageSuccess("Correcto Elemento Borrado", 2);
-                  functionReadProduct();
-                } else {
-                  messageError("Error, Intente mas Tarde", 2);
-                }
+              Modal.confirm({
+                title: "Confirmar",
+                icon: <ExclamationCircleOutlined />,
+                content: "Desea Borrar el Elemento",
+                cancelText: "Cancelar",
+                okText: "Confirmar",
+                onOk: () => {
+                  functionDeleteProduct(text.identifierpro).then((e) => {
+                    if (e === true) {
+                      messageSuccess("Correcto Elemento Borrado", 2);
+                      functionReadProduct();
+                    } else {
+                      messageError("Error, Intente mas Tarde", 2);
+                    }
+                  });
+                },
               });
             }}
           />
