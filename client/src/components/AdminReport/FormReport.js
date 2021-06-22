@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useContext } from "react";
+import "../../resource/scss/components/information/formreport.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
 import { Modal, Button, Row, Col, DatePicker, ConfigProvider } from "antd";
@@ -53,9 +54,9 @@ const FormReport = () => {
     } else {
       functionReadInformation(year, date).then((e) => {
         if (e === false) {
-          messageWarning("Sin Informacion del mes");
+          messageWarning("Sin Informacion del mes", 2);
         } else {
-          messageSuccess("DATOS CORRECTOS");
+          messageSuccess("DATOS CORRECTOS", 1);
           functionOpenModal(true);
         }
       });
@@ -72,38 +73,33 @@ const FormReport = () => {
   return (
     <Fragment>
       <ConfigProvider locale={locale}>
-        <div>
+        <div className="container-form-report">
           <Row>
-            <Col span={24} style={{ background: "transparent" }}>
-              <strong>Seleccione Mes y Gestion</strong>
-            </Col>
-            <Col span={24}>
+            <Col span={12} style={{ background: "transparent" }}>
+              <strong className="title-generate-report">
+                Seleccione Mes y Gestion
+              </strong>
+              <br />
               <DatePicker
                 placeholder="Seleccione Mes y Gestion"
                 onChange={onChangeDate}
                 picker="month"
                 style={{ width: "100%" }}
                 value={informationdate !== "" ? moment(informationdate) : ""}
+                className="input-date"
               />
             </Col>
-            <Col span={24}>
-              <Button type="primary" onClick={onClickReport}>
+          </Row>
+          <Row>
+            <Col span={12}>
+              <Button
+                type="primary"
+                onClick={onClickReport}
+                block
+                className="button-generate"
+              >
                 Generar
               </Button>
-              {/* <BlobProvider document={<Report />}>
-                {({ blob, url }) => (
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      window.open(url);
-                    }}
-                    block
-                    className="button-original"
-                  >
-                    Impormir
-                  </Button>
-                )}
-              </BlobProvider> */}
             </Col>
           </Row>
         </div>

@@ -14,6 +14,7 @@ import {
   FileDoneOutlined,
   ApartmentOutlined,
   CloseSquareOutlined,
+  FormOutlined
 } from "@ant-design/icons";
 //*******************************************************
 //Importamos Componentes de REACT ROUTER DOM
@@ -175,7 +176,7 @@ const SideBar = () => {
           {role === "master" ? (
             <Menu.Item
               key="9"
-              icon={<ApartmentOutlined />}
+              icon={<FormOutlined />}
               onClick={() => functionSelectorSidebar(9)}
             >
               <Link to="/report">Generar Reporte</Link>

@@ -38,7 +38,7 @@ const FormAddBill = ({ props }) => {
   //ZONE USE - STATE
   const [dataform, setDataForm] = useState({
     nitbill: "",
-    datepresentbill: `${moment().subtract(4, "h").format("MM/DD/YYYY")}`,
+    datepresentbill: "",
     reasonbill: "",
     paymenttypebill: "",
     conditionbill: "",
@@ -71,7 +71,13 @@ const FormAddBill = ({ props }) => {
       conditionbill: e,
     });
   };
-
+  const onChangeDate = (date, dateString) => {
+    setDataForm({
+      ...dataform,
+      datepresentbill: dateString,
+    });
+    // datepresentbill: moment(e._d).format("MM/DD/YYYY"),
+  };
   //-----------------------------------------------------------------
   //ZONE USE CONTEXT
   const {
@@ -89,15 +95,14 @@ const FormAddBill = ({ props }) => {
   useEffect(() => {
     functionArrayProductBillReset();
   }, []);
+
   //-----------------------------------------------------------------
   //ZONE FUNCTION
   const onClickAddProductUnique = () => {
     functionModalBillUnique(true);
   };
 
-  const onClickSaveBill = (e) => {
-    e.preventDefault();
-
+  const onClickSaveBill = () => {
     if (
       nitbill.toLowerCase().trim() == "" ||
       reasonbill.toLowerCase().trim() == "" ||
@@ -161,17 +166,9 @@ const FormAddBill = ({ props }) => {
           </Col>
           <Col span={6}>
             <DatePicker
-              defaultValue={moment(
-                `${moment().subtract(4, "h").format("l")}`,
-                dateFormat
-              )}
+              defaultValue={moment().subtract(4, "h")}
               format={dateFormat}
-              onChange={(e) =>
-                setDataForm({
-                  ...dataform,
-                  datepresentbill: moment(e._d).format("MM/DD/YYYY"),
-                })
-              }
+              onChange={onChangeDate}
               style={{ width: "100%" }}
             />
           </Col>

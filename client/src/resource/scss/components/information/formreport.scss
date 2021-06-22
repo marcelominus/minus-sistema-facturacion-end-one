@@ -1,0 +1,15 @@
+@import "../../date";
+
+.container-form-report {
+  .title-generate-report {
+    font-family: $tipografia-one;
+    font-size: $subtitle;
+    margin: 0.5rem;
+  }
+  .input-date {
+    margin: 0.5rem 0 0.5rem 0;
+  }
+  .button-generate {
+    margin: 0.5rem 0 0.5rem 0;
+  }
+}

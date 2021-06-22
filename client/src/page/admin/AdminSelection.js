@@ -13,6 +13,7 @@ import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
 //
 import CardSelection from "../../components/AdminSelection/CardSelection";
+import Title from '../../components/tools/Title';
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -31,7 +32,7 @@ const AdminSelection = () => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
-          <HeaderPage />
+          <HeaderPage title={'Area'}/>
           <Content style={{ margin: "0 16px" }}>
             <motion.div
               initial="out"
@@ -41,6 +42,7 @@ const AdminSelection = () => {
               transition={pageTransitionStart}
               className="container-padding"
             >
+              <Title title={'Administrar Area de Trabajo'}/>
               <CardSelection />
             </motion.div>
           </Content>

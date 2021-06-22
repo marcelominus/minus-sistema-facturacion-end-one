@@ -32,7 +32,7 @@ exports.createBill = async (req,res) => {
         //-----------------------------------------------------------------
         //Variables de entrada INPUT
         const {identifiercom, identifierbus, nitbill, datepresentbill, reasonbill, paymenttypebill, productsbill, conditionbill} = req.body;
-
+        console.log(req.body)
         //-----------------------------------------------------------------
         //Verificacion de USER y ROL
         const consultationUser = await LoginModel.findAll({
@@ -215,6 +215,7 @@ exports.createBill = async (req,res) => {
         }
 
     } catch (error) {
+        console.log(error);
         res.json({ response : 'fail-server'});
     }
 }
