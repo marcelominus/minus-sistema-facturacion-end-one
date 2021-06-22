@@ -105,7 +105,7 @@ const ModalAddProductUnique = () => {
       subtotal =
         parseFloat(dataform.price).toFixed(2) *
         parseFloat(dataform.amount).toFixed(2);
-      dataform.subtotal = subtotal;
+      dataform.subtotal = parseFloat(subtotal).toFixed(2);
 
       dataform.id = `${shortid.generate()}-product`;
       functionArrayProductBill(dataform);

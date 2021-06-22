@@ -172,7 +172,16 @@ const SideBar = () => {
               <Link to="/selection">Seleccionar Area</Link>
             </Menu.Item>
           ) : null}
-          <Menu.Item key="9" icon={<CloseSquareOutlined />} className="item">
+          {role === "master" ? (
+            <Menu.Item
+              key="9"
+              icon={<ApartmentOutlined />}
+              onClick={() => functionSelectorSidebar(9)}
+            >
+              <Link to="/report">Generar Reporte</Link>
+            </Menu.Item>
+          ) : null}
+          <Menu.Item key="10" icon={<CloseSquareOutlined />} className="item">
             <a onClick={onClickExit}>Cerrar Sesion</a>
           </Menu.Item>
           {exit ? <Redirect to={"/"} /> : null}

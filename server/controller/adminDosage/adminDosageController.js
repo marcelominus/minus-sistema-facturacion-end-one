@@ -5,7 +5,7 @@ const moment = require('moment');
 const uuid = require('uuid');
 const shortid = require('shortid');
 //Importamos OP de SEQUELIZE para las operaciones OR y AND
-const Op = require('Sequelize').Op;
+const Op = require('sequelize').Op;
 //Importamos el MODELL
 const AdminDosageModel = require('../../model/adminDosage/adminDosageModel');
 const LoginModel = require('../../model/login/loginModel');

@@ -4,8 +4,7 @@ import { IP_SERVER } from "./constants";
 //Direccion de URL para el envio de informacion
 export const direccion_admin_login = `${IP_SERVER}/login`;
 export const direccion_autenticado_user = `${IP_SERVER}/login-read`;
-export const direction_admin_login_read_authenticate =  `${IP_SERVER}/login-authenticate`;
-
+export const direction_admin_login_read_authenticate = `${IP_SERVER}/login-authenticate`;
 
 //****************************************************************
 //DIRECTION START
@@ -66,3 +65,6 @@ export const direction_admin_bill_create = `${IP_SERVER}/admin-bill/bill-all-cre
 export const direction_admin_bill_read = `${IP_SERVER}/admin-bill/bill-all-read`;
 export const direction_admin_bill_read_unique = `${IP_SERVER}/admin-bill/bill-all-read-unique`;
 export const direction_admin_bill_update_condition = `${IP_SERVER}/admin-bill/bill-all-update-condition`;
+
+//DIRECTION INFORMATION
+export const direction_admin_information_read = `${IP_SERVER}/admin-inf/information-pdf`;

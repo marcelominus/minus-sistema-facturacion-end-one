@@ -1,0 +1,15 @@
+@import "../../date";
+
+.container-modal-copy-original {
+  .button-copy {
+    background: $primary-color !important;
+    border-color: $primary-color !important;
+    margin-right: 0.5rem;
+  }
+  .button-original {
+    background: $secundary-color !important;
+    border-color: $secundary-color !important;
+    color: $color-negro;
+    margin-left: 0.5rem;
+  }
+}

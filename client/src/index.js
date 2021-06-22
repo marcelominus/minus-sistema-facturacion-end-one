@@ -14,8 +14,9 @@ import BusinessState from "./hook/business/BusinessState";
 import UserState from "./hook/user/UserState";
 import DosageState from "./hook/dosage/DosageState";
 import MeasureState from "./hook/measure/MeasureState";
-import Product from "./hook/product/ProductState";
+import ProductState from "./hook/product/ProductState";
 import BillState from "./hook/bill/BillState";
+import InformationState from "./hook/information/InformationState";
 //-----------------------------------------------------------------
 
 ReactDOM.render(
@@ -28,11 +29,13 @@ ReactDOM.render(
               <UserState>
                 <DosageState>
                   <MeasureState>
-                    <Product>
+                    <ProductState>
                       <BillState>
-                        <App />
+                        <InformationState>
+                          <App />
+                        </InformationState>
                       </BillState>
-                    </Product>
+                    </ProductState>
                   </MeasureState>
                 </DosageState>
               </UserState>

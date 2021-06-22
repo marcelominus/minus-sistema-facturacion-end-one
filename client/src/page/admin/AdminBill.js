@@ -1,7 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
-import { Modal, Button, Row, Col, Input, Select, DatePicker } from "antd";
+import { Spin, Row, Col } from "antd";
 import { Layout } from "antd";
 //Importamos framer motion
 import { motion } from "framer-motion";
@@ -22,14 +22,24 @@ import ButtonAddBill from "../../components/AdminBill/ButtonAddBill";
 import TableCurrentDosage from "../../components/AdminDosage/TableCurrentDosage";
 import TableBill from "../../components/AdminBill/TableBill";
 import ModalCopyOriginal from "../../components/AdminBill/ModalCopyOriginal";
-import Title from '../../components/tools/Title';
+import Title from "../../components/tools/Title";
+//****************************************************************
+//Importamos el USE CONTEXT
+import billContext from "../../hook/bill/billContext";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
+
 // =====================================================
 // INICIO DE CLASE  */}
 // =====================================================
 const AdminBill = (props) => {
+  //-----------------------------------------------------------------
+  //ZONE USE CONTEXT
+  const { openspin } = useContext(billContext);
+  //================================================================
+  //INICIO DE COMPONENTE
+  //================================================================
   return (
     <Fragment>
       <ReturnData props={props} />
@@ -38,7 +48,7 @@ const AdminBill = (props) => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
-          <HeaderPage title={'Facturacion'}/>
+          <HeaderPage title={"Facturacion"} />
           <Content style={{ margin: "0 16px" }}>
             <motion.div
               initial="out"
@@ -49,23 +59,25 @@ const AdminBill = (props) => {
               className="container-padding"
             >
               {/* ------------------------- ********** ------------------------- */}
-              <ModalSelectionDate props={props} />
-              <Title title={'Administracion de Facturas'}/>
-              {/* ------------------------- ********** ------------------------- */}
-              <Row>
-                <Col span={12} style={{ background: "transparent" }}>
-                  <TableSelectionData />
-                </Col>
-                <Col span={12} style={{ background: "transparent" }}>
-                  <TableCurrentDosage />
-                </Col>
-              </Row>
-              {/* ------------------------- ********** ------------------------- */}
-              <ButtonAddBill props={props}/>
-              {/* ------------------------- ********** ------------------------- */}
-              <TableBill />
-              {/* ------------------------- ********** ------------------------- */}
-              <ModalCopyOriginal props={props}/>
+              <Spin spinning={openspin} size="large" tip="Espere un momento...">
+                <ModalSelectionDate props={props} />
+                <Title title={"Administracion de Facturas"} />
+                {/* ------------------------- ********** ------------------------- */}
+                <Row>
+                  <Col span={12} style={{ background: "transparent" }}>
+                    <TableSelectionData />
+                  </Col>
+                  <Col span={12} style={{ background: "transparent" }}>
+                    <TableCurrentDosage />
+                  </Col>
+                </Row>
+                {/* ------------------------- ********** ------------------------- */}
+                <ButtonAddBill props={props} />
+                {/* ------------------------- ********** ------------------------- */}
+                <TableBill />
+                {/* ------------------------- ********** ------------------------- */}
+                <ModalCopyOriginal props={props} />
+              </Spin>
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}

@@ -1,14 +1,8 @@
 import React, { Fragment, useEffect, useContext } from "react";
-//****************************************************************
-//
 import "../../resource/scss/components/tools/tableSelectionData.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
 import { Table } from "antd";
-
-//*******************************************************
-//Importamos las funciones de MESSAGES
-
 //****************************************************************
 //
 import toolContext from "../../hook/tool/toolContext";

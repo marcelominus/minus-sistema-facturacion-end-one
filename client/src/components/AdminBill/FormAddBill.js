@@ -81,6 +81,7 @@ const FormAddBill = ({ props }) => {
     functionArrayProductBillReset,
     functionModalBillSelection,
     functionArrayBillPrint,
+    functionOpenSpin,
   } = useContext(billContext);
 
   //-----------------------------------------------------------------
@@ -90,9 +91,7 @@ const FormAddBill = ({ props }) => {
   }, []);
   //-----------------------------------------------------------------
   //ZONE FUNCTION
-  const onClickAddProductUnique = (e) => {
-    e.preventDefault();
-    //Abre el MODAL
+  const onClickAddProductUnique = () => {
     functionModalBillUnique(true);
   };
 
@@ -106,7 +105,7 @@ const FormAddBill = ({ props }) => {
       conditionbill.toLowerCase().trim() == "" ||
       arrayproductbill.length === 0
     ) {
-      messageWarning("Sin Productos, Ingrese Nuevos Productos", 2);
+      messageWarning("Faltan Datos, Revise nuevamente el Formulario", 2);
     } else {
       functionCreateBill(
         nitbill,
@@ -122,26 +121,22 @@ const FormAddBill = ({ props }) => {
         } else if (elem === "fail-create") {
           //Mensaje de ERROR
           messageError("Error, Intente mas Tarde", 2);
+        } else if (elem === "fail-server") {
+          messageError("ERROR, FALLO AL CREAR FACTURA");
         } else {
           //Mensaje de CORRECTO
-          messageSuccess(`Perfecto, Factura Guardada Correctamente `, 2);
+          messageSuccess(`Correcto, Factura Guardada Correctamente `, 3);
           functionArrayBillPrint(elem);
-          functionModalBillSelection(true);
+          functionOpenSpin(true);
+          setTimeout(() => {
+            functionOpenSpin(false);
+            functionModalBillSelection(true);
+          }, 2000);
         }
       });
     }
   };
 
-  //Funcion para RESETEAR las entradas del FORMULARIO
-  const resetForm = () => {
-    setDataForm({
-      nitbill: "",
-      reasonbill: "",
-      paymenttypebill: "",
-      conditionbill: "",
-    });
-    functionArrayProductBillReset();
-  };
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================

@@ -16,6 +16,7 @@ import AdminSelection from "./page/admin/AdminSelection";
 import AdminProduct from "./page/admin/AdminProduct";
 import AdminBill from "./page/admin/AdminBill";
 import AdminAddBill from "./page/admin/AdminAddBill";
+import AdminReport from './page/admin/AdminReport';
 import Error404 from "./page/error/Error404";
 
 import PrivateRoute from "./routes/PrivateRoute";
@@ -55,6 +56,11 @@ const App = () => {
             path="/bill-add"
             exact={true}
             component={AdminAddBill}
+          />
+          <PrivateRoute
+            path="/report"
+            exact={true}
+            component={AdminReport}
           />
           <PrivateRoute component={Error404} />
         </Switch>

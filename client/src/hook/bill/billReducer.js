@@ -10,7 +10,7 @@ import {
   BILL_ARRAY_SELECTION_RESET,
   BILL_TABLE_READ,
   BILL_ARRAY_PRODUCT_SET,
-  BILL_TABLE_READ_COPY
+  BILL_OPEN_LOADING,
 } from "../../utils/index";
 
 //Zona de SWITCH
@@ -63,9 +63,9 @@ export default (state, action) => {
         ...state,
         arrayproductselection: [
           {
-            idproduct : '',
-            identifierbus : '',
-            identifierpro : '',
+            idproduct: "",
+            identifierbus: "",
+            identifierpro: "",
             shortdescriptionpro: "",
             unitmeasurepro: "",
             amountpro: "1",
@@ -82,6 +82,11 @@ export default (state, action) => {
       return {
         ...state,
         arrayproductbill: action.payload,
+      };
+    case BILL_OPEN_LOADING:
+      return {
+        ...state,
+        openspin: action.payload,
       };
     default:
       return state;

@@ -17,7 +17,7 @@ import {
   BILL_ARRAY_SELECTION_RESET,
   BILL_TABLE_READ,
   BILL_ARRAY_PRODUCT_SET,
-  BILL_TABLE_READ_COPY,
+  BILL_OPEN_LOADING,
 } from "../../utils/index";
 // Importamos las direcciones de LOGIN
 import {
@@ -43,9 +43,9 @@ const BillState = (props) => {
     drawertop: false,
     arrayproductselection: [
       {
-        idproduct : '',
-        identifierbus : '',
-        identifierpro : '',
+        idproduct: "",
+        identifierbus: "",
+        identifierpro: "",
         shortdescriptionpro: "",
         unitmeasurepro: "",
         amountpro: "1",
@@ -53,6 +53,7 @@ const BillState = (props) => {
       },
     ],
     arraybill: [],
+    openspin: false,
   };
   //
   const [state, dispatch] = useReducer(billReducer, initialState);
@@ -102,7 +103,6 @@ const BillState = (props) => {
       let dataTokenCompany = localStorage.getItem("tokencompany");
       let dataTokenBusiness = localStorage.getItem("tokenbusiness");
       const url = direction_admin_bill_create;
-      console.log(value_5);
       const petitionCreateBill = await clienteAxios.post(url, {
         identifiercom: dataTokenCompany,
         identifierbus: dataTokenBusiness,
@@ -215,6 +215,7 @@ const BillState = (props) => {
         identifierbill: value,
       });
       const solutionPetitionReadCopy = petitionReadBill.data;
+      console.log(solutionPetitionReadCopy.data);
       if (solutionPetitionReadCopy.response == "fail-server") {
         return false;
       } else {
@@ -249,6 +250,13 @@ const BillState = (props) => {
       console.log(error);
     }
   };
+
+  const functionOpenSpin = (value) => {
+    dispatch({
+      type: BILL_OPEN_LOADING,
+      payload: value,
+    });
+  };
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -263,6 +271,7 @@ const BillState = (props) => {
         drawertop: state.drawertop,
         arrayproductselection: state.arrayproductselection,
         arraybill: state.arraybill,
+        openspin: state.openspin,
         functionModalBillUnique,
         functionArrayProductBill,
         functionTotalProductBill,
@@ -277,6 +286,7 @@ const BillState = (props) => {
         functionSetArrayProductBill,
         functionReadBillCopy,
         functionUpdateConditionBill,
+        functionOpenSpin,
       }}
     >
       {props.children}

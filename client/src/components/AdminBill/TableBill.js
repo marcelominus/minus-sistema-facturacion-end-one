@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useState,
-  useContext,
-  useEffect,
-  useRef,
-} from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import "../../resource/scss/components/bill/tablebill.scss";
 //****************************************************************
 //Importamos la libreria de ANTD
@@ -15,10 +9,11 @@ import { CloudUploadOutlined, PrinterOutlined } from "@ant-design/icons";
 import billContext from "../../hook/bill/billContext";
 import toolContext from "../../hook/tool/toolContext";
 //****************************************************************
-//
+//Importamos mensajes de alertas
 import { messageError, messageSuccess } from "../../resource/js/messages";
 //****************************************************************
-//
+//Importamos MOMENT
+import moment from "moment";
 //================================================================
 //INICIO DE CLASE
 //================================================================
@@ -32,12 +27,15 @@ const TableBill = ({ props }) => {
     functionArrayBillPrint,
     functionModalBillSelection,
     functionUpdateConditionBill,
+    functionOpenSpin,
   } = useContext(billContext);
   const { tableselection, functionTableSelection } = useContext(toolContext);
   //-----------------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
-    functionReadBill();
+    functionReadBill().then((e) => {
+      console.log(arraybill);
+    });
   }, []);
   useEffect(() => {
     let dataTokenCompany = localStorage.getItem("tokencompany");
@@ -56,11 +54,25 @@ const TableBill = ({ props }) => {
       key: "idbill",
       width: "5%",
     },
+
     {
       title: "Razon Social",
       dataIndex: "reasonbill",
       key: "reasonbill",
-      width: "30%",
+      width: "20%",
+    },
+    {
+      title: "Fecha",
+      key: "action",
+      width: "10%",
+
+      render: (text) => (
+        <Fragment>
+          <Tag color="geekblue">
+            {moment(text.datepresentbill).format("DD/MM/YYYY")}
+          </Tag>
+        </Fragment>
+      ),
     },
     {
       title: "Nit",
@@ -129,7 +141,11 @@ const TableBill = ({ props }) => {
                   alert("error");
                 } else {
                   functionArrayBillPrint(e);
-                  functionModalBillSelection(true);
+                  functionOpenSpin(true);
+                  setTimeout(() => {
+                    functionOpenSpin(false);
+                    functionModalBillSelection(true);
+                  }, 2000);
                 }
               });
             }}
@@ -148,7 +164,7 @@ const TableBill = ({ props }) => {
         <Table
           pagination={false}
           columns={columns}
-          dataSource={arraybill}
+          dataSource={arraybill.reverse()}
           pagination={{ pageSize: 5, responsive: true }}
           className="table-bill"
         />

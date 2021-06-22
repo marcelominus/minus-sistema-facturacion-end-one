@@ -289,7 +289,7 @@ const ModalAddDosage = () => {
         </Row>
         <Row className="input-form">
           <Col span={12}>
-            <div className="title-formulario">Legenda 453</div>
+            <div className="title-formulario">Leyenda 453</div>
           </Col>
           <Col span={12}>
             <TextArea

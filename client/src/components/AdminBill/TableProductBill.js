@@ -42,12 +42,12 @@ const TableProductBill = () => {
   //-----------------------------------------------------------------
   //ZONE USE EFFECT
   useEffect(() => {
+    let total = 0;
     if (arrayproductbill.length !== 0) {
-      let total = 0;
       arrayproductbill.map((e) => {
         total = parseFloat(e.subtotal) + parseFloat(total);
       });
-      functionTotalProductBill(total.toFixed(2));
+      functionTotalProductBill(parseFloat(total).toFixed(2));
     }
   }, [arrayproductbill]);
 

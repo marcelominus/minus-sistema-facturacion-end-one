@@ -1,9 +1,8 @@
 import React, { Fragment, useState, useContext, useEffect } from "react";
+import "../../resource/scss/components/bill/modalacopyoriginal.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
-import { Modal, Button, Row, Col, Input, InputNumber, Select } from "antd";
-import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
-
+import { Modal, Button, Row, Col } from "antd";
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -19,10 +18,6 @@ import billContext from "../../hook/bill/billContext";
 //Improtamos las Librerias necesarias
 import { PDFDownloadLink, BlobProvider } from "@react-pdf/renderer";
 import Invoice from "./Invoice";
-//****************************************************************
-//Creamos las variables de SELECT
-const { Option } = Select;
-const { TextArea } = Input;
 
 //================================================================
 //INICIO DE CLASE
@@ -33,11 +28,8 @@ const ModalCopyOriginal = ({ props }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   //-------------------------------------------------------
   //
-  const {
-    modalbillselection,
-    arraybillprint,
-    functionModalBillSelection,
-  } = useContext(billContext);
+  const { modalbillselection, arraybillprint, functionModalBillSelection } =
+    useContext(billContext);
 
   //-------------------------------------------------------
   //
@@ -64,74 +56,67 @@ const ModalCopyOriginal = ({ props }) => {
     <Fragment>
       {/* ------------------------- ********** ------------------------- */}
       <Modal
-        title="Añadir Empresa"
+        title="Generar Factura"
         visible={isModalVisible}
-        width={500}
+        width={400}
+        closable={false}
         footer={[
           //BUTTON DE ENVIAR INFORMACION
-          <Button key="send" type="primary" onClick={onClickSelectOriginal}>
-            Ok
+          <Button
+            key="send"
+            type="primary"
+            onClick={onClickSelectOriginal}
+            ghost
+          >
+            Cerrar
           </Button>,
         ]}
       >
         {/* ------------------------- ********** ------------------------- */}
-
-        <Row>
-          <Col span={12}>
-            <BlobProvider
-              document={
-                <Invoice type="COPIA" arraybillprint={arraybillprint} />
-              }
-              style={{
-                textDecoration: "none",
-                padding: "10px",
-                color: "#4a4a4a",
-                backgroundColor: "#f2f2f2",
-                border: "1px solid #4a4a4a",
-              }}
-            >
-              {({ blob, url }) => (
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    window.open(url);
-                  }}
-                  block
-                >
-                  COPIA
-                </Button>
-              )}
-            </BlobProvider>
-          </Col>
-          <Col span={12}>
-            <BlobProvider
-              document={
-                <Invoice type="ORIGINAL" arraybillprint={arraybillprint} />
-              }
-              style={{
-                textDecoration: "none",
-                padding: "10px",
-                color: "#4a4a4a",
-                backgroundColor: "#f2f2f2",
-                border: "1px solid #4a4a4a",
-                content: "Reference: ",
-              }}
-            >
-              {({ blob, url }) => (
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    window.open(url);
-                  }}
-                  block
-                >
-                  ORIGINAL
-                </Button>
-              )}
-            </BlobProvider>
-          </Col>
-        </Row>
-
+        <div className="container-modal-copy-original">
+          <Row>
+            <Col span={12}>
+              <BlobProvider
+                document={
+                  <Invoice type="COPIA" arraybillprint={arraybillprint} />
+                }
+              >
+                {({ blob, url }) => (
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      window.open(url);
+                    }}
+                    block
+                    className="button-copy"
+                  >
+                    COPIA
+                  </Button>
+                )}
+              </BlobProvider>
+            </Col>
+            <Col span={12}>
+              <BlobProvider
+                document={
+                  <Invoice type="ORIGINAL" arraybillprint={arraybillprint} />
+                }
+              >
+                {({ blob, url }) => (
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      window.open(url);
+                    }}
+                    block
+                    className="button-original"
+                  >
+                    ORIGINAL
+                  </Button>
+                )}
+              </BlobProvider>
+            </Col>
+          </Row>
+        </div>
         {/* ------------------------- ********** ------------------------- */}
       </Modal>
       {/* ------------------------- ********** ------------------------- */}

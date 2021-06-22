@@ -101,7 +101,7 @@ exports.createBill = async (req,res) => {
             //-----------------------------------------------------------------
             //Convierte los productos en STRING ademas que se tienr el TOTAL
             productsbill.map( element => {
-                total = total + element.subtotal;
+                total =parseFloat(total)  + parseFloat(element.subtotal);
                 productsEncoded = `${productsEncoded}|${element.shortdescription}&${element.unitmeasure}&${element.amount}&${parseFloat(element.price).toFixed(2)}&${parseFloat(element.subtotal).toFixed(2) }`;
             })
             const productsEncodedEnd = productsEncoded.substring(1);
@@ -117,7 +117,7 @@ exports.createBill = async (req,res) => {
             const invoiceNumber = numberBill.toString();
             const nitci = nitbill;  
             const dateOfTransaction = datepresentbillEnd;
-            const amountTransaction = total.toString();
+            const amountTransaction = total.toFixed(2).toString();
             const dosageKey = consultationDataDosage[0].dosagedos;
 
             const codeGenerate = generateCode.generateCodeControl(authorizationNumber, invoiceNumber, nitci, dateOfTransaction, amountTransaction, dosageKey);
@@ -139,7 +139,7 @@ exports.createBill = async (req,res) => {
             }else{
                 //-----------------------------------------------------------------
                 //
-                const numberString = generateNumberLetras.numeroALetras(parseInt(amountTransaction), {
+                const numberString = generateNumberLetras.numeroALetras(parseFloat(amountTransaction).toFixed(2), {
                     plural: "BOLIVIANOS",
                     singular: "BOLIVIANO",
                     centPlural: "CENTAVOS",
@@ -215,7 +215,6 @@ exports.createBill = async (req,res) => {
         }
 
     } catch (error) {
-        console.log(error);
         res.json({ response : 'fail-server'});
     }
 }
@@ -318,7 +317,6 @@ exports.readBillUnique = async(req, res) => {
                 centPlural: "CENTAVOS",
                 centSingular: "CENTAVO"
             });
-
             //-----------------------------------------------------------------
             //
             const qrcodegenerate = `${consultationDataCompany[0].nitcom}|${consultationBillUnique[0].numberbill}|${consultationDataDosage[0].numberauthorizationdos}|${moment(consultationBillUnique[0].datepresentbill).format('MM/DD/YYYY')}|${parseFloat(consultationBillUnique[0].totalbill).toFixed(2)}|${parseFloat(consultationBillUnique[0].totalbill).toFixed(2)}|${consultationBillUnique[0].controlcodebill}|${consultationBillUnique[0].nitbill}|0|0|0|0`;
@@ -359,7 +357,6 @@ exports.readBillUnique = async(req, res) => {
             }
         }
     } catch (error) {
-        console.log(error);
         res.json({ response : 'fail-server'});
     }
 }

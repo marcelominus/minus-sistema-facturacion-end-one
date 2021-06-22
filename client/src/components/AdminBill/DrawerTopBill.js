@@ -1,19 +1,9 @@
-import React, {
-  Fragment,
-  useState,
-  useContext,
-  useEffect,
-  useRef,
-} from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
 import "../../resource/scss/components/bill/drawertopbill.scss";
 //*******************************************************
 //
 import { Drawer, Button, Row, Col, Input, Select, Table } from "antd";
-import { CloudUploadOutlined } from "@ant-design/icons";
-//****************************************************************
-//Importamos la libreria de MOMENT
-import moment from "moment";
-
+import { CloudUploadOutlined, SearchOutlined } from "@ant-design/icons";
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import {
@@ -32,17 +22,13 @@ import productContext from "../../hook/product/productContext";
 //================================================================
 const DrawerTopBill = () => {
   //-----------------------------------------------------------------
-  //
-  const nombreRef = useRef(null);
-  //-----------------------------------------------------------------
-  //
+  //ZONE USE STATE
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [dataform, setDataForm] = useState({
-    unitmeasure: "",
-    descriptionmeasure: "",
-  });
-  const { unitmeasure, descriptionmeasure } = dataform;
-
+  const [datasearch, setDataSearch] = useState("");
+  const [arrayproductend, setArrayProductEnd] = useState([]);
+  const onChangeDataSearch = (e) => {
+    setDataSearch(e.target.value);
+  };
   //-------------------------------------------------------
   //ZONE USE - CONTEXT
   const { drawertop, functionOpenDrawerTop, functionArrayProductSelection } =
@@ -54,12 +40,14 @@ const DrawerTopBill = () => {
   useEffect(() => {
     if (drawertop === true) {
       setIsDrawerVisible(true);
+      setArrayProductEnd(arrayproduct);
+
     }
   }, [drawertop]);
 
   useEffect(() => {
     functionReadProduct().then((e) => {
-      console.log(arrayproduct);
+      setArrayProductEnd(arrayproduct);
     });
   }, []);
   //-----------------------------------------------------------------
@@ -69,16 +57,23 @@ const DrawerTopBill = () => {
   const handleCancel = () => {
     setIsDrawerVisible(false);
     functionOpenDrawerTop(false);
+    setArrayProductEnd(arrayproduct);
+    setDataSearch("");
   };
 
   const onClickInput = () => {
-    let greaterTen2 = arrayproduct.filter((number) =>
-      number.shortdescriptionpro.includes("bo")
+    let search = arrayproduct.filter((number) =>
+      number.shortdescriptionpro
+        .toLowerCase()
+        .includes(datasearch.toLowerCase())
     );
-    //results = mi_array.filter(function (mi_array) { return mi_array[pos].toUpperCase().startsWith(valor.toUpperCase()); })
-    console.log(greaterTen2);
+    setArrayProductEnd(search);
   };
 
+  const onClickReset = () => {
+    setArrayProductEnd(arrayproduct);
+    setDataSearch("");
+  };
   const columns = [
     {
       title: "Producto",
@@ -149,14 +144,27 @@ const DrawerTopBill = () => {
               <Input
                 placeholder="Ingrese el Nombre del Producto"
                 className="input-product-bill"
+                onChange={onChangeDataSearch}
+                value={datasearch}
               />
               <Button
                 type="primary"
                 onClick={onClickInput}
-                ref={nombreRef}
                 block
+                icon={<SearchOutlined />}
+                shape="round"
               >
-                INGRESAR
+                Buscar
+              </Button>
+              <Button
+                type="primary"
+                onClick={onClickReset}
+                block
+                icon={<SearchOutlined />}
+                shape="round"
+                className="button-reset-search"
+              >
+                Reset
               </Button>
             </Col>
           </Row>
@@ -165,9 +173,10 @@ const DrawerTopBill = () => {
               <div className="container-table-bill">
                 <span className="title-table-bill">Productos Actuales</span>
                 <Table
-                  dataSource={arrayproduct}
+                  dataSource={arrayproductend}
                   columns={columns}
                   className="table-bill"
+                  pagination={{ pageSize: 4, responsive: true }}
                 />
                 ;
               </div>

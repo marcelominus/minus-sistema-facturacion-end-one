@@ -93,7 +93,7 @@ const ModalModifyProduct = () => {
         shortdescriptionpro,
         longdescriptionpro,
         unitmeasurepro,
-        pricepro,
+        parseFloat(pricepro).toFixed(2),
         arrayupdateproduct[0].identifierpro
       ).then((elem) => {
         if (elem === "duplicate") {
@@ -162,7 +162,8 @@ const ModalModifyProduct = () => {
             <div className="title-formulario">Descripcion Producto</div>
           </Col>
           <Col span={12}>
-            <Input
+            <TextArea
+              rows={3}
               placeholder="Ingrese el Apellido de Usuario"
               name="longdescriptionpro"
               onChange={onChangeAddProduct}

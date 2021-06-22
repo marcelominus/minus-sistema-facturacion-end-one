@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { Modal, Button, Row, Col, Input, Select, DatePicker } from "antd";
+import React, { Fragment, useContext } from "react";
+import { Row, Col, Spin } from "antd";
 import { Layout } from "antd";
 //Importamos framer motion
 import { motion } from "framer-motion";
@@ -27,6 +27,9 @@ import DrawerTopMeasure from "../../components/AdminMeasure/DrawerTopMeasure";
 import ModalCopyOriginal from "../../components/AdminBill/ModalCopyOriginal";
 import DrawerTopBill from "../../components/AdminBill/DrawerTopBill";
 //****************************************************************
+//Importamos el CONTEXT
+import billContext from "../../hook/bill/billContext";
+//****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
 //*******************************************************
@@ -36,6 +39,10 @@ const { Content } = Layout;
 // INICIO DE CLASE  */}
 // =====================================================
 const AdminAddBill = (props) => {
+  const { openspin } = useContext(billContext);
+  //================================================================
+  //INICIO DE COMPONENTE
+  //================================================================
   return (
     <Fragment>
       <ReturnData props={props} />
@@ -44,7 +51,7 @@ const AdminAddBill = (props) => {
         <SideBar />
         {/* --------------------------------------------------  */}
         <Layout className="site-layout">
-          <HeaderPage />
+          <HeaderPage title={"Crear Factura"} />
           <Content style={{ margin: "0 16px" }}>
             <motion.div
               initial="out"
@@ -54,30 +61,31 @@ const AdminAddBill = (props) => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <ModalSelectionDate props={props} />
-              {/* ------------------------- ********** ------------------------- */}
-              <Row>
-                <Col span={12} style={{ background: "transparent" }}>
-                  <TableSelectionData />
-                </Col>
-                <Col span={12} style={{ background: "transparent" }}>
-                  <TableCurrentDosage />
-                </Col>
-              </Row>
-              {/* ------------------------- ********** ------------------------- */}
-              <FormAddBill props={props} />
-              {/* ------------------------- ********** ------------------------- */}
-              <ModalCopyOriginal props={props}/>
-              {/* ------------------------- ********** ------------------------- */}
-              <ModalAddProductUnique />
-              {/* ------------------------- ********** ------------------------- */}
-              <TableProductBill />
-              {/* ------------------------- ********** ------------------------- */}
-              <DrawerTopMeasure />
-              {/* ------------------------- ********** ------------------------- */}
-              <DrawerTopBill />
-              {/* ------------------------- ********** ------------------------- */}
-              
+              <Spin spinning={openspin} size="large">
+                <ModalSelectionDate props={props} />
+                {/* ------------------------- ********** ------------------------- */}
+                <Row>
+                  <Col span={12} style={{ background: "transparent" }}>
+                    <TableSelectionData />
+                  </Col>
+                  <Col span={12} style={{ background: "transparent" }}>
+                    <TableCurrentDosage />
+                  </Col>
+                </Row>
+                {/* ------------------------- ********** ------------------------- */}
+                <FormAddBill props={props} />
+                {/* ------------------------- ********** ------------------------- */}
+                <ModalCopyOriginal props={props} />
+                {/* ------------------------- ********** ------------------------- */}
+                <ModalAddProductUnique />
+                {/* ------------------------- ********** ------------------------- */}
+                <TableProductBill />
+                {/* ------------------------- ********** ------------------------- */}
+                <DrawerTopMeasure />
+                {/* ------------------------- ********** ------------------------- */}
+                <DrawerTopBill />
+                {/* ------------------------- ********** ------------------------- */}
+              </Spin>
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}
