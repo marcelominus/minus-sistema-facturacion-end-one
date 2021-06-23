@@ -2,6 +2,7 @@ import {
   INFORMATION_OPEN_MODAL,
   INFORMATION_ARRAY_INFORMATION,
   INFORMATION_ARRAY_INFORMATION_BILL,
+  INFORMATION_OPEN_SPIN,
 } from "../../utils/index";
 
 //Zona de SWITCH
@@ -23,6 +24,11 @@ export default (state, action) => {
       return {
         ...state,
         arrayinformationbill: action.payload,
+      };
+    case INFORMATION_OPEN_SPIN:
+      return {
+        ...state,
+        openspin: action.payload,
       };
     default:
       return state;

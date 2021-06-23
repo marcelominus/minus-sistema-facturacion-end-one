@@ -16,10 +16,26 @@ import AdminSelection from "./page/admin/AdminSelection";
 import AdminProduct from "./page/admin/AdminProduct";
 import AdminBill from "./page/admin/AdminBill";
 import AdminAddBill from "./page/admin/AdminAddBill";
-import AdminReport from './page/admin/AdminReport';
+import AdminReport from "./page/admin/AdminReport";
 import Error404 from "./page/error/Error404";
 
 import PrivateRoute from "./routes/PrivateRoute";
+//****************************************************************
+//Importamos las ROUTAS
+import {
+  rootroute,
+  businessroute,
+  companyroute,
+  dosageroute,
+  invoiceroute,
+  startroute,
+  userroute,
+  selectionroute,
+  productroute,
+  billroute,
+  billaddroute,
+  reportroute,
+} from "./routes/routes";
 // =====================================================
 // INICIO DE CLASE  */}
 // =====================================================
@@ -34,31 +50,47 @@ const App = () => {
     <Fragment>
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
-          <Route path="/" exact={true} component={Login} />
+          <Route path={rootroute} exact={true} component={Login} />
           <PrivateRoute
-            path="/business"
+            path={businessroute}
             exact={true}
             component={AdminBusiness}
           />
-          <PrivateRoute path="/company" exact={true} component={AdminCompany} />
-          <PrivateRoute path="/dosage" exact={true} component={AdminDosage} />
-          <PrivateRoute path="/invoice" exact={true} component={AdminInvoice} />
-          <PrivateRoute path="/start" exact={true} component={AdminStart} />
-          <PrivateRoute path="/user" exact={true} component={AdminUser} />
           <PrivateRoute
-            path="/selection"
+            path={companyroute}
+            exact={true}
+            component={AdminCompany}
+          />
+          <PrivateRoute
+            path={dosageroute}
+            exact={true}
+            component={AdminDosage}
+          />
+          <PrivateRoute
+            path={invoiceroute}
+            exact={true}
+            component={AdminInvoice}
+          />
+          <PrivateRoute path={startroute} exact={true} component={AdminStart} />
+          <PrivateRoute path={userroute} exact={true} component={AdminUser} />
+          <PrivateRoute
+            path={selectionroute}
             exact={true}
             component={AdminSelection}
           />
-          <PrivateRoute path="/product" exact={true} component={AdminProduct} />
-          <PrivateRoute path="/bill" exact={true} component={AdminBill} />
           <PrivateRoute
-            path="/bill-add"
+            path={productroute}
+            exact={true}
+            component={AdminProduct}
+          />
+          <PrivateRoute path={billroute} exact={true} component={AdminBill} />
+          <PrivateRoute
+            path={billaddroute}
             exact={true}
             component={AdminAddBill}
           />
           <PrivateRoute
-            path="/report"
+            path={reportroute}
             exact={true}
             component={AdminReport}
           />

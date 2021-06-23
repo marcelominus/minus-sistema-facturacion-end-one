@@ -40,9 +40,8 @@ const FormReport = () => {
   };
   //-----------------------------------------------------------------
   //ZONE USE CONTEXT
-  const { functionOpenModal, functionReadInformation } =
+  const { functionOpenModal, functionReadInformation, functionOpenSpin } =
     useContext(informationContext);
-  const { arrayselection } = useContext(toolContext);
   //-----------------------------------------------------------------
   //Funciones de usuario
   const onClickReport = () => {
@@ -56,8 +55,12 @@ const FormReport = () => {
         if (e === false) {
           messageWarning("Sin Informacion del mes", 2);
         } else {
-          messageSuccess("DATOS CORRECTOS", 1);
-          functionOpenModal(true);
+          messageSuccess("Correcto", 1);
+          functionOpenSpin(true);
+          setTimeout(() => {
+            functionOpenSpin(false);
+            functionOpenModal(true);
+          }, 2000);
         }
       });
     }

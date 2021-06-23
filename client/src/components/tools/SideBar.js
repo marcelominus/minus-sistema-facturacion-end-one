@@ -14,7 +14,7 @@ import {
   FileDoneOutlined,
   ApartmentOutlined,
   CloseSquareOutlined,
-  FormOutlined
+  FormOutlined,
 } from "@ant-design/icons";
 //*******************************************************
 //Importamos Componentes de REACT ROUTER DOM
@@ -23,6 +23,22 @@ import { Link, Redirect } from "react-router-dom";
 //Importamos el CONTEXT
 import loginContext from "../../hook/login/loginContext";
 import toolContext from "../../hook/tool/toolContext";
+//****************************************************************
+//Importamos las ROUTAS
+import {
+  rootroute,
+  businessroute,
+  companyroute,
+  dosageroute,
+  invoiceroute,
+  startroute,
+  userroute,
+  selectionroute,
+  productroute,
+  billroute,
+  billaddroute,
+  reportroute,
+} from "../../routes/routes";
 //****************************************************************
 //Desglozamos el componente LAYOUT
 const { Sider } = Layout;
@@ -37,7 +53,6 @@ const SideBar = () => {
   const [avatar, setAvatar] = useState("");
   const [exit, setExit] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
-  const [select, setSelect] = useState("1");
   //
   const onCollapse = () => {
     setCollapsed(!collapsed);
@@ -110,7 +125,7 @@ const SideBar = () => {
             icon={<HomeOutlined />}
             onClick={() => functionSelectorSidebar(1)}
           >
-            <Link to="/start">Inicio</Link>
+            <Link to={startroute}>Inicio</Link>
           </Menu.Item>
           {role === "master" ? (
             <Menu.Item
@@ -118,7 +133,7 @@ const SideBar = () => {
               icon={<GroupOutlined />}
               onClick={() => functionSelectorSidebar(2)}
             >
-              <Link to="/company"> Empresa</Link>
+              <Link to={companyroute}> Empresa</Link>
             </Menu.Item>
           ) : null}
           {role === "master" ? (
@@ -127,7 +142,7 @@ const SideBar = () => {
               icon={<ShopOutlined />}
               onClick={() => functionSelectorSidebar(3)}
             >
-              <Link to="/business"> Sucursal</Link>
+              <Link to={businessroute}> Sucursal</Link>
             </Menu.Item>
           ) : null}
           {role === "master" || role === "admin-all" ? (
@@ -136,7 +151,7 @@ const SideBar = () => {
               icon={<UserOutlined />}
               onClick={() => functionSelectorSidebar(4)}
             >
-              <Link to="/user">Usuario</Link>
+              <Link to={userroute}>Usuario</Link>
             </Menu.Item>
           ) : null}
           {role === "master" || role === "admin-all" ? (
@@ -145,7 +160,7 @@ const SideBar = () => {
               icon={<ScheduleOutlined />}
               onClick={() => functionSelectorSidebar(5)}
             >
-              <Link to="/dosage">Dosificacion</Link>
+              <Link to={dosageroute}>Dosificacion</Link>
             </Menu.Item>
           ) : null}
           {role === "master" || role === "admin-all" ? (
@@ -154,7 +169,7 @@ const SideBar = () => {
               icon={<ShoppingOutlined />}
               onClick={() => functionSelectorSidebar(6)}
             >
-              <Link to="/product">Productos</Link>
+              <Link to={productroute}>Productos</Link>
             </Menu.Item>
           ) : null}
           <Menu.Item
@@ -162,7 +177,7 @@ const SideBar = () => {
             icon={<FileDoneOutlined />}
             onClick={() => functionSelectorSidebar(7)}
           >
-            <Link to="/bill">Facturacion</Link>
+            <Link to={billroute}>Facturacion</Link>
           </Menu.Item>
           {role === "master" ? (
             <Menu.Item
@@ -170,7 +185,7 @@ const SideBar = () => {
               icon={<ApartmentOutlined />}
               onClick={() => functionSelectorSidebar(8)}
             >
-              <Link to="/selection">Seleccionar Area</Link>
+              <Link to={selectionroute}>Seleccionar Area</Link>
             </Menu.Item>
           ) : null}
           {role === "master" ? (
@@ -179,13 +194,13 @@ const SideBar = () => {
               icon={<FormOutlined />}
               onClick={() => functionSelectorSidebar(9)}
             >
-              <Link to="/report">Generar Reporte</Link>
+              <Link to={reportroute}>Generar Reporte</Link>
             </Menu.Item>
           ) : null}
           <Menu.Item key="10" icon={<CloseSquareOutlined />} className="item">
             <a onClick={onClickExit}>Cerrar Sesion</a>
           </Menu.Item>
-          {exit ? <Redirect to={"/"} /> : null}
+          {exit ? <Redirect to={rootroute} /> : null}
         </Menu>
       </Sider>
     </Fragment>

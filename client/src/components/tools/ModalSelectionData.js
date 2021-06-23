@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect, useContext } from "react";
 import "../../resource/scss/default.scss";
 //****************************************************************
 //Importamos lo componentes de ANTD
-import { Modal, Button, Row, Col, Input, Select } from "antd";
+import { Modal, Button, Row, Col, Select } from "antd";
 //*******************************************************
 //Importamos las funciones de MESSAGES
 import { messageError, messageSuccess } from "../../resource/js/messages";
@@ -10,6 +10,9 @@ import { messageError, messageSuccess } from "../../resource/js/messages";
 //Importamos los CONTEXT
 import toolsContext from "../../hook/tool/toolContext";
 import dosageContext from "../../hook/dosage/dosageContext";
+//****************************************************************
+//Importamos ROUTAS
+import { selectionroute } from "../../routes/routes";
 //****************************************************************
 //Creamos las variables de SELECT
 const { Option } = Select;
@@ -25,7 +28,6 @@ const ModalSelectionData = ({ props }) => {
     identifierall: "",
   });
   const { identifierall } = selection;
-
   const onChangeAddAll = (e) => {
     setSelection({
       ...selection,
@@ -34,7 +36,6 @@ const ModalSelectionData = ({ props }) => {
   };
   //-----------------------------------------------------------------
   //ZONE USE-CONTEXT
-
   const {
     arrayallselection,
     functionTableSelection,
@@ -65,7 +66,7 @@ const ModalSelectionData = ({ props }) => {
     functionSelectionInformationCompany(informationAll[0]);
     functionSelectionInformationBusiness(informationAll[1]);
     functionTableSelection(true);
-    messageSuccess("Correcto espacion de Trabajo Modificado", 2);
+    messageSuccess("Correcto espacio de Trabajo Modificado", 2);
 
     //Cierra el Modal de Seleccion de Empresas y Sucursales
     setIsModalVisible(false);
@@ -78,9 +79,8 @@ const ModalSelectionData = ({ props }) => {
   const handleCancel = (e) => {
     e.preventDefault();
     setIsModalVisible(false);
-    const message = "Debe Seleccionar una Empresa y Sucursal de Trabajo";
-    messageError(message, 4);
-    props.history.push("/selection");
+    messageError("Debe Seleccionar una Empresa y Sucursal de Trabajo", 4);
+    props.history.push(selectionroute);
   };
 
   //================================================================

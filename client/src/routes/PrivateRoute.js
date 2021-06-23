@@ -4,7 +4,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 //*******************************************************
 //
-// import { rootroute } from "./routes";
+import { rootroute } from "./routes";
 // =====================================================
 // INICIO DE CLASE  */}
 // =====================================================
@@ -19,7 +19,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         localStorage.getItem("login") === "true" ? (
           <Component {...props} />
         ) : (
-          <Redirect to={"/"} />
+          <Redirect to={rootroute} />
         )
       }
     />

@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { Layout } from "antd";
+import React, { Fragment, useContext } from "react";
+import { Layout, Spin } from "antd";
 //****************************************************************
 //Importamos framer motion y EFECTOS
 import { motion } from "framer-motion";
@@ -12,12 +12,15 @@ import {
 import FormReport from "../../components/AdminReport/FormReport";
 import Title from "../../components/tools/Title";
 import ModalGenerateInformation from "../../components/AdminReport/ModalGenerateInformation";
-import TableSelectionData from '../../components/tools/TableSelectionData';
+import TableSelectionData from "../../components/tools/TableSelectionData";
 //*******************************************************
 //Importamos los componentes
 import HeaderPage from "../../components/tools/HeaderPage";
 import SideBar from "../../components/tools/SideBar";
 import FooterPage from "../../components/tools/FooterPage";
+//****************************************************************
+//Importamos CONTEXT
+import informationContext from "../../hook/information/informationContext";
 //****************************************************************
 //VARIABLES DE LAYOUT DE ANTD
 const { Content } = Layout;
@@ -26,6 +29,9 @@ const { Content } = Layout;
 //INICIO DE CLASE
 //================================================================
 const AdminReport = () => {
+  //-----------------------------------------------------------------
+  //ZONE USE CONTEXT
+  const { openspin } = useContext(informationContext);
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -48,12 +54,14 @@ const AdminReport = () => {
               transition={pageTransitionStart}
               className="container-padding"
             >
-              <Title title={"Generar Reportes"} />
-              {/* ------------------------- ********** ------------------------- */}
-              <TableSelectionData />
-              <FormReport />
-              <ModalGenerateInformation />
-              {/* ------------------------- ********** ------------------------- */}
+              <Spin spinning={openspin} size="large" tip="Espere un momento...">
+                <Title title={"Generar Reportes"} />
+                {/* ------------------------- ********** ------------------------- */}
+                <TableSelectionData />
+                <FormReport />
+                <ModalGenerateInformation />
+                {/* ------------------------- ********** ------------------------- */}
+              </Spin>
             </motion.div>
           </Content>
           {/* ------------------------- ********** ------------------------- */}

@@ -10,6 +10,7 @@ import {
   INFORMATION_OPEN_MODAL,
   INFORMATION_ARRAY_INFORMATION,
   INFORMATION_ARRAY_INFORMATION_BILL,
+  INFORMATION_OPEN_SPIN,
 } from "../../utils/index";
 // Importamos las direcciones de LOGIN
 import { direction_admin_information_read } from "../../resource/js/directions";
@@ -24,6 +25,7 @@ const InformationState = (props) => {
     modalopeninformation: false, //ARRAY PRINCIPAL CONTENEDOR DE COMPANIAS
     arrayinformation: [],
     arrayinformationbill: [],
+    openspin: false,
   };
   const [state, dispatch] = useReducer(informationReducer, initialState);
   //-----------------------------------------------------------------
@@ -68,6 +70,14 @@ const InformationState = (props) => {
       console.log(error);
     }
   };
+
+  //
+  const functionOpenSpin = (value) => {
+    dispatch({
+      type: INFORMATION_OPEN_SPIN,
+      payload: value,
+    });
+  };
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
@@ -77,8 +87,10 @@ const InformationState = (props) => {
         modalopeninformation: state.modalopeninformation,
         arrayinformation: state.arrayinformation,
         arrayinformationbill: state.arrayinformationbill,
+        openspin: state.openspin,
         functionOpenModal,
         functionReadInformation,
+        functionOpenSpin,
       }}
     >
       {props.children}

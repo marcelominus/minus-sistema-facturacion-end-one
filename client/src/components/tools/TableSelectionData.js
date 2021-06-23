@@ -4,15 +4,12 @@ import "../../resource/scss/components/tools/tableSelectionData.scss";
 //Importamos la libreria de ANTD
 import { Table } from "antd";
 //****************************************************************
-//
+//Importamos el Context
 import toolContext from "../../hook/tool/toolContext";
 //================================================================
 //INICIO DE CLASE
 //================================================================
 const TableSelectionData = () => {
-  //-------------------------------------------------------
-  //ZONE USE - STATE
-
   //-----------------------------------------------------------------
   //ZONE USE - CONTEXT
   const {

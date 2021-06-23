@@ -1,26 +1,18 @@
-import React, { Fragment, useState, useEffect, useContext } from "react";
+import React, { Fragment } from "react";
 //****************************************************************
 //Importamos lo componentes de ANTD
-import {
-  Modal,
-  Button,
-  Row,
-  Col,
-  Input,
-  Select,
-  DatePicker,
-  Space,
-  InputNumber,
-} from "antd";
-import { UserOutlined, PlusCircleOutlined } from "@ant-design/icons";
-
+import { Button, Row, Col } from "antd";
+import { PlusCircleOutlined } from "@ant-design/icons";
+//****************************************************************
+//Importamos ROUTAS
+import { billaddroute } from "../../routes/routes";
 //================================================================
 //INICIO DE CLASE
 //================================================================
 const ButtonAddBill = ({ props }) => {
   const openPageNewBill = (e) => {
     e.preventDefault();
-    props.history.push("/bill-add");
+    props.history.push(billaddroute);
   };
   //================================================================
   //INICIO DE COMPONENTE
@@ -28,7 +20,7 @@ const ButtonAddBill = ({ props }) => {
   return (
     <Fragment>
       <Row>
-        <Col span={24} style={{ background: "transparent" }}>
+        <Col span={24}>
           <Button
             type="primary"
             onClick={openPageNewBill}

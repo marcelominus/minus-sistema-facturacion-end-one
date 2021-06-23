@@ -9,6 +9,9 @@ import { Redirect } from "react-router-dom";
 //Importamos los componentes de ANTD
 import { Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+//****************************************************************
+//Importamos ROUTAS
+import { rootroute } from "../../routes/routes";
 //================================================================
 //INICIO DE CLASE
 //================================================================
@@ -43,7 +46,7 @@ const Authenticate = () => {
   //================================================================
   //INICIO DE COMPONENTE
   //================================================================
-  return <Fragment>{exit ? <Redirect to={"/"} /> : null}</Fragment>;
+  return <Fragment>{exit ? <Redirect to={rootroute} /> : null}</Fragment>;
 };
 
 export default Authenticate;
